@@ -5,7 +5,7 @@ import { StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import Colors from './constants/Colors';
 import { Text, View } from './components/Themed';
 import LoginPicker from './screens/pickers/LoginPicker'
-
+// import {createSampleData} from './SampleData'
 export default function RegisterLogin() {
 
   const [email, setEmail] = useState("")
@@ -49,6 +49,9 @@ export default function RegisterLogin() {
       <TouchableOpacity disabled={!valid()} onPress={register} style={styles.title}>
         <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>Register</Text>
       </TouchableOpacity>
+      {/* <TouchableOpacity onPress={() => createSampleData} style={styles.title}>
+        <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>sample data</Text>
+      </TouchableOpacity> */}
     </View>
   );
 }

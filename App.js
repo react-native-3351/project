@@ -6,6 +6,7 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import NavigationCustomer from './navigation/customer';
 import NavigationAdmin from './navigation/admin';
+import NavigationCS from './OmarSayed/navigation/customerservice';
 
 import { LogBox } from 'react-native'
 LogBox.ignoreLogs(['Setting a timer for a long period of time'])
@@ -58,6 +59,8 @@ export default function App() {
       return <NavigationCustomer colorScheme={colorScheme} />
     } else if (user?.role === "Admin") {
       return <NavigationAdmin colorScheme={colorScheme} />
+    }else if (user?.role === "customerservice") {
+      return <NavigationCS colorScheme={colorScheme} />
     } else {
       console.log('user role', user?.role)
       fb.auth().signOut()

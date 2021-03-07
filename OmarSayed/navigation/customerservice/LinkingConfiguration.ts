@@ -11,21 +11,21 @@ export default {
               SensorsScreen: 'one',
             },
           },
-          TabTwo: {
-            screens: {
-              ActionsScreen: 'two',
-            },
-          },
+          // TabTwo: {
+          //   screens: {
+          //     ActionsScreen: 'two',
+          //   },
+          // },
           TabThree: {
             screens: {
               SettingsScreen: 'three',
             },
           },
-          TabFour: {
-            screens: {
-              QueriesScreen: 'four',
-            },
-          },
+          // TabFour: {
+          //   screens: {
+          //     QueriesScreen: 'four',
+          //   },
+          // },
         },
       },
       NotFound: '*',

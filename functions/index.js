@@ -82,6 +82,8 @@ exports.createSampleData = functions.https.onCall(
     // functions.logger.info("authId3", { authId3 })
 
     const { uid: authId4 } = await admin.auth().createUser({ email: "fred@fred.com", password: "fredfred" })
+
+    const { uid: authId5 } = await admin.auth().createUser({ email: "cs@cs.com", password: "123456" })
     // functions.logger.info("authId4", { authId4 })
 
     const result1 = await db.collection('users').doc(authId1).set({ name: "Joe", role: "Customer" })
@@ -94,6 +96,9 @@ exports.createSampleData = functions.https.onCall(
     // functions.logger.info("result3", { result3 })
 
     const result4 = await db.collection('users').doc(authId4).set({ name: "Fred", role: "Support" })
+
+    //Omar Sayed
+    const result5 = await db.collection('users').doc(authId5).set({ name: "CS", role: "customerservice" })
     // functions.logger.info("result4", { result4 })
 
     const { id: categoryId1 } = await db.collection('categories').add({ name: "Motion" })
@@ -106,6 +111,10 @@ exports.createSampleData = functions.https.onCall(
     // functions.logger.info("sensorId1", { sensorId1 })
 
     const { id: sensorId2 } = await db.collection('sensors').add({ userid: authId2, categoryid: categoryId2, location: "lab", min: 0, max: 100, alert: false })
+    
+    const { id: sensorId3 } = await db.collection('sensors').add({ name: 'Sns 1', categoryid: categoryId2, sample: true })
+    const { id: sensorId4 } = await db.collection('sensors').add({ name: 'Sns 2', categoryid: categoryId1, sample: true })
+    const { id: sensorId5 } = await db.collection('sensors').add({ name: 'Sns 3', categoryid: categoryId1, sample: true })
     // functions.logger.info("sensorId2", { sensorId2 })
   }
 )

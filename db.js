@@ -70,6 +70,8 @@ class Sensors extends DB {
     constructor() {
         super('sensors')
         this.Readings = new Readings(this.collection)
+        //Omar Sayed
+        this.Queries = new Queries(this.collection)
     }
 
     listenByCategory = (set, categoryid) =>
@@ -89,6 +91,11 @@ class Sensors extends DB {
 
     toggleAlert = sensor =>
         db.collection(this.collection).doc(sensor.id).set({ alert: !sensor.alert }, { merge: true })
+    //############
+    // Omar Sayed
+    //###########
+    listenAllSamples = (set) =>
+        db.collection(this.collection).where("sample", "==", true).onSnapshot(snap => set(snap.docs.map(this.reformat)))
 }
 
 class Readings extends DB {
@@ -108,7 +115,18 @@ class Readings extends DB {
         db.collection(this.containing).doc(sensorId).collection(this.collection).orderBy("when", "desc").limit(1).onSnapshot(snap => set(snap.docs.map(this.reformat)[0]))
 
 }
+//Omar Sayed
+class Queries extends DB {
 
+    constructor() {
+        super('queries')
+    }
+    createQueries = async inq => await db.collection(this.collection).add(inq)
+    listenAllForUser = (userId, set) =>
+        db.collection(this.collection).where('sender', '==', userId).onSnapshot(snap => set(snap.docs.map(this.reformat)))
+    listenAllForCS = (userId, set) =>
+        db.collection(this.collection).where('reply', '==', '').onSnapshot(snap => set(snap.docs.map(this.reformat)))
+}
 class Users extends DB {
 
     constructor() {
@@ -132,5 +150,7 @@ class Categories extends DB {
 export default {
     Categories: new Categories(),
     Sensors: new Sensors(),
-    Users: new Users()
+    Users: new Users(), 
+    //Omar Sayed
+    Queries: new Queries()
 }

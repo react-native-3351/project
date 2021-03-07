@@ -3,18 +3,18 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
-import Colors from '../../constants/Colors';
-import useColorScheme from '../../hooks/useColorScheme';
+import Colors from '../../../constants/Colors';
+import useColorScheme from '../../../hooks/useColorScheme';
 // @ts-expect-error
-import SensorsScreen from '../../screens/Customer/SensorsScreen';
+import SensorsScreen from '../../CustomerService/QueriesScreen';
+// import ActionsScreen from '../../../screens/Customer/ActionsScreen';
 // @ts-expect-error
-import ActionsScreen from '../../screens/Customer/ActionsScreen';
+// import SettingsScreen from '../../Customer/QueriesScreen';
+import SettingsScreen from '../../SettingsScreen';
 // @ts-expect-error
-import SettingsScreen from '../../screens/Customer/SettingsScreen';
-// @ts-expect-error
-import QueriesScreen from '../../OmarSayed/Customer/QueriesScreen';
+// import QueriesScreen from '../../OmarSayed/Customer/QueriesScreen';
 
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList,TabQueriesScreenParamList } from './types';
+import { BottomTabParamList, TabOneParamList, TabThreeParamList,TabQueriesScreenParamList } from './types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -31,13 +31,7 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
       />
-      <BottomTab.Screen
-        name="Actions"
-        component={TabTwoNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
-        }}
-      />
+    
       <BottomTab.Screen
         name="Settings"
         component={TabThreeNavigator}
@@ -45,13 +39,7 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
       />
-      <BottomTab.Screen
-        name="Queries"
-        component={QueriesScreen}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
-        }}
-      />
+
     </BottomTab.Navigator>
   );
 }
@@ -79,19 +67,19 @@ function TabOneNavigator() {
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+// const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
-function TabTwoNavigator() {
-  return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="ActionsScreen"
-        component={ActionsScreen}
-        options={{ headerTitle: 'Actions' }}
-      />
-    </TabTwoStack.Navigator>
-  );
-}
+// function TabTwoNavigator() {
+//   return (
+//     <TabTwoStack.Navigator>
+//       <TabTwoStack.Screen
+//         name="ActionsScreen"
+//         component={ActionsScreen}
+//         options={{ headerTitle: 'Actions' }}
+//       />
+//     </TabTwoStack.Navigator>
+//   );
+// }
 
 const TabThreeStack = createStackNavigator<TabThreeParamList>();
 
@@ -106,16 +94,16 @@ function TabThreeNavigator() {
     </TabThreeStack.Navigator>
   );
 }
-const TabFourStack = createStackNavigator<TabQueriesScreenParamList>();
+// const TabFourStack = createStackNavigator<TabQueriesScreenParamList>();
 
-function TabFourNavigator() {
-  return (
-    <TabFourStack.Navigator>
-      <TabFourStack.Screen
-        name="QueriesScreen"
-        component={QueriesScreen}
-        options={{ headerTitle: 'Queries' }}
-      />
-    </TabFourStack.Navigator>
-  );
-}
+// function TabFourNavigator() {
+//   return (
+//     <TabFourStack.Navigator>
+//       <TabFourStack.Screen
+//         name="QueriesScreen"
+//         component={QueriesScreen}
+//         options={{ headerTitle: 'Queries' }}
+//       />
+//     </TabFourStack.Navigator>
+//   );
+// }
