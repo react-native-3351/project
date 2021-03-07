@@ -23,7 +23,7 @@ class DB {
     }
 
     reformat(doc) {
-        console.log('reformat', doc.id)
+        // console.log('reformat', doc.id)
         return { id: doc.id, ...doc.data() }
     }
 
