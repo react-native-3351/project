@@ -1,0 +1,112 @@
+[debug] [2021-03-07T14:03:32.192Z] ----------------------------------------------------------------------
+[debug] [2021-03-07T14:03:32.194Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\LENOVO\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2021-03-07T14:03:32.194Z] CLI Version:   9.3.0
+[debug] [2021-03-07T14:03:32.194Z] Platform:      win32
+[debug] [2021-03-07T14:03:32.194Z] Node Version:  v12.19.0
+[debug] [2021-03-07T14:03:32.196Z] Time:          Sun Mar 07 2021 17:03:32 GMT+0300 (Arabian Standard Time)
+[debug] [2021-03-07T14:03:32.196Z] ----------------------------------------------------------------------
+[debug] [2021-03-07T14:03:32.196Z] 
+[debug] [2021-03-07T14:03:32.207Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-03-07T14:03:32.208Z] > authorizing via signed-in user
+[info] i  emulators: Starting emulators: auth, functions, firestore, hosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, functions, firestore, hosting"}}
+[warn] !  emulators: It seems that you are running multiple instances of the emulator suite for project rn-1-a4193. This may result in unexpected behavior. 
+[debug] [2021-03-07T14:03:32.233Z] [hub] writing locator at C:\PROGRA~1\KMSpico\temp\hub-rn-1-a4193.json
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: database, pubsub {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mdatabase, pubsub\u001b[22m"}}
+[warn] !  Your requested "node" version "14" doesn't match your global version "12" {"metadata":{"emulator":{"name":"functions"},"message":"Your requested \"node\" version \"14\" doesn't match your global version \"12\""}}
+[debug] [2021-03-07T14:03:32.262Z] defaultcredentials: writing to file C:\Users\LENOVO\AppData\Roaming\firebase\jmoe0174_gmail_com_application_default_credentials.json
+[debug] [2021-03-07T14:03:32.263Z] Setting GAC to C:\Users\LENOVO\AppData\Roaming\firebase\jmoe0174_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\LENOVO\\AppData\\Roaming\\firebase\\jmoe0174_gmail_com_application_default_credentials.json"}}
+[debug] [2021-03-07T14:03:32.268Z] > refreshing access token with scopes: []
+[debug] [2021-03-07T14:03:32.269Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-03-07T14:03:32.637Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","date":"Sun, 07 Mar 2021 14:03:32 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-03-07T14:03:32.646Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/rn-1-a4193/adminSdkConfig [none]
+[debug] [2021-03-07T14:03:33.516Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/rn-1-a4193/adminSdkConfig 200
+[debug] [2021-03-07T14:03:33.517Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/rn-1-a4193/adminSdkConfig {"projectId":"rn-1-a4193","storageBucket":"rn-1-a4193.appspot.com","locationId":"europe-west"}
+[debug] [2021-03-07T14:03:33.533Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2021-03-07T14:03:33.533Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2021-03-07T14:03:33.533Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","C:\\Users\\LENOVO\\.cache\\firebase\\emulators\\cloud-firestore-emulator-v1.11.12.jar","--host","localhost","--port",8080,"--rules","D:\\CNA-Q_THIRD_YEAR_SEM#2\\Doug\\Project\\GitHubOmar\\project\\firestore.rules","--functions_emulator","localhost:5001"],"optionalArgs":["port","webchannel_port","host","rules","functions_emulator","seed_from_export"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\LENOVO\\\\.cache\\\\firebase\\\\emulators\\\\cloud-firestore-emulator-v1.11.12.jar\",\"--host\",\"localhost\",\"--port\",8080,\"--rules\",\"D:\\\\CNA-Q_THIRD_YEAR_SEM#2\\\\Doug\\\\Project\\\\GitHubOmar\\\\project\\\\firestore.rules\",\"--functions_emulator\",\"localhost:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"functions_emulator\",\"seed_from_export\"],\"joinArgs\":false}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[debug] [2021-03-07T14:03:36.379Z] API endpoint: http://localhost:8080
+ {"metadata":{"emulator":{"name":"firestore"},"message":"API endpoint: http://localhost:8080\n"}}
+[debug] [2021-03-07T14:03:36.380Z] If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=localhost:8080
+
+Dev App Server is now running.
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:\r\n\n   export FIRESTORE_EMULATOR_HOST=localhost:8080\n\nDev App Server is now running.\n\r\n"}}
+[debug] [2021-03-07T14:03:38.793Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/rn-1-a4193/webApps/-/config [none]
+[debug] [2021-03-07T14:03:40.103Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/rn-1-a4193/webApps/-/config 200
+[debug] [2021-03-07T14:03:40.103Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/rn-1-a4193/webApps/-/config {"projectId":"rn-1-a4193","appId":"1:270778823937:web:ed7ac90f09f6ac1090d700","storageBucket":"rn-1-a4193.appspot.com","locationId":"europe-west","apiKey":"AIzaSyBHVeqizV81P-_ni1r9edt7_I8fOlr2OWo","authDomain":"rn-1-a4193.firebaseapp.com","messagingSenderId":"270778823937","measurementId":"G-JGF6NWVDM3"}
+[info] i  hosting: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] +  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[warn] !  ui: Emulator UI unable to start on port 4000, starting on 4001 instead. {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI unable to start on port 4000, starting on 4001 instead."}}
+[debug] [2021-03-07T14:03:40.194Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2021-03-07T14:03:40.194Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2021-03-07T14:03:40.194Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\LENOVO\\.cache\\firebase\\emulators\\ui-v1.4.1\\server.bundle.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\LENOVO\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.4.1\\\\server.bundle.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2021-03-07T14:03:40.329Z] Web / API server started at http://localhost:4001
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at http://localhost:4001\n"}}
+[info] i  functions: Watching "D:\CNA-Q_THIRD_YEAR_SEM#2\Doug\Project\GitHubOmar\project\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"D:\\CNA-Q_THIRD_YEAR_SEM#2\\Doug\\Project\\GitHubOmar\\project\\functions\" for Cloud Functions..."}}
+[debug] [2021-03-07T14:03:40.475Z] [worker-pool] addWorker(~diagnostic~) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(~diagnostic~)"}}
+[debug] [2021-03-07T14:03:40.476Z] [worker-pool] Adding worker with key ~diagnostic~, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key ~diagnostic~, total=1"}}
+[debug] [2021-03-07T14:03:40.476Z] [worker-pool] submitWork(triggerId=) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitWork(triggerId=)"}}
+[debug] [2021-03-07T14:03:40.477Z] [worker-~diagnostic~-40efa405-02d8-4a50-9f3d-15abfe72c8be]: Assigning socketPath: \\?\pipe\D:\CNA-Q_THIRD_YEAR_SEM#2\Doug\Project\GitHubOmar\project\functions\15740 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-~diagnostic~-40efa405-02d8-4a50-9f3d-15abfe72c8be]: Assigning socketPath: \\\\?\\pipe\\D:\\CNA-Q_THIRD_YEAR_SEM#2\\Doug\\Project\\GitHubOmar\\project\\functions\\15740"}}
+[debug] [2021-03-07T14:03:40.477Z] [worker-~diagnostic~-40efa405-02d8-4a50-9f3d-15abfe72c8be]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-~diagnostic~-40efa405-02d8-4a50-9f3d-15abfe72c8be]: BUSY"}}
+[debug] [2021-03-07T14:03:40.756Z] [runtime-status] [15740] Functions runtime initialized. {"cwd":"D:\\CNA-Q_THIRD_YEAR_SEM#2\\Doug\\Project\\GitHubOmar\\project\\functions","node_version":"12.19.0"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] Functions runtime initialized. {\"cwd\":\"D:\\\\CNA-Q_THIRD_YEAR_SEM#2\\\\Doug\\\\Project\\\\GitHubOmar\\\\project\\\\functions\",\"node_version\":\"12.19.0\"}"}}
+[debug] [2021-03-07T14:03:40.756Z] [runtime-status] [15740] Disabled runtime features: undefined {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] Disabled runtime features: undefined"}}
+[debug] [2021-03-07T14:03:40.760Z] [runtime-status] [15740] Resolved module firebase-admin {"declared":true,"installed":true,"version":"9.4.2","resolution":"D:\\CNA-Q_THIRD_YEAR_SEM#2\\Doug\\Project\\GitHubOmar\\project\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"9.4.2\",\"resolution\":\"D:\\\\CNA-Q_THIRD_YEAR_SEM#2\\\\Doug\\\\Project\\\\GitHubOmar\\\\project\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2021-03-07T14:03:40.771Z] [runtime-status] [15740] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.13.1","resolution":"D:\\CNA-Q_THIRD_YEAR_SEM#2\\Doug\\Project\\GitHubOmar\\project\\functions\\node_modules\\firebase-functions\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.13.1\",\"resolution\":\"D:\\\\CNA-Q_THIRD_YEAR_SEM#2\\\\Doug\\\\Project\\\\GitHubOmar\\\\project\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\index.js\"}"}}
+[debug] [2021-03-07T14:03:40.771Z] [runtime-status] [15740] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.13.1","resolution":"D:\\CNA-Q_THIRD_YEAR_SEM#2\\Doug\\Project\\GitHubOmar\\project\\functions\\node_modules\\firebase-functions\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.13.1\",\"resolution\":\"D:\\\\CNA-Q_THIRD_YEAR_SEM#2\\\\Doug\\\\Project\\\\GitHubOmar\\\\project\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\index.js\"}"}}
+[debug] [2021-03-07T14:03:40.771Z] [runtime-status] [15740] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2021-03-07T14:03:40.772Z] [runtime-status] [15740] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.13.1","resolution":"D:\\CNA-Q_THIRD_YEAR_SEM#2\\Doug\\Project\\GitHubOmar\\project\\functions\\node_modules\\firebase-functions\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.13.1\",\"resolution\":\"D:\\\\CNA-Q_THIRD_YEAR_SEM#2\\\\Doug\\\\Project\\\\GitHubOmar\\\\project\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\index.js\"}"}}
+[debug] [2021-03-07T14:03:40.864Z] [runtime-status] [15740] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] Checked functions.config() {\"config\":{}}"}}
+[debug] [2021-03-07T14:03:40.865Z] [runtime-status] [15740] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"3.13.1","resolution":"D:\\CNA-Q_THIRD_YEAR_SEM#2\\Doug\\Project\\GitHubOmar\\project\\functions\\node_modules\\firebase-functions\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"3.13.1\",\"resolution\":\"D:\\\\CNA-Q_THIRD_YEAR_SEM#2\\\\Doug\\\\Project\\\\GitHubOmar\\\\project\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\index.js\"}}"}}
+[debug] [2021-03-07T14:03:40.865Z] [runtime-status] [15740] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.13.1","resolution":"D:\\CNA-Q_THIRD_YEAR_SEM#2\\Doug\\Project\\GitHubOmar\\project\\functions\\node_modules\\firebase-functions\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.13.1\",\"resolution\":\"D:\\\\CNA-Q_THIRD_YEAR_SEM#2\\\\Doug\\\\Project\\\\GitHubOmar\\\\project\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\index.js\"}"}}
+[debug] [2021-03-07T14:03:40.865Z] [runtime-status] [15740] Resolved module firebase-admin {"declared":true,"installed":true,"version":"9.4.2","resolution":"D:\\CNA-Q_THIRD_YEAR_SEM#2\\Doug\\Project\\GitHubOmar\\project\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"9.4.2\",\"resolution\":\"D:\\\\CNA-Q_THIRD_YEAR_SEM#2\\\\Doug\\\\Project\\\\GitHubOmar\\\\project\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2021-03-07T14:03:40.866Z] [runtime-status] [15740] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.13.1","resolution":"D:\\CNA-Q_THIRD_YEAR_SEM#2\\Doug\\Project\\GitHubOmar\\project\\functions\\node_modules\\firebase-functions\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.13.1\",\"resolution\":\"D:\\\\CNA-Q_THIRD_YEAR_SEM#2\\\\Doug\\\\Project\\\\GitHubOmar\\\\project\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\index.js\"}"}}
+[debug] [2021-03-07T14:03:40.866Z] [runtime-status] [15740] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"9.4.2","resolution":"D:\\CNA-Q_THIRD_YEAR_SEM#2\\Doug\\Project\\GitHubOmar\\project\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"9.4.2\",\"resolution\":\"D:\\\\CNA-Q_THIRD_YEAR_SEM#2\\\\Doug\\\\Project\\\\GitHubOmar\\\\project\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2021-03-07T14:03:40.891Z] [runtime-status] [15740] initializeApp(DEFAULT) {"storageBucket":"rn-1-a4193.appspot.com","projectId":"rn-1-a4193"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] initializeApp(DEFAULT) {\"storageBucket\":\"rn-1-a4193.appspot.com\",\"projectId\":\"rn-1-a4193\"}"}}
+[debug] [2021-03-07T14:03:40.979Z] [runtime-status] [15740] auth.setJwtVerificationEnabled(false) {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [15740] auth.setJwtVerificationEnabled(false)"}}
+[info] +  functions[findAuthUser]: http function initialized (http://localhost:5001/rn-1-a4193/us-central1/findAuthUser). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5001/rn-1-a4193/us-central1/findAuthUser)."}}
+[info] +  functions[createSampleData]: http function initialized (http://localhost:5001/rn-1-a4193/us-central1/createSampleData). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5001/rn-1-a4193/us-central1/createSampleData)."}}
+[debug] [2021-03-07T14:03:41.440Z] addFirestoreTrigger "{\"eventTrigger\":{\"resource\":\"projects/rn-1-a4193/databases/(default)/documents/sensors/{sensorid}/readings/{readingid}\",\"eventType\":\"providers/cloud.firestore/eventTypes/document.create\",\"service\":\"firestore.googleapis.com\"}}"
+[debug] [2021-03-07T14:03:41.440Z] >>> HTTP REQUEST PUT http://localhost:8080/emulator/v1/projects/rn-1-a4193/triggers/onNewReading-0  
+ {"eventTrigger":{"resource":"projects/rn-1-a4193/databases/(default)/documents/sensors/{sensorid}/readings/{readingid}","eventType":"providers/cloud.firestore/eventTypes/document.create","service":"firestore.googleapis.com"}}
+[debug] [2021-03-07T14:03:41.442Z] [worker-~diagnostic~-40efa405-02d8-4a50-9f3d-15abfe72c8be]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-~diagnostic~-40efa405-02d8-4a50-9f3d-15abfe72c8be]: IDLE"}}
+[debug] [2021-03-07T14:03:41.476Z] Mar 07, 2021 5:03:41 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Mar 07, 2021 5:03:41 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2021-03-07T14:03:41.765Z] Mar 07, 2021 5:03:41 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Mar 07, 2021 5:03:41 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected HTTP/2 connection.\r\n"}}
+[debug] [2021-03-07T14:03:42.698Z] <<< HTTP RESPONSE 200 {"content-type":"application/json","content-length":"4"}
+[info] +  functions[onNewReading]: firestore function initialized. {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mfirestore\u001b[22m function initialized."}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://localhost:4001                │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬─────────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Authentication │ localhost:9099 │ http://localhost:4001/auth      │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Functions      │ localhost:5001 │ http://localhost:4001/functions │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Firestore      │ localhost:8080 │ http://localhost:4001/firestore │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Hosting        │ localhost:5000 │ n/a                             │
+└────────────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at localhost:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2021-03-07T14:04:07.176Z] Mar 07, 2021 5:04:07 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Mar 07, 2021 5:04:07 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2021-03-07T14:04:07.665Z] Mar 07, 2021 5:04:07 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Mar 07, 2021 5:04:07 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
