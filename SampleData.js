@@ -5,4 +5,4 @@ const createSampleData = async () => {
   const response = await init()
   console.log(response)
 }
-createSampleData()
+// createSampleData()

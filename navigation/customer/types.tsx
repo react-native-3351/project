@@ -3,6 +3,7 @@ export type BottomTabParamList = {
   Actions: undefined;
   Settings: undefined;
   Queries: undefined;
+  Suggestions: undefined;
 };
 
 export type TabOneParamList = {
@@ -19,4 +20,8 @@ export type TabThreeParamList = {
 
 export type TabQueriesScreenParamList = {
   QueriesScreen: undefined;
+};
+
+export type TabSuggestionsScreenParamList = {
+  SuggestionsScreen: undefined;
 };

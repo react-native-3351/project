@@ -127,6 +127,60 @@ class Queries extends DB {
     listenAllForCS = (userId, set) =>
         db.collection(this.collection).where('reply', '==', '').onSnapshot(snap => set(snap.docs.map(this.reformat)))
 }
+class Suggestions extends DB {
+
+    constructor() {
+        super('suggestions')
+        this.Votes = new Votes(this.collection)
+    }
+    listenAllByUser = (userId, set) =>
+        db.collection(this.collection).where('userId', '==', userId).onSnapshot(snap => set(snap.docs.map(this.reformat)))
+
+    // listenAll = set =>{
+    //     let data =  db.collection(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
+    //     console.log('=====================================')
+    //     console.table(data)
+    //     console.log('////////////////////////////')
+
+    //     return data
+    // }
+}
+class Votes extends DB {
+
+    constructor(containing) {
+        super('votes')
+        this.containing = containing
+    }
+    listenAllBySugg = (suggId, set) =>
+        db.collection(this.containing).doc(suggId).collection(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
+    findAllBySugg = async (suggId) => {
+        const data = await db.collection(this.containing).doc(suggId).collection(this.collection).get()
+        return data.docs.map(this.reformat)
+    }
+    findByUser = (suggId, userId) => {
+        const doc = db.collection(this.containing).doc(suggId).collection(this.collection).where('userId', '==', userId).get()
+        return doc.exists ? this.reformat(doc) : undefined
+    }
+    addUserComment = (suggId, item) =>
+        db.collection(this.containing).doc(suggId).collection(this.collection).add(item)
+
+    listenAll = (set) => db.collectionGroup(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
+
+    getVotes = async (suggs, set) => {
+        let arr = []
+        await Promise.all(
+            suggs.map(async u => {
+                let d = await this.findAllBySugg(u.id)
+                // console.log('()()()')
+                // console.log(d)
+                // console.log('()()()')
+                arr.push({ ...u, v: d })
+            })
+        )
+        set(arr)
+    }
+
+}
 class Users extends DB {
 
     constructor() {
@@ -150,7 +204,8 @@ class Categories extends DB {
 export default {
     Categories: new Categories(),
     Sensors: new Sensors(),
-    Users: new Users(), 
+    Users: new Users(),
     //Omar Sayed
-    Queries: new Queries()
+    Queries: new Queries(),
+    Suggestions: new Suggestions(),
 }

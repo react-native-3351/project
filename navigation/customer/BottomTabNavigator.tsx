@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
@@ -13,8 +13,14 @@ import ActionsScreen from '../../screens/Customer/ActionsScreen';
 import SettingsScreen from '../../screens/Customer/SettingsScreen';
 // @ts-expect-error
 import QueriesScreen from '../../OmarSayed/Customer/QueriesScreen';
+// @ts-expect-error
+import SuggestionsScreen from '../../OmarSayed/Customer/SuggestionsScreen';
 
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList,TabQueriesScreenParamList } from './types';
+import {
+  BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList,
+  TabQueriesScreenParamList,
+  TabSuggestionsScreenParamList
+} from './types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -49,7 +55,14 @@ export default function BottomTabNavigator() {
         name="Queries"
         component={QueriesScreen}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <AntDesign name="questioncircle" size={24} color="blue" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Suggestions"
+        component={SuggestionsScreen}
+        options={{
+          tabBarIcon: ({ color }) => <MaterialIcons name="recommend" size={24} color="blue" />,
         }}
       />
     </BottomTab.Navigator>
@@ -117,5 +130,19 @@ function TabFourNavigator() {
         options={{ headerTitle: 'Queries' }}
       />
     </TabFourStack.Navigator>
+  );
+}
+
+const TabFiveStack = createStackNavigator<TabSuggestionsScreenParamList>();
+
+function TabFiveNavigator() {
+  return (
+    <TabFiveStack.Navigator>
+      <TabFiveStack.Screen
+        name="SuggestionsScreen"
+        component={SuggestionsScreen}
+        options={{ headerTitle: 'Suggestions' }}
+      />
+    </TabFiveStack.Navigator>
   );
 }

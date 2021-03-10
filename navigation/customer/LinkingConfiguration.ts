@@ -26,6 +26,11 @@ export default {
               QueriesScreen: 'four',
             },
           },
+          TabFiveOmar: {
+            screens: {
+              SuggestionsScreen: 'five',
+            },
+          },
         },
       },
       NotFound: '*',
