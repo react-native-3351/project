@@ -197,6 +197,13 @@ class Gifts extends DB {
             .collection(this.collection)
             .add(item);
     };
+
+    listenAll = (set, userId) =>
+        db
+            .collection(this.containing)
+            .doc(userId)
+            .collection(this.collection)
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 }
 
 class Promotions extends DB {
