@@ -135,15 +135,6 @@ class Suggestions extends DB {
     }
     listenAllByUser = (userId, set) =>
         db.collection(this.collection).where('userId', '==', userId).onSnapshot(snap => set(snap.docs.map(this.reformat)))
-
-    // listenAll = set =>{
-    //     let data =  db.collection(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
-    //     console.log('=====================================')
-    //     console.table(data)
-    //     console.log('////////////////////////////')
-
-    //     return data
-    // }
 }
 class Votes extends DB {
 
@@ -171,14 +162,36 @@ class Votes extends DB {
         await Promise.all(
             suggs.map(async u => {
                 let d = await this.findAllBySugg(u.id)
-                // console.log('()()()')
-                // console.log(d)
-                // console.log('()()()')
                 arr.push({ ...u, v: d })
             })
         )
         set(arr)
     }
+
+}
+class Reports extends DB {
+
+    constructor() {
+        super('reports')
+        this.FollowUpForm = new FollowUpForm(this.collection)
+    }
+    listenAllByUser = (userId, set) =>
+        db.collection(this.collection).where('userId', '==', userId).onSnapshot(snap => set(snap.docs.map(this.reformat)))
+
+    listenAllForCS = (userId, set) =>
+        db.collection(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
+}
+class FollowUpForm extends DB {
+
+    constructor(containing) {
+        super('followUpForm')
+        this.containing = containing
+    }
+    listenAllByRepo = (repoId, set) =>
+        db.collection(this.containing).doc(repoId).collection(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
+ 
+    newFollowUpForm = (repoId, item) =>
+        db.collection(this.containing).doc(repoId).collection(this.collection).add(item)
 
 }
 class Users extends DB {
@@ -208,4 +221,5 @@ export default {
     //Omar Sayed
     Queries: new Queries(),
     Suggestions: new Suggestions(),
+    Reports: new Reports(),
 }

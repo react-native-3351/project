@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, TextInput } from 'react-native';
-import { Text, View } from '../../components/Themed';
-import Colors from '../../constants/Colors';
-import UserContext from '../../UserContext'
-import fb from '../../fb'
-import db from '../../db'
+import { Text, View } from '../../../components/Themed';
+import Colors from '../../../constants/Colors';
+import UserContext from '../../../UserContext'
+import fb from '../../../fb'
+import db from '../../../db'
 import { SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';

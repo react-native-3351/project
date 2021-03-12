@@ -12,14 +12,17 @@ import ActionsScreen from '../../screens/Customer/ActionsScreen';
 // @ts-expect-error
 import SettingsScreen from '../../screens/Customer/SettingsScreen';
 // @ts-expect-error
-import QueriesScreen from '../../OmarSayed/Customer/QueriesScreen';
+import QueriesScreen from '../../OmarSayed/Customer/Queries/QueriesScreen';
 // @ts-expect-error
-import SuggestionsScreen from '../../OmarSayed/Customer/SuggestionsScreen';
+import SuggestionsScreen from '../../OmarSayed/Customer/Suggestions/SuggestionsScreen';
+// @ts-expect-error
+import ReportsScreen from '../../OmarSayed/Customer/Reports/ReportsScreen';
 
 import {
   BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList,
   TabQueriesScreenParamList,
-  TabSuggestionsScreenParamList
+  TabSuggestionsScreenParamList,
+  TabReportsScreenParamList
 } from './types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -63,6 +66,13 @@ export default function BottomTabNavigator() {
         component={SuggestionsScreen}
         options={{
           tabBarIcon: ({ color }) => <MaterialIcons name="recommend" size={24} color="blue" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Reports"
+        component={ReportsScreen}
+        options={{
+          tabBarIcon: ({ color }) =><MaterialIcons name="report" size={24} color="gray" />,
         }}
       />
     </BottomTab.Navigator>
@@ -144,5 +154,19 @@ function TabFiveNavigator() {
         options={{ headerTitle: 'Suggestions' }}
       />
     </TabFiveStack.Navigator>
+  );
+}
+
+const TabSixStack = createStackNavigator<TabReportsScreenParamList>();
+
+function TabSixNavigator() {
+  return (
+    <TabSixStack.Navigator>
+      <TabSixStack.Screen
+        name="ReportsScreen"
+        component={ReportsScreen}
+        options={{ headerTitle: 'Reports' }}
+      />
+    </TabSixStack.Navigator>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import db from '../../db'
+import db from '../../../db'
 import {
     StyleSheet,
     View,
@@ -36,7 +36,7 @@ export default function AddSuggestion({user}) {
                     title="Add"
                     onPress={() => addSuggestion()}
                     color='green'
-                    disabled={description.length === 0 ? true:false}
+                    disabled={description.length === 0 ? true : false}
                 />
             </View>
         </SafeAreaView>

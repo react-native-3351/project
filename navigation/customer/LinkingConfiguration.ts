@@ -31,6 +31,11 @@ export default {
               SuggestionsScreen: 'five',
             },
           },
+          TabSixOmar: {
+            screens: {
+              ReportsScreen: 'six',
+            },
+          },
         },
       },
       NotFound: '*',

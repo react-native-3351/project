@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import UserContext from '../../UserContext'
+import UserContext from '../../../UserContext'
 import {
     StyleSheet,
     View,
@@ -13,7 +13,7 @@ import AddSuggestion from './AddSuggestion'
 import ShowSuggestions from './ShowSuggestions'
 import UserPrevSuggestions from './UserPrevSuggestions'
 
-export default function ReportScreen() {
+export default function SuggestionsScreen() {
     const [tab, setTab] = useState('AddSuggestion')
     const { user } = useContext(UserContext)
     return (

@@ -10,7 +10,7 @@ import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import { ScrollView, StatusBar } from 'react-native';
-export default function QueriesScreen() {
+export default function SensorsScreen() {
 
     const { user } = useContext(UserContext)
 
@@ -37,72 +37,8 @@ export default function QueriesScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <TextInput
-                            style={{ height: 40, width: 200, borderColor: 'gray', backgroundColor: 'snow', borderWidth: 1, paddingLeft: 11 }}
-                            onChangeText={text => setAns(text)}
-                            value={ans}
-                            placeholder='Answer ...'
-                        />
-                        <Button
-                            title="  Submit"
-                            onPress={() => submitAns()}
-                            buttonStyle={{backgroundColor:'green', marginTop: 10}}
-                        />
-                        <Button
-                            title="  Close"
-                            onPress={() =>  setModalVisible(!modalVisible)}
-                            buttonStyle={{backgroundColor:'red', marginTop: 10}}
-                        />
-                        {/* <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Hide Modal</Text>
-                        </Pressable> */}
-                    </View>
-                </View>
-            </Modal>
-
-            <Text style={styles.title}>Users unAnswered Questions</Text>
             <ScrollView style={styles.scrollView}>
-                {
-                    allQueries.map((i, index) =>
-                        <View key={i.id} style={{ borderWidth: 2, padding: 7, margin: 7, display: 'flex', justifyContent: 'center' }}>
-                            <View style={styles.sensorBlocks}>
-                                <Text>{i.question}</Text>
-                            </View>
-                            {/* <View style={styles.sensorBlocksReply}> */}
-                            {i.reply === '' ?
-                                <>
-                                    <Pressable
-                                        style={[styles.button, styles.buttonOpen]}
-                                        onPress={() => {
-                                            setSensor(i)
-                                            setModalVisible(true)
-                                        }}
-                                    >
-                                        <Text style={styles.textStyle}>Show Modal</Text>
-                                    </Pressable>
-
-                                </>
-                                :
-                                <></>
-                            }
-                            {/* </View> */}
-                        </View>
-                    )
-                }
+            <Text style={styles.title}>Welcome to the Dashboard Mr./Ms. {user.name}</Text>
             </ScrollView>
         </SafeAreaView>
     );
@@ -196,7 +132,7 @@ const styles = StyleSheet.create({
         paddingTop: StatusBar.currentHeight,
     },
     scrollView: {
-        backgroundColor: 'lightgrey',
+        backgroundColor: 'snow',
         marginHorizontal: 0,
     },
     text: {

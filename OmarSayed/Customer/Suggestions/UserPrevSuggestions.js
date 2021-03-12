@@ -7,7 +7,7 @@ import {
     Alert
 } from "react-native";
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
-import db from "../../db";
+import db from "../../../db";
 
 export default function UserPrevSuggestions({ user }) {
     const [userPrevSuggs, setUserPrevSuggs] = useState([])

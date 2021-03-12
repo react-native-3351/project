@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import { ScrollView, TextInput } from "react-native-gesture-handler";
-import db from "../../db";
+import db from "../../../db";
 import ModalVotingForSuggestion from './ModalVotingForSuggestion'
 
 export default function ShowSuggestions({ user }) {

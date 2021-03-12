@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import UserContext from '../../UserContext'
+import UserContext from '../../../UserContext'
 import {
     StyleSheet,
     View,
@@ -9,42 +9,34 @@ import {
 } from "react-native";
 import { Button, SafeAreaView, Alert } from 'react-native';
 
-import AddSuggestion from './AddSuggestion'
-import ShowSuggestions from './ShowSuggestions'
-import UserPrevSuggestions from './UserPrevSuggestions'
+import AddReport from './AddReport'
+import UserPrevReports from './UserPrevReports'
 
-export default function SuggestionsScreen() {
-    const [tab, setTab] = useState('AddSuggestion')
+export default function ReportsScreen() {
+    const [tab, setTab] = useState('AddReport')
     const { user } = useContext(UserContext)
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.loremIpsum}>
-                {/* What would you like to see in our app? 😀 */}
             </Text>
             <View>
                 <View style={styles.fixToText}>
                     <Button
-                        title="Add Suggestion"
-                        onPress={() => setTab('AddSuggestion')}
+                        title="Make Report"
+                        onPress={() => setTab('AddReport')}
                     />
                     <Button
                         title="Show Prev"
-                        onPress={() => setTab('PrevSuggestions')}
-                    />
-                    <Button
-                        title="Vote"
-                        onPress={() => setTab('Vote')}
+                        onPress={() => setTab('PrevReports')}
                     />
                 </View>
             </View>
 
             {
                 /* section to submit the suggestion*/
-                tab === 'AddSuggestion' && <AddSuggestion user={user} /> ||
+                tab === 'AddReport' && <AddReport user={user} /> ||
                 /* section two: to check previous suggestions */
-                tab === 'PrevSuggestions' && <UserPrevSuggestions user={user} /> ||
-                /*secion three: to see and vote for others*/
-                tab === 'Vote' && <ShowSuggestions user={user} />
+                tab === 'PrevReports' && <UserPrevReports user={user} /> 
             }
         </SafeAreaView>
     );
