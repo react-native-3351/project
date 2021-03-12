@@ -2,6 +2,8 @@ export type BottomTabParamList = {
   Sensors: undefined;
   Actions: undefined;
   Settings: undefined;
+  Cart: undefined;
+
 };
 
 export type TabOneParamList = {
@@ -14,4 +16,7 @@ export type TabTwoParamList = {
 
 export type TabThreeParamList = {
   SettingsScreen: undefined;
+};
+export type TabOneAyaParamList = {
+  CartScreen: undefined;
 };

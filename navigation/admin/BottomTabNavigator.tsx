@@ -11,12 +11,16 @@ import SensorsScreen from '../../screens/Admin/DashboardScreen';
 import ActionsScreen from '../../screens/Admin/ActionsScreen';
 // @ts-expect-error
 import SettingsScreen from '../../screens/Admin/SettingsScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList } from './types';
+// @ts-expect-error
+import InventoryScreen from '../../Aya/InventoryScreen.js';
+
+import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList, TabOneAyaParamList} from './types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
+  TabOneAyaNavigator
   return (
     <BottomTab.Navigator
       initialRouteName="Dashboard"
@@ -42,7 +46,15 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
       />
+       <BottomTab.Screen
+    name="Inventory"
+    component={TabOneAyaNavigator}
+    options={{
+      tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+    }}
+  />
     </BottomTab.Navigator>
+    
   );
 }
 
@@ -94,5 +106,18 @@ function TabThreeNavigator() {
         options={{ headerTitle: 'Settings' }}
       />
     </TabThreeStack.Navigator>
+  );
+}
+const TabOneAyaStack = createStackNavigator<TabOneAyaParamList>();
+
+function TabOneAyaNavigator() {
+  return (
+    <TabOneAyaStack.Navigator>
+      <TabOneAyaStack.Screen
+        name="InventoryScreen"
+        component={InventoryScreen}
+        options={{ headerTitle: 'Inventory' }}
+      />
+    </TabOneAyaStack.Navigator>
   );
 }

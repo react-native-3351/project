@@ -21,6 +21,11 @@ export default {
               SettingsScreen: 'three',
             },
           },
+          TabOneAya: {
+            screens: {
+              CartScreen: 'oneAya',
+            },
+          },
         },
       },
       NotFound: '*',

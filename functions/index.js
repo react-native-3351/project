@@ -86,10 +86,10 @@ exports.createSampleData = functions.https.onCall(
 
     const result1 = await db.collection('users').doc(authId1).set({ name: "Joe", role: "Customer" })
     functions.logger.info("result1", { result1 })
-
+    await db.collection('carts').add({userid:authId1, checkOut:false})
     const result2 = await db.collection('users').doc(authId2).set({ name: "Ann", role: "Customer" })
     functions.logger.info("result2", { result2 })
-
+    await db.collection('carts').add({userid:authId2, checkOut:false})
     const result3 = await db.collection('users').doc(authId3).set({ name: "Admin", role: "Admin" })
     functions.logger.info("result3", { result3 })
 
@@ -98,9 +98,11 @@ exports.createSampleData = functions.https.onCall(
 
     const { id: categoryId1 } = await db.collection('categories').add({ name: "Motion" })
     functions.logger.info("categoryId1", { categoryId1 })
+    db.collection('categories').doc(categoryId1).collection("models").add({active:false, contact:false, material:"ceramic", techUsed:"metal oxide", quantity:10, price:500 })
 
     const { id: categoryId2 } = await db.collection('categories').add({ name: "Temperature" })
     functions.logger.info("categoryId2", { categoryId2 })
+    db.collection('categories').doc(categoryId2).collection("models").add({active:true, contact:false, material:"glass", techUsed:"infrared", quantity:20, price:1000 })
 
     const { id: sensorId1 } = await db.collection('sensors').add({ userid: authId1, categoryid: categoryId1, location: "front door", motiondetected: false })
     functions.logger.info("sensorId1", { sensorId1 })
