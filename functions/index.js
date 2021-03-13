@@ -84,6 +84,14 @@ exports.createSampleData = functions.https.onCall(
     const { uid: authId4 } = await admin.auth().createUser({ email: "fred@fred.com", password: "fredfred" })
     functions.logger.info("authId4", { authId4 })
 
+    // Asmar Start
+    const { uid: authId5 } = await admin.auth().createUser({ email: "mark@mark.com", password: "markmark" })
+    functions.logger.info("authId5", { authId5 })
+
+    const result5 = await db.collection('users').doc(authId5).set({ name: "Mark", role: "Marketer" })
+    functions.logger.info("result5", { result5 })
+    // Asmar End
+
     const result1 = await db.collection('users').doc(authId1).set({ name: "Joe", role: "Customer" })
     functions.logger.info("result1", { result1 })
 
