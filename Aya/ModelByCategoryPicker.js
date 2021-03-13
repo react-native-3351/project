@@ -14,8 +14,8 @@ console.log(models)
 
     return (
         <Picker
-            style={{ height: 50, width: 200 }}
-            selectedValue={modelId}
+        style={{ color: 'white', height: 40, width: 300,  alignSelf:'center' }}
+        selectedValue={modelId}
             onValueChange={setModelId}
         >
             <Picker.Item label='Select Model' value="" />

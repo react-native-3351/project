@@ -13,8 +13,11 @@ import ActionsScreen from '../../screens/Customer/ActionsScreen';
 import SettingsScreen from '../../screens/Customer/SettingsScreen';
 // @ts-expect-error
 import CartScreen from '../../Aya/CartScreen';
-
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList, TabOneAyaParamList } from './types';
+// @ts-expect-error
+import FeedbackScreen from '../../Aya/FeedbackScreen'
+// @ts-expect-error
+import FAQScreen from '../../Aya/FAQScreen'
+import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList, TabOneAyaParamList, TabTwoAyaParamList,TabThreeAyaParamList} from './types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -48,6 +51,20 @@ export default function BottomTabNavigator() {
       <BottomTab.Screen
         name="Cart"
         component={TabOneAyaNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+        }}
+      />
+       <BottomTab.Screen
+        name="Feedback"
+        component={TabTwoAyaNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="FAQ"
+        component={TabThreeAyaNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
@@ -117,5 +134,30 @@ function TabOneAyaNavigator() {
         options={{ headerTitle: 'Cart' }}
       />
     </TabOneAyaStack.Navigator>
+  );
+}
+const TabTwoAyaStack = createStackNavigator<TabTwoAyaParamList>();
+
+function TabTwoAyaNavigator() {
+  return (
+    <TabTwoAyaStack.Navigator>
+      <TabTwoAyaStack.Screen
+        name="FeedbackScreen"
+        component={FeedbackScreen}
+        options={{ headerTitle: 'Feedback' }}
+      />
+    </TabTwoAyaStack.Navigator>
+  );}
+const TabThreeAyaStack = createStackNavigator<TabThreeAyaParamList>();
+
+function TabThreeAyaNavigator() {
+  return (
+    <TabThreeAyaStack.Navigator>
+      <TabThreeAyaStack.Screen
+        name="FAQScreen"
+        component={FAQScreen}
+        options={{ headerTitle: 'FAQ' }}
+      />
+    </TabThreeAyaStack.Navigator>
   );
 }

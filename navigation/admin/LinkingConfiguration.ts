@@ -26,6 +26,11 @@ export default {
               InventoryScreen: 'oneAya',
             },
           },
+          TabTwoAya: {
+            screens: {
+              FAQScreen: 'twoAya',
+            },
+          },
         },
 
       },

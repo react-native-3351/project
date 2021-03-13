@@ -13,8 +13,9 @@ import ActionsScreen from '../../screens/Admin/ActionsScreen';
 import SettingsScreen from '../../screens/Admin/SettingsScreen';
 // @ts-expect-error
 import InventoryScreen from '../../Aya/InventoryScreen.js';
-
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList, TabOneAyaParamList} from './types';
+// @ts-expect-error
+import FAQScreen from '../../Aya/FAQScreen.js';
+import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList, TabOneAyaParamList, TabTwoAyaParamList} from './types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -49,6 +50,13 @@ export default function BottomTabNavigator() {
        <BottomTab.Screen
     name="Inventory"
     component={TabOneAyaNavigator}
+    options={{
+      tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+    }}
+  />
+     <BottomTab.Screen
+    name="FAQ"
+    component={TabTwoAyaNavigator}
     options={{
       tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
     }}
@@ -119,5 +127,19 @@ function TabOneAyaNavigator() {
         options={{ headerTitle: 'Inventory' }}
       />
     </TabOneAyaStack.Navigator>
+  );
+}
+
+const TabTwoAyaStack = createStackNavigator<TabTwoAyaParamList>();
+
+function TabTwoAyaNavigator() {
+  return (
+    <TabTwoAyaStack.Navigator>
+      <TabTwoAyaStack.Screen
+        name="FAQScreen"
+        component={FAQScreen}
+        options={{ headerTitle: 'FAQ' }}
+      />
+    </TabTwoAyaStack.Navigator>
   );
 }

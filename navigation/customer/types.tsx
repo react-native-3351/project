@@ -3,7 +3,8 @@ export type BottomTabParamList = {
   Actions: undefined;
   Settings: undefined;
   Cart: undefined;
-
+  Feedback:undefined;
+  FAQ:undefined;
 };
 
 export type TabOneParamList = {
@@ -19,4 +20,10 @@ export type TabThreeParamList = {
 };
 export type TabOneAyaParamList = {
   CartScreen: undefined;
+};
+export type TabTwoAyaParamList = {
+  FeedbackScreen: undefined;
+};
+export type TabThreeAyaParamList = {
+  FAQScreen: undefined;
 };

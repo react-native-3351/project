@@ -2,7 +2,8 @@ export type BottomTabParamList = {
   Dashboard: undefined;
   Actions: undefined;
   Settings: undefined;
-  Inventory: undefined
+  Inventory: undefined;
+  FAQ: undefined;
 };
 
 export type TabOneParamList = {
@@ -18,4 +19,7 @@ export type TabThreeParamList = {
 };
 export type TabOneAyaParamList = {
   InventoryScreen: undefined;
+};
+export type TabTwoAyaParamList = {
+  FAQScreen: undefined;
 };

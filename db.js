@@ -159,7 +159,7 @@ class Carts extends DB {
 }
 class Items extends DB{
     constructor(containing) {
-        super('carts')
+        super('items')
         this.containing = containing
     }
     listenAllItems=(set,cartId)=>{
@@ -170,9 +170,47 @@ class Items extends DB{
     db.collection(this.containing).doc(cartId).collection(this.collection).add(item)
 
 }
+class Payments extends DB {
+
+    constructor() {
+        super('payments')
+    }
+   
+}
+class Feedbacks extends DB {
+
+    constructor() {
+        super('feedbacks')
+    }
+   
+}
+class Faqs extends DB {
+
+    constructor() {
+        super('faqs')
+        this.Rates= new Rates(this.collection)
+
+    }
+    update = (id, answer) =>
+    db.collection(this.collection).doc(id).set({ answer:answer }, { merge: true })   
+}
+class Rates extends DB {
+
+    constructor(containing) {
+        super('rates')
+        this.containing = containing
+
+    }
+    create = (id, rate) =>
+    db.collection(this.containing).doc(id).collection(this.collection).add(rate)
+   
+}
 export default {
     Categories: new Categories(),
     Sensors: new Sensors(),
     Users: new Users(), 
-    Carts:new Carts()
+    Carts:new Carts(),
+    Payments: new Payments(),
+    Feedbacks: new Feedbacks(),
+    Faqs: new Faqs()
 }
