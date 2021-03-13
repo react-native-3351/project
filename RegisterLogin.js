@@ -21,6 +21,7 @@ export default function RegisterLogin() {
             const uid = fb.auth().currentUser.uid;
             await db.Users.update({ id: uid, role: "Customer" });
             await db.Users.Gifts.create(uid, {
+                name: "Welcome Gift: Get QAR 100 off on any sensor of your choice!",
                 value: 100,
                 expiry: new Date(Date.now() + 604800000), //604800000 is the number of milliseconds in one week
                 isUsed: false,

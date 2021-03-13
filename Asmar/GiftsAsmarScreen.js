@@ -3,18 +3,28 @@ import { StyleSheet } from "react-native";
 import { View, Text } from "../components/Themed";
 import db from "../db";
 import UserContext from "../UserContext";
+import { ListItem, Icon } from 'react-native-elements'
+
 
 export default function ActionsScreen() {
     const { user } = useContext(UserContext);
     const [gifts, setGifts] = useState(null);
     useEffect(() => db.Users.Gifts.listenAll(setGifts, user.id), []);
 
-    useEffect(() => console.log("Gifts: ", gifts), [gifts]);
-
+    // useEffect(() => console.log("Gifts: ", gifts), [gifts]);
     return (
         <View>
             <View style={styles.getStartedContainer}>
-                <Text style={styles.helpLinkText}>Hello There</Text>
+                <Text style={styles.helpLinkText}>Your Gifts!</Text>
+                {gifts ? gifts.map(gift => (
+                    <ListItem ListItem key={gift.id} bottomDivider >
+                        <Icon name='tag' />
+                        <ListItem.Content>
+                            <ListItem.Title>{item.name}</ListItem.Title>
+                            <ListItem.Subtitle>Expires in {Math.ceil((Date.now() - gift.expiry.getTime()) / 86400000)} days!</ListItem.Subtitle>
+                        </ListItem.Content>
+                    </ListItem>
+                )) : null}
             </View>
         </View>
     );
