@@ -7,6 +7,7 @@ import { Button, Input, Text, } from 'react-native-elements';
 import UserPicker from '../../screens/pickers/UserPicker';
 import * as ImagePicker from 'expo-image-picker';
 import db from '../../db';
+import DatePicker from 'react-native-datepicker'
 import fb from '../../fb';
 
 export default function NotifsAsmarScreen() {

@@ -5,12 +5,17 @@ import Colors from '../../constants/Colors';
 import UserContext from '../../UserContext'
 import { Button, Input, Text, ButtonGroup } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker'
+import CategoryPicker from '../../screens/pickers/CategoryPicker';
 import db from '../../db';
+// import ModelByCategoryPicker from '../Aya/ModelByCategoryPicker';   
 
 export default function PromotionsAsmarScreen() {
 
     const { user } = useContext(UserContext)
-    const [modelID, setModelId] = useState("");
+    const [category, setCategory] = useState(null)
+    useEffect(() => setCategory(null), [user])
+    const [modelID, setModelId] = useState(null);
+    useEffect(() => setModelId(null), [category])
     const [code, setCode] = useState("");
     const [expiry, setExpiry] = useState(null);
     const [discMode, setDiscMode] = useState("Percent");
@@ -39,7 +44,18 @@ export default function PromotionsAsmarScreen() {
         <View>
             <View style={styles.getStartedContainer}>
                 <Text h1>Create Promotion Code</Text>
-                {/* <ModelPicker set={setModelId} /> */}
+                {
+                    user
+                    &&
+                    <CategoryPicker set={setCategory} />
+                }
+                {
+                    user
+                    &&
+                    category
+                    &&
+                    {/* <ModelByCategoryPicker category={category} set={setModelId} /> */ }
+                }
                 <Input
                     label='Code'
                     placeholder='Code'
