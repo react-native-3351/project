@@ -1,38 +1,32 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet } from "react-native";
-import { View, Text } from "../components/Themed";
-import db from "../db";
-import UserContext from "../UserContext";
-import { ListItem, Icon } from "react-native-elements";
+import { View, Text } from "../../components/Themed";
+import db from "../../db";
+import UserContext from "../../UserContext";
+import { ListItem, Icon, Card } from "react-native-elements";
 
-export default function ActionsScreen() {
+export default function NotifsAsmarScreen() {
     const { user } = useContext(UserContext);
-    const [gifts, setGifts] = useState(null);
-    useEffect(() => db.Users.Gifts.listenAll(setGifts, user.id), []);
+    const [notifications, setNotifications] = useState(null);
+    useEffect(() => db.Users.Notifications.listenAll(setNotifications, user.id), []);
 
-    // useEffect(() => console.log("Gifts: ", gifts), [gifts]);
     return (
         <View>
             <View style={styles.getStartedContainer}>
-                <Text style={styles.helpLinkText}>Your Gifts!</Text>
-                {gifts
-                    ? gifts.map(
-                          (gift) =>
-                              !gift.isUsed && (
-                                  <ListItem ListItem key={gift.id} bottomDivider>
-                                      <Icon name="pricetag" type="ionicon" />
-                                      <ListItem.Content>
-                                          <ListItem.Title>{gift.name}</ListItem.Title>
-                                          <ListItem.Subtitle>
-                                              Expires in
-                                              {Math.ceil(
-                                                  (Date.now() - gift.expiry.seconds * 100) /
-                                                      86400000
-                                              )}
-                                              days!
-                                          </ListItem.Subtitle>
-                                      </ListItem.Content>
-                                  </ListItem>
+                <Text style={styles.helpLinkText}>Your Notifications!</Text>
+                {notifications
+                    ? notifications.map(
+                          (notif) =>
+                              !notif.isRead && (
+                                  <Card key={notif.id}>
+                                      <Card.Title>{notif.title}</Card.Title>
+                                      <Text>{notif.body}</Text>
+                                      <Text>
+                                          {new Date(
+                                              notif.timestamp.seconds * 1000
+                                          ).toLocaleString()}
+                                      </Text>
+                                  </Card>
                               )
                       )
                     : null}

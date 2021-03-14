@@ -12,37 +12,35 @@ import db from "../../db";
 export default function PromotionsAsmarScreen() {
     const { user } = useContext(UserContext);
     const [category, setCategory] = useState(null);
-    // useEffect(() => setCategory(null), [user]);
+    useEffect(() => setCategory(null), [user]);
     const [modelId, setModelId] = useState(null);
-    // useEffect(() => setModelId(null), [category]);
+    useEffect(() => setModelId(null), [category]);
     const [code, setCode] = useState("");
     const [expiry, setExpiry] = useState(null);
-    const [discMode, setDiscMode] = useState("Percent");
     const [discount, setDiscount] = useState(0);
     const [max, setMax] = useState(0);
 
-    const [selectedIdx, setSelectedIdx] = useState(0);
+    const [selectedIdx, setSelectedIdx] = useState(0); //0 is Percent, 1 is Flat
 
     const isValid = () =>
         code &&
         expiry &&
-        (discMode == "Flat" || (discMode == "Percent" && discount >= 0 && discount <= 100));
+        (selectedIdx == 1 || (selectedIdx == 0 && discount >= 0 && discount <= 100));
 
     const submit = async () => {
+        //Percent is represented as a number between 0 and 1, flat is represented as flat number
+        const disc = selectedIdx == 0 ? discount / 100 : discount;
         db.Promotions.create({
             modelId,
             code,
             expiry,
-            discount,
-            max,
+            discount: disc,
+            ...(selectedIdx == 0 && { max }),
         }); //TODO: NEEDS TESTING
-        //console.log("Promotion made!");
+        console.log("Discount: ", disc);
     };
 
-    const buttons = [
-        <Button title="Percent" onPress={() => setDiscMode("Percent")} />,
-        <Button title="Flat" onPress={() => setDiscMode("Flat")} />,
-    ];
+    const buttons = ["Percent", "Flat"];
     return (
         <View>
             <View style={styles.getStartedContainer}>
@@ -62,35 +60,24 @@ export default function PromotionsAsmarScreen() {
                 <DatePicker
                     style={{ width: 200 }}
                     date={expiry}
-                    mode="datetime"
-                    format="YYYY-MM-DD HH:mm"
+                    mode="date"
+                    format="YYYY-MM-DD"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
-                    minuteInterval={30}
                     onDateChange={(value) => setExpiry(value)}
+                    label="Expiry Date"
                 />
                 <ButtonGroup
                     onPress={(idx) => setSelectedIdx(idx)}
                     selectedIndex={selectedIdx}
                     buttons={buttons}
-                    containerStyle={{ height: 100 }}
                 />
-                {discMode == "Flat" && (
-                    <Input
-                        label="Flat Discount"
-                        placeholder="Discount"
-                        value={discount}
-                        //regex to only allow 0-9 as input
-                        onChangeText={(value) => setDiscount(value.replace(/[^0-9]/g, ""))}
-                        keyboardType="numeric"
-                    />
-                )}
-                {discMode == "Percent" && (
+                {selectedIdx == 0 && (
                     <>
                         <Input
                             label="Percent Discount"
                             placeholder="0-100"
-                            value={discount}
+                            value={discount + ""}
                             //regex to only allow 0-9 as input
                             onChangeText={(value) => setDiscount(value.replace(/[^0-9]/g, ""))}
                             keyboardType="numeric"
@@ -104,7 +91,17 @@ export default function PromotionsAsmarScreen() {
                         />
                     </>
                 )}
-                <Button title="Submit" onPress={submit} disabled={isValid()} />
+                {selectedIdx == 1 && (
+                    <Input
+                        label="Flat Discount"
+                        placeholder="Discount"
+                        value={discount + ""}
+                        //regex to only allow 0-9 as input
+                        onChangeText={(value) => setDiscount(value.replace(/[^0-9]/g, ""))}
+                        keyboardType="numeric"
+                    />
+                )}
+                <Button title="Submit" onPress={submit} disabled={!isValid()} />
             </View>
         </View>
     );

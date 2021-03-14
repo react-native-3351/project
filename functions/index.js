@@ -23,7 +23,7 @@ const removeOneSubOne = async (collection, id, subcollection, subId) => await db
 const removeOne = async (collection, id) => await db.collection(collection).doc(id).delete()
 
 exports.createSampleData = functions.https.onCall(
-  async (data, context) => {
+  async (data, context) => { 
 
     // comment the following out to reset auth db every time
     // const users = await db.collection('users').get()

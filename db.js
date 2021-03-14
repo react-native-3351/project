@@ -1,5 +1,6 @@
 import firebase from "./fb";
 import fetch from "node-fetch";
+import { createIconSetFromFontello } from "@expo/vector-icons";
 const db = firebase.firestore();
 
 // const a = async () => {
@@ -163,19 +164,28 @@ class Notifications extends DB {
     }
 
     send = async (userId, title, body, link, sensorId = undefined) => {
+        const obj = {
+            title,
+            body,
+            link,
+            isRead: false,
+            timestamp: new Date(),
+            // ...(sensorId && { sensorId }),
+        };
+        console.log(obj);
         return await db
             .collection(this.containing)
             .doc(userId)
             .collection(this.collection)
-            .add({
-                title,
-                body,
-                link,
-                isRead: false,
-                timestamp: new Date(),
-                ...(sensorId && { sensorId }),
-            });
+            .add(obj);
     };
+
+    listenAll = (set, userId) =>
+        db
+            .collection(this.containing)
+            .doc(userId)
+            .collection(this.collection)
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 }
 
 class Advertisements extends DB {

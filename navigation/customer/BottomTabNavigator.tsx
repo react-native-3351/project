@@ -8,7 +8,8 @@ import useColorScheme from "../../hooks/useColorScheme";
 import SensorsScreen from "../../screens/Customer/SensorsScreen";
 import ActionsScreen from "../../screens/Customer/ActionsScreen";
 import SettingsScreen from "../../screens/Customer/SettingsScreen";
-import GiftsAsmarScreen from "../../Asmar/GiftsAsmarScreen";
+import GiftsAsmarScreen from "../../Asmar/Customer/GiftsAsmarScreen";
+import NotifsAsmarScreen from "../../Asmar/Customer/NotifsAsmarScreen";
 import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList } from "./types";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -17,11 +18,11 @@ export default function BottomTabNavigator() {
     const colorScheme = useColorScheme();
     return (
         <BottomTab.Navigator
-            initialRouteName="Sensors"
+            initialRouteName="Notifications"
             tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
         >
             <BottomTab.Screen
-                name="Sensors"
+                name="Notifications"
                 component={TabOneNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
@@ -60,8 +61,8 @@ function TabOneNavigator() {
     return (
         <TabOneStack.Navigator>
             <TabOneStack.Screen
-                name="SensorsScreen"
-                component={SensorsScreen}
+                name="NotifsAsmarScreen"
+                component={NotifsAsmarScreen}
                 options={{ headerTitle: "Sensors" }}
             />
         </TabOneStack.Navigator>

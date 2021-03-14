@@ -46,7 +46,7 @@ export default function NotifsAsmarScreen() {
                     value={link}
                     onChangeText={(value) => setLink(value)}
                 />
-                <Button title="Submit" onPress={submit} disabled={isValid()} />
+                <Button title="Submit" onPress={submit} disabled={!isValid()} />
             </View>
         </View>
     );
