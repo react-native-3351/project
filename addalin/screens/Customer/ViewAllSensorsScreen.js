@@ -12,7 +12,28 @@ export default function WishListScreen() {
 
     const [sensors, setSensors] = useState([]);
 
+    const [favorites, setFavorites] = useState([]);
+
     useEffect(() => db.Sensors.listenAll(setSensors), [])
+
+    useEffect(() => db.Users.Favorite.listenToUsersFavorite(setFavorites, userId), [userId])
+
+    const markedFav = (sensorId) => {
+        if (sensorId) {
+            return favorites.filter(item => item.sensorId === sensorId).length
+        }
+        else {
+            return -1
+        }
+    }
+
+    const saveFav = async (sensorId) => {
+        await db.Users.Favorite.saveFavorite(sensorId, userId)
+    }
+
+    const deleteFav = async (sensorId) => {
+        await db.Users.Favorite.deleteFavorite(userId, sensorId)
+    }
 
     return (
         <View>
@@ -29,32 +50,37 @@ export default function WishListScreen() {
                                             <Text style={{ marginBottom: 10 }}>Category ID: {sensor.categoryid}</Text>
                                             <Text style={{ marginBottom: 10 }}>Model ID: {sensor.modelId}</Text>
                                             <Text style={{ marginBottom: 10 }}>Location: {sensor.location}</Text>
-                                            <Button
-                                                type="clear"
-                                                icon={
-                                                    <Icon
-                                                        size={40}
-                                                        name='heart'
-                                                        type='font-awesome'
-                                                        color='#339FFF'
+                                            {
+                                                markedFav(sensor.id).length == 0
+                                                    ?
+                                                    <Button
+                                                        type="clear"
+                                                        icon={
+                                                            <Icon
+                                                                size={40}
+                                                                name='heart-o'
+                                                                type='font-awesome'
+                                                                color='#339FFF'
+                                                            />
+                                                        }
+                                                        iconRight
+                                                        onPress={() => saveFav(sensor.id)}
                                                     />
-                                                }
-                                                iconRight
-                                                onPress={() => {}}
-                                            />
-                                            <Button
-                                                type="clear"
-                                                icon={
-                                                    <Icon
-                                                        size={40}
-                                                        name='heart-o'
-                                                        type='font-awesome'
-                                                        color='#339FFF'
+                                                    :
+                                                    <Button
+                                                        type="clear"
+                                                        icon={
+                                                            <Icon
+                                                                size={40}
+                                                                name='heart'
+                                                                type='font-awesome'
+                                                                color='#339FFF'
+                                                            />
+                                                        }
+                                                        iconRight
+                                                        onPress={() => deleteFav(sensor.id)}
                                                     />
-                                                }
-                                                iconRight
-                                                onPress={() => {}}
-                                            />
+                                            }
                                         </Card>
                                     </ListItem.Content>
                                 </ListItem>
