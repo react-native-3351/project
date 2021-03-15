@@ -1,4 +1,5 @@
 // must use older 'require' syntax for import
+//Addalin
 const fetch = require("node-fetch")
 const functions = require("firebase-functions");
 const admin = require('firebase-admin');
@@ -166,3 +167,73 @@ exports.onNewReading = functions.firestore.document('sensors/{sensorid}/readings
     }
 
   })
+
+//Addalin Start
+exports.onNewSensor = functions.firestore.document('sensors/{sensorid}').onCreate(
+  async (snap, context) => {
+    functions.logger.info("VIEWING WISHLIST");
+    const sensor = snap.data()
+    functions.logger.info("sensor", { sensor });
+
+    const catId = sensor.categoryid
+    const modelId = sensor.modelId
+
+    const category = await db.collection('categories').doc(catId).get()
+    const model = await db.collection('categories').doc(catId).collection('models').doc(modelId).get()
+
+    const allUsers = await db.collection('users').get()
+
+    Promise.all(
+      allUsers.map(async user => {
+        const wishlist = await db.collection('users').doc(user.id).collection('wishlist').get()
+        await matchWishlist(wishlist, model, category, user.id)
+      })
+    )
+
+    matchWishlist = async (wishlist, item, category, userId) => {
+      Promise.all(
+        wishlist.map(async list =>
+          this.matchingList(list, item, category) ?
+            await db.collection('notification').add({ userId, sensorId: sensor.id, timestamp: new Date(), title: "Wishlist has something new", body: "Your wishlist has a new sensor !", link: "", isRead: false })
+            :
+            null
+        )
+      )
+    }
+
+    matchingList = (wishlist, item, category) => {
+
+      let result = false
+
+      if (wishlist.category !== "") {
+        result = wishlist.category === category.name
+      }
+      if (wishlist.material !== "") {
+        result = wishlist.material === item.material
+      }
+      if (wishlist.techUsed !== "") {
+        result = wishlist.techUsed === item.techUsed
+      }
+      if (wishlist.active !== "") {
+        result = wishlist.active === item.active
+      }
+      if (wishlist.contact !== "") {
+        result = wishlist.contact === item.contact
+      }
+      if (wishlist.min !== "") {
+        result = wishlist.min === item.min
+      }
+      if (wishlist.max !== "") {
+        result = wishlist.max === item.max
+      }
+      if (wishlist.radius !== "") {
+        result = wishlist.radius === item.radius
+      }
+      if (wishlist.luminence !== "") {
+        result = wishlist.luminence === item.luminence
+      }
+      return result
+    }
+  }
+)
+//Addalin End

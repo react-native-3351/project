@@ -32,7 +32,8 @@ export default function WishListScreen() {
     }
 
     const deleteFav = async (sensorId) => {
-        await db.Users.Favorite.deleteFavorite(userId, sensorId)
+        const found = favorites.filter(item => item.sensorId === sensorId)
+        await db.Users.Favorite.deleteFavorite(userId, found[0].id)
     }
 
     return (
@@ -51,7 +52,7 @@ export default function WishListScreen() {
                                             <Text style={{ marginBottom: 10 }}>Model ID: {sensor.modelId}</Text>
                                             <Text style={{ marginBottom: 10 }}>Location: {sensor.location}</Text>
                                             {
-                                                markedFav(sensor.id).length == 0
+                                                markedFav(sensor.id) == 0
                                                     ?
                                                     <Button
                                                         type="clear"
@@ -60,7 +61,7 @@ export default function WishListScreen() {
                                                                 size={40}
                                                                 name='heart-o'
                                                                 type='font-awesome'
-                                                                color='#339FFF'
+                                                                color='#FF69B4'
                                                             />
                                                         }
                                                         iconRight
@@ -74,7 +75,7 @@ export default function WishListScreen() {
                                                                 size={40}
                                                                 name='heart'
                                                                 type='font-awesome'
-                                                                color='#339FFF'
+                                                                color='#FF69B4'
                                                             />
                                                         }
                                                         iconRight

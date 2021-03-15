@@ -260,9 +260,15 @@ class Favorite extends DB {
 
     listenToUsersFavorite = (set, userId) => db.collection(this.containing).doc(userId).collection(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
 
-    deleteFavorite = async (userId, favId) => {
+    deleteFavorite = async (userId, favId) =>
         await db.collection(this.containing).doc(userId).collection(this.collection).doc(favId).delete()
-    }
+
+    deleteFavoriteBySensorId = async (userId, favId) =>
+        await db.collection(this.containing).doc(userId).collection(this.collection).where('sensorId','==', favId).delete()
+
+    saveFavorite = async (sensorId, userId) =>
+        await db.collection(this.containing).doc(userId).collection(this.collection).add({ sensorId, date: new Date() })
+
 }
 
 class Wishlist extends DB {
