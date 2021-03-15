@@ -35,8 +35,8 @@ export default function ViewSensorsWishListScreen({ wishlist }) {
                                         cat && cat[0].name == "Temperature"
                                             ?
                                             <>
-                                                <Text style={{ marginBottom: 10 }}>Min: {sen.min}</Text>
-                                                <Text style={{ marginBottom: 10 }}>Max: {sen.max}</Text>
+                                                <Text style={{ marginBottom: 10 }}>Min: {model && model[0].min}</Text>
+                                                <Text style={{ marginBottom: 10 }}>Max: {model && model[0].max}</Text>
                                             </>
                                             :
                                             <></>
@@ -46,7 +46,7 @@ export default function ViewSensorsWishListScreen({ wishlist }) {
                                         cat && cat.name == "Light"
                                             ?
                                             <>
-                                                <Text style={{ marginBottom: 10 }}>Luminence: {sen.luminence}</Text>
+                                                <Text style={{ marginBottom: 10 }}>Luminence: {model && model[0].luminence}</Text>
                                             </>
                                             :
                                             <></>
@@ -56,7 +56,7 @@ export default function ViewSensorsWishListScreen({ wishlist }) {
                                         cat && cat.name == "Area"
                                             ?
                                             <>
-                                                <Text style={{ marginBottom: 10 }}>Radius: {sen.radius}</Text>
+                                                <Text style={{ marginBottom: 10 }}>Radius: {model && model[0].radius}</Text>
                                             </>
                                             :
                                             <></>

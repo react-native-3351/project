@@ -33,8 +33,8 @@ export default function ViewFavoritesSensorScreen({ sensorId }) {
                         cat && cat.name == "Temperature"
                             ?
                             <>
-                                <Text style={{ marginBottom: 10 }}>Min: {sensor ? sensor.min : ""}</Text>
-                                <Text style={{ marginBottom: 10 }}>Max: {sensor ? sensor.max : ""}</Text>
+                                <Text style={{ marginBottom: 10 }}>Min: {model ? model.min : ""}</Text>
+                                <Text style={{ marginBottom: 10 }}>Max: {model ? model.max : ""}</Text>
                             </>
                             :
                             <></>
