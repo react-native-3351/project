@@ -11,7 +11,16 @@ import SensorsScreen from '../../screens/Customer/SensorsScreen';
 import ActionsScreen from '../../screens/Customer/ActionsScreen';
 // @ts-expect-error
 import SettingsScreen from '../../screens/Customer/SettingsScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList } from './types';
+
+//---Addalin
+// @ts-expect-error
+import liveChatScreen from '../../addalin/screens/Customer/LiveChatScreen';
+// @ts-expect-error
+import ViewFavoritesScreen from '../../addalin/screens/Customer/ViewFavoritesScreen';
+// @ts-expect-error
+import WishListScreen from '../../addalin/screens/Customer/WishListScreen';
+//---Addalin
+import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList,TabFourAddalinParamList,TabFiveAddalinParamList,TabSixAddalinParamList } from './types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -38,6 +47,27 @@ export default function BottomTabNavigator() {
       <BottomTab.Screen
         name="Settings"
         component={TabThreeNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="liveChat"
+        component={TabFourAddalinNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="ViewFavorites"
+        component={TabFiveAddalinNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="WishList"
+        component={TabSixAddalinNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
@@ -96,3 +126,45 @@ function TabThreeNavigator() {
     </TabThreeStack.Navigator>
   );
 }
+
+//Addalin Start
+const TabFourAddalinStack = createStackNavigator<TabFourAddalinParamList>();
+
+function TabFourAddalinNavigator() {
+  return (
+    <TabFourAddalinStack.Navigator>
+      <TabFourAddalinStack.Screen
+        name="liveChatScreen"
+        component={liveChatScreen}
+        options={{ headerTitle: 'live chat' }}
+      />
+    </TabFourAddalinStack.Navigator>
+  );
+}
+const TabFiveAddalinStack = createStackNavigator<TabFiveAddalinParamList>();
+
+function TabFiveAddalinNavigator() {
+  return (
+    <TabFiveAddalinStack.Navigator>
+      <TabFiveAddalinStack.Screen
+        name="ViewFavoritesScreen"
+        component={ViewFavoritesScreen}
+        options={{ headerTitle: 'Favorites' }}
+      />
+    </TabFiveAddalinStack.Navigator>
+  );
+}
+const TabSixAddalinStack = createStackNavigator<TabSixAddalinParamList>();
+
+function TabSixAddalinNavigator() {
+  return (
+    <TabSixAddalinStack.Navigator>
+      <TabSixAddalinStack.Screen
+        name="WishListScreen"
+        component={WishListScreen}
+        options={{ headerTitle: 'WishList' }}
+      />
+    </TabSixAddalinStack.Navigator>
+  );
+}
+//Addalin End
