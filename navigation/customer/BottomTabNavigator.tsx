@@ -19,8 +19,10 @@ import liveChatScreen from '../../addalin/screens/Customer/LiveChatScreen';
 import ViewFavoritesScreen from '../../addalin/screens/Customer/ViewFavoritesScreen';
 // @ts-expect-error
 import WishListScreen from '../../addalin/screens/Customer/WishListScreen';
+// @ts-expect-error
+import ViewAllSensorsScreen from '../../addalin/screens/Customer/ViewAllSensorsScreen';
 //---Addalin
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList,TabFourAddalinParamList,TabFiveAddalinParamList,TabSixAddalinParamList } from './types';
+import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList,TabFourAddalinParamList,TabFiveAddalinParamList,TabSixAddalinParamList,TabSevenAddalinParamList } from './types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -68,6 +70,13 @@ export default function BottomTabNavigator() {
       <BottomTab.Screen
         name="WishList"
         component={TabSixAddalinNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="ViewAllSensors"
+        component={TabSevenAddalinNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
@@ -152,6 +161,19 @@ function TabFiveAddalinNavigator() {
         options={{ headerTitle: 'Favorites' }}
       />
     </TabFiveAddalinStack.Navigator>
+  );
+}
+const TabSevenAddalinStack = createStackNavigator<TabSevenAddalinParamList>();
+
+function TabSevenAddalinNavigator() {
+  return (
+    <TabSevenAddalinStack.Navigator>
+      <TabSevenAddalinStack.Screen
+        name="ViewAllSensorsScreen"
+        component={ViewAllSensorsScreen}
+        options={{ headerTitle: 'All Sensors' }}
+      />
+    </TabSevenAddalinStack.Navigator>
   );
 }
 const TabSixAddalinStack = createStackNavigator<TabSixAddalinParamList>();

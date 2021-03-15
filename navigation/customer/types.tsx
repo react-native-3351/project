@@ -6,6 +6,7 @@ export type BottomTabParamList = {
   liveChat: undefined;
   ViewFavorites: undefined;
   WishList: undefined;
+  ViewAllSensors: undefined;
   //
 };
 
@@ -32,5 +33,9 @@ export type TabFiveAddalinParamList = {
 
 export type TabSixAddalinParamList = {
   WishListScreen: undefined;
+};
+
+export type TabSevenAddalinParamList = {
+  ViewAllSensorsScreen: undefined;
 };
 //
