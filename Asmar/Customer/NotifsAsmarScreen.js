@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { View, Text } from "../../components/Themed";
 import db from "../../db";
 import UserContext from "../../UserContext";
@@ -11,8 +11,8 @@ export default function NotifsAsmarScreen() {
     useEffect(() => db.Users.Notifications.listenAll(setNotifications, user.id), []);
 
     return (
-        <View>
-            <View style={styles.getStartedContainer}>
+        <SafeAreaView style={styles.getStartedContainer}>
+            <ScrollView>
                 <Text style={styles.helpLinkText}>Your Notifications!</Text>
                 {notifications
                     ? notifications.map(
@@ -30,8 +30,8 @@ export default function NotifsAsmarScreen() {
                               )
                       )
                     : null}
-            </View>
-        </View>
+            </ScrollView>
+        </SafeAreaView>
     );
 }
 

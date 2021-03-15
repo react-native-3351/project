@@ -47,7 +47,7 @@ export default function NotifsAsmarScreen() {
                 link,
             });
             // image's name is the ad's id
-            const imageRef = fb.storage().ref(`ads/${user.id}/images/${doc.id}.jpg`);
+            const imageRef = await fb.storage().ref(`ads/${user.id}/images/${doc.id}.jpg`);
 
             const response = await fetch(image.uri);
             const blob = await response.blob();
@@ -57,7 +57,7 @@ export default function NotifsAsmarScreen() {
             blob.close();
 
             //TODO: make sure is necessary
-            await db.Advertisements.update({ ...doc, url });
+            await db.Advertisements.update(doc.id, { url });
         }
     };
 
@@ -77,6 +77,7 @@ export default function NotifsAsmarScreen() {
                     value={link}
                     onChangeText={(value) => setLink(value)}
                 />
+                <Text>Start Date</Text>
                 <DatePicker
                     style={{ width: 200 }}
                     date={startDate}
@@ -85,8 +86,8 @@ export default function NotifsAsmarScreen() {
                     format="YYYY-MM-DD"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
-                    label="Start Date"
                 />
+                <Text>End Date</Text>
                 <DatePicker
                     style={{ width: 200 }}
                     date={endDate}

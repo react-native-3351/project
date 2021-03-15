@@ -51,6 +51,7 @@ export default function PromotionsAsmarScreen() {
                     {
                         /* <ModelByCategoryPicker category={category} set={setModelId} /> */
                     }}
+                <Text>Leave empty to apply to all categories</Text>
                 <Input
                     label="Code"
                     placeholder="Code"
@@ -68,7 +69,10 @@ export default function PromotionsAsmarScreen() {
                     label="Expiry Date"
                 />
                 <ButtonGroup
-                    onPress={(idx) => setSelectedIdx(idx)}
+                    onPress={(idx) => {
+                        setSelectedIdx(idx);
+                        setDiscount(0);
+                    }}
                     selectedIndex={selectedIdx}
                     buttons={buttons}
                 />

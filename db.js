@@ -172,7 +172,6 @@ class Notifications extends DB {
             timestamp: new Date(),
             // ...(sensorId && { sensorId }),
         };
-        console.log(obj);
         return await db
             .collection(this.containing)
             .doc(userId)
@@ -192,6 +191,10 @@ class Advertisements extends DB {
     constructor() {
         super("advertisements");
     }
+
+    update = async (id, fields) => {
+        await db.collection(this.collection).doc(id).update(fields);
+    };
 }
 
 class Gifts extends DB {

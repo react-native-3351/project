@@ -10,39 +10,77 @@ import ActionsScreen from "../../screens/Customer/ActionsScreen";
 import SettingsScreen from "../../screens/Customer/SettingsScreen";
 import GiftsAsmarScreen from "../../Asmar/Customer/GiftsAsmarScreen";
 import NotifsAsmarScreen from "../../Asmar/Customer/NotifsAsmarScreen";
+import AdOverlay from "../../Asmar/AdOverlay";
 import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList } from "./types";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
+    const showAdsEvery = 5;
+    const [screens, setScreens] = React.useState(showAdsEvery);
+    const [visible, setVisible] = React.useState(false);
+
     const colorScheme = useColorScheme();
     return (
-        <BottomTab.Navigator
-            initialRouteName="Notifications"
-            tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
-        >
-            <BottomTab.Screen
-                name="Notifications"
-                component={TabOneNavigator}
-                options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
-                }}
-            />
-            <BottomTab.Screen
-                name="Gifts"
-                component={TabTwoNavigator}
-                options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
-                }}
-            />
-            <BottomTab.Screen
-                name="Settings"
-                component={TabThreeNavigator}
-                options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
-                }}
-            />
-        </BottomTab.Navigator>
+        <>
+            <AdOverlay visible={visible} setVisible={setVisible} />
+            <BottomTab.Navigator
+                initialRouteName="Notifications"
+                tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+            >
+                <BottomTab.Screen
+                    name="Notifications"
+                    component={TabOneNavigator}
+                    options={{
+                        tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                    }}
+                    listeners={{
+                        focus: (e) => {
+                            if (screens == showAdsEvery) {
+                                setVisible(true);
+                                setScreens(0);
+                            } else {
+                                setScreens(screens + 1);
+                            }
+                        },
+                    }}
+                />
+                <BottomTab.Screen
+                    name="Gifts"
+                    component={TabTwoNavigator}
+                    options={{
+                        tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                    }}
+                    listeners={{
+                        focus: (e) => {
+                            if (screens == showAdsEvery) {
+                                setVisible(true);
+                                setScreens(0);
+                            } else {
+                                setScreens(screens + 1);
+                            }
+                        },
+                    }}
+                />
+                <BottomTab.Screen
+                    name="Settings"
+                    component={TabThreeNavigator}
+                    options={{
+                        tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                    }}
+                    listeners={{
+                        focus: (e) => {
+                            if (screens == showAdsEvery) {
+                                setVisible(true);
+                                setScreens(0);
+                            } else {
+                                setScreens(screens + 1);
+                            }
+                        },
+                    }}
+                />
+            </BottomTab.Navigator>
+        </>
     );
 }
 
