@@ -41,7 +41,17 @@ export default function LiveChatScreen() {
     return (
         <View>
             <View style={styles.getStartedContainer}>
-                <Button title="Open Chat" onPress={toggleOverlay} />
+                <Button
+                    title="Open Chat"
+                    onPress={toggleOverlay}
+                    width={60}
+                    height={60}
+                    borderRadius={30}
+                    backgroundColor='#ee6e73'
+                    position='absolute'
+                    bottom={10}
+                    right={10}
+                />
 
                 <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
                     <View style={styles.getStartedContainer}>
@@ -90,7 +100,7 @@ export default function LiveChatScreen() {
                                     :
                                     <Button
                                         type="clear"
-                                        onPress={() => {}}
+                                        onPress={() => { }}
                                         icon={
                                             <Icon
                                                 size={40}

@@ -7,13 +7,13 @@ import { Picker } from '@react-native-picker/picker';
 import db from '../../../db'
 import CategoryPicker from '../../../screens/pickers/CategoryPicker'
 
-export default function CreateWishListScreen({viewCreate}) {
+export default function CreateWishListScreen({ viewCreate }) {
     const { user } = useContext(UserContext)
     const userId = user.id ? user.id : '-'
 
     const [active, setActive] = useState('');
     const [contact, setContact] = useState('');
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState(null);
     const [material, setMaterial] = useState('');
     const [techUsed, setTechUsed] = useState('');
     const [min, setMin] = useState('');
@@ -35,9 +35,24 @@ export default function CreateWishListScreen({viewCreate}) {
     }
 
     const validate = () => {
-        // if (category !== null || category !== '') {
-        //     return true
-        // }
+        if (category == null) {
+            return true
+        }
+        else if (category.name == "Temperature") {
+            if (min == '' || max == '') {
+                return true
+            }
+        }
+        else if (category.name == "Area") {
+            if (radius == '') {
+                return true
+            }
+        }
+        else if (category.name == "Light") {
+            if (luminence == '') {
+                return true
+            }
+        }
     }
 
     return (
