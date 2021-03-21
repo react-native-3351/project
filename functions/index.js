@@ -103,11 +103,23 @@ exports.createSampleData = functions.https.onCall(
     const { id: categoryId2 } = await db.collection('categories').add({ name: "Temperature" })
     functions.logger.info("categoryId2", { categoryId2 })
 
+    const { id: categoryId3 } = await db.collection('categories').add({ name: "Light" })
+    functions.logger.info("categoryId3", { categoryId3 })
+
+    const { id: modelId } = await db.collection('categories').doc(categoryId2).collection('models').add({ active: true, contact: false, material: "Ceramics", techUsed: "IR", min: 0, max: 100 })
+    functions.logger.info("modelId", { modelId })
+
+    const { id: modelId2 } = await db.collection('categories').doc(categoryId3).collection('models').add({ active: true, contact: false, material: "Ceramics", techUsed: "IR", luminence: 5 })
+    functions.logger.info("modelId2", { modelId2 })
+
     const { id: sensorId1 } = await db.collection('sensors').add({ userid: authId1, categoryid: categoryId1, location: "front door", motiondetected: false })
     functions.logger.info("sensorId1", { sensorId1 })
 
     const { id: sensorId2 } = await db.collection('sensors').add({ userid: authId2, categoryid: categoryId2, location: "lab", min: 0, max: 100, alert: false })
     functions.logger.info("sensorId2", { sensorId2 })
+
+    const { id: sensorId3 } = await db.collection('sensors').add({ userid: authId2, categoryid: categoryId3, modelId: modelId2, location: "lab", alert: "none" })
+    functions.logger.info("sensorId3", { sensorId3 })
   }
 )
 
@@ -123,6 +135,9 @@ exports.onNewReading = functions.firestore.document('sensors/{sensorid}/readings
 
     const sensorDoc = await db.collection('sensors').doc(sensorid).get()
     const sensor = { id: sensorDoc.id, ...sensorDoc.data() }
+
+    const modelDoc = await db.collection('categories').doc(sensor.categoryid).collection('models').doc(sensor.modelId)
+    const model = { id: modelDoc.id, ...modelDoc.data() }
 
     functions.logger.info("sensor object", { sensor })
     const categoryDoc = await db.collection('categories').doc(sensor.categoryid).get()
@@ -162,7 +177,12 @@ exports.onNewReading = functions.firestore.document('sensors/{sensorid}/readings
     else if (category.name = "Temperature") {
       await db.collection('sensors').doc(sensor.id).set({ alert: reading.current > sensor.max || reading.current < sensor.min }, { merge: true })
       functions.logger.info("temp alert update", { alert: reading.current > sensor.max || reading.current < sensor.min });
-    } else {
+    }
+    else if (category.name = "Light") {
+      await db.collection('sensors').doc(sensor.id).set({ alert: reading.current == model.luminence ? "equal" : reading.current > model.luminence ? "high" : "low" }, { merge: true })
+      functions.logger.info("light alert update", { alert: reading.current == model.luminence ? "equal" : reading.current > model.luminence ? "high" : "low" });
+    }
+    else {
       functions.logger.info("No such category", { category });
     }
 
