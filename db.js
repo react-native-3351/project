@@ -91,6 +91,12 @@ class Sensors extends DB {
         db.collection(this.collection).doc(sensor.id).set({ alert: !sensor.alert }, { merge: true })
 
     //Addalin Start
+    toggleLightAlert = sensor => {
+        const alertArray = ["high", "equal", "low"]
+        const randomNum = Math.floor(Math.random() * Math.floor(3))
+        db.collection(this.collection).doc(sensor.id).set({ alert: alertArray[randomNum] }, { merge: true })
+    }
+
     listenItemsForWishlist = (set, catId, modelId) => {
         db.collection(this.collection).where('categoryid', '==', catId).where('modelId', '==', modelId).where('userid', '==', "").onSnapshot(snap => set(snap.docs.map(this.reformat)))
     }
@@ -155,6 +161,11 @@ class Models extends DB {
     constructor(containing) {
         super('models')
         this.containing = containing
+    }
+
+    updateLuminence = async (sensor, value) => {
+        const { id, ...rest } = sensor
+        await db.collection(this.containing).doc(sensor.categoryid).collection(this.collection).doc(sensor.modelId).set({ ...rest, luminence: value })
     }
 
     listenOneById = (set, catId, modelId) => db.collection(this.containing).doc(catId).collection(this.collection).doc(modelId).onSnapshot(snap => set(this.reformat(snap)))
@@ -264,7 +275,7 @@ class Favorite extends DB {
         await db.collection(this.containing).doc(userId).collection(this.collection).doc(favId).delete()
 
     deleteFavoriteBySensorId = async (userId, favId) =>
-        await db.collection(this.containing).doc(userId).collection(this.collection).where('sensorId','==', favId).delete()
+        await db.collection(this.containing).doc(userId).collection(this.collection).where('sensorId', '==', favId).delete()
 
     saveFavorite = async (sensorId, userId) =>
         await db.collection(this.containing).doc(userId).collection(this.collection).add({ sensorId, date: new Date() })

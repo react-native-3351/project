@@ -17,7 +17,7 @@ export default function LightInfo({ user, category, sensor }) {
     const [model, setModel] = useState(null);
     useEffect(() => sensor ? db.Categories.Models.listenOneById(setModel, sensor.categoryid, sensor.modelId) : undefined, [sensor])
 
-    const barValue = reading && model ? reading.current / model.luminence * 1 * 200 : 0
+    const barValue = reading && model ? reading.current / model.luminence * 200 : 0
 
     console.log("barValue", barValue)
     return (
@@ -35,35 +35,49 @@ export default function LightInfo({ user, category, sensor }) {
                     height: 20,
                     width: barValue > 101 ? 200 : barValue < 0 ? 0 : barValue,
                     backgroundColor: '#d554fb',
-                    // borderColor: '#000',
-                    // borderWidth: 2,
                     borderRadius: 5
                 }}>
                 </View>
             </View>
-            <>
+            {
+                barValue > 100 ?
+                    <Icon
+                        style={{ marginLeft: 130, marginTop: 20, marginBottom: 20 }}
+                        size={40}
+                        name='sun-o'
+                        type='font-awesome-5'
+                        color='yellow'
+                    />
+                    :
+                    <Icon
+                        style={{ marginLeft: 130, marginTop: 20, marginBottom: 20 }}
+                        size={40}
+                        name='moon-o'
+                        type='font-awesome-5'
+                        color='white'
+                    />
+            }
+            <View>
                 {
-                    barValue > 100 ?
-                        <Icon
-                            style={{ marginLeft: 100, marginTop: 10, marginBottom: 10 }}
-                            size={40}
-                            name='sun-o'
-                            type='font-awesome-5'
-                            color='yellow'
-                        />
+                    sensor
+                        &&
+                        sensor.alert == "high"
+                        ?
+                        <Text style={styles.thirdTitle}>
+                            Very Bright ! Turning Lights Off...
+                            </Text>
                         :
-                        <Icon
-                            style={{ marginLeft: 100, marginTop: 10, marginBottom: 10 }}
-                            size={40}
-                            name='moon-o'
-                            type='font-awesome-5'
-                            color='white'
-                        />
+                        sensor.alert == "equal"
+                            ?
+                            <Text style={styles.thirdTitle}>
+                                Lights are just right ! Turning Lights Off...
+                                </Text>
+                            :
+                            <Text style={styles.thirdTitle}>
+                                Lights are Low ! Turning Lights On...
+                            </Text>
                 }
-            </>
-            <Text style={styles.thirdTitle}>
-                Alert: {sensor.alert}
-            </Text>
+            </View>
         </View>
     );
 }
@@ -121,7 +135,7 @@ const styles = StyleSheet.create({
     progressBar: {
         height: 20,
         width: 200,
-        marginLeft: 20,
+        marginLeft: 50,
         marginTop: 10,
         // backgroundColor: 'white',
         borderColor: 'white',

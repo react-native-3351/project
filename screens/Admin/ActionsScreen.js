@@ -5,6 +5,7 @@ import CategoryPicker from '../pickers/CategoryPicker'
 import SensorByCategoryPicker from '../pickers/SensorByCategoryPicker'
 import TemperatureActions from './TemperatureActions'
 import MotionActions from './MotionActions'
+import LightActions from '../../addalin/screens/Admin/LightActions'
 
 export default function ActionsScreen() {
 
@@ -37,6 +38,15 @@ export default function ActionsScreen() {
         category.name === "Temperature"
         &&
         <TemperatureActions sensor={sensor} />
+      }
+      {
+        category
+        &&
+        sensor
+        &&
+        category.name === "Light"
+        &&
+        <LightActions sensor={sensor} />
       }
     </View>
   );

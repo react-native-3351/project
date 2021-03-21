@@ -174,14 +174,12 @@ exports.onNewReading = functions.firestore.document('sensors/{sensorid}/readings
         await db.collection('sensors').doc(sensor.id).set({ motiondetected: base64_1 != base64_2 }, { merge: true })
       }
     }
-    else if (category.name = "Temperature") {
+    else if (category.name == "Temperature") {
       await db.collection('sensors').doc(sensor.id).set({ alert: reading.current > sensor.max || reading.current < sensor.min }, { merge: true })
       functions.logger.info("temp alert update", { alert: reading.current > sensor.max || reading.current < sensor.min });
     }
-    else if (category.name = "Light") {
-      functions.logger.info("light alert update", "nope");
-      await db.collection('sensors').doc(sensor.id).set({ alert: reading.current > model.luminence*1 ? "high" : "low" }, { merge: true })
-      // await db.collection('sensors').doc(sensor.id).set({ alert: reading.current == model.luminence*1 ? "equal" : reading.current > model.luminence*1 ? "high" : "low" }, { merge: true })
+    else if (category.name == "Light") {
+      await db.collection('sensors').doc(sensor.id).set({ alert: reading.current == model.luminence ? "equal" : reading.current > model.luminence ? "high" : "low" }, { merge: true })
       functions.logger.info("light alert update", { alert: reading.current == model.luminence*1 ? "equal" : "nope" });
     }
     else {
