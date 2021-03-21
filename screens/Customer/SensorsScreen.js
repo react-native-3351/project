@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ImageBackground } from 'react-native';
 import { View } from '../../components/Themed';
 import MotionInfo from './MotionInfo'
 import TemperatureInfo from './TemperatureInfo'
+import LightInfo from '../../addalin/screens/Customer/LightInfo'
 import CategoryByUserPicker from '../pickers/CategoryByUserPicker';
 import SensorByUserAndCategoryPicker from '../pickers/SensorByUserAndCategoryPicker';
 import UserContext from '../../UserContext'
@@ -16,44 +17,56 @@ export default function SensorsScreen() {
   const [sensor, setSensor] = useState(null)
 
   console.log(user, category, sensor)
-
+  const image = {
+    uri: "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif"
+    // uri: "https://cdn.nohat.cc/image_by_url.php?url=https://image.freepik.com/free-vector/blue-tones-blurred-background_1107-128.jpg"
+  };
   return (
+    <ImageBackground source={image} style={styles.image}>
     <View>
-      <View style={styles.getStartedContainer}>
-        {
-          user
-          &&
-          <CategoryByUserPicker set={setCategory} />
-        }
-        {
-          user
-          &&
-          category
-          &&
-          <SensorByUserAndCategoryPicker category={category} set={setSensor} />
-        }
-        {
-          user
-          &&
-          category
-          &&
-          sensor
-          &&
-          <>
-            {
-              category.name === "Motion"
-              &&
-              <MotionInfo user={user} category={category} sensor={sensor} />
-            }
-            {
-              category.name === "Temperature"
-              &&
-              <TemperatureInfo user={user} category={category} sensor={sensor} />
-            }
-          </>
-        }
-      </View>
+      
+        <View style={styles.getStartedContainer}>
+          {
+            user
+            &&
+            <CategoryByUserPicker set={setCategory} />
+          }
+          {
+            user
+            &&
+            category
+            &&
+            <SensorByUserAndCategoryPicker category={category} set={setSensor} />
+          }
+          {
+            user
+            &&
+            category
+            &&
+            sensor
+            &&
+            <>
+              {
+                category.name === "Motion"
+                &&
+                <MotionInfo user={user} category={category} sensor={sensor} />
+              }
+              {
+                category.name === "Temperature"
+                &&
+                <TemperatureInfo user={user} category={category} sensor={sensor} />
+              }
+              {
+                category.name === "Light"
+                &&
+                <LightInfo user={user} category={category} sensor={sensor} />
+              }
+            </>
+          }
+        </View>
+      
     </View>
+    </ImageBackground>
   );
 }
 
@@ -125,5 +138,11 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: '80%',
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    // justifyContent: "center"
+    paddingTop: 50
   },
 });

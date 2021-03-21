@@ -115,7 +115,7 @@ exports.createSampleData = functions.https.onCall(
     const { id: sensorId1 } = await db.collection('sensors').add({ userid: authId1, categoryid: categoryId1, location: "front door", motiondetected: false })
     functions.logger.info("sensorId1", { sensorId1 })
 
-    const { id: sensorId2 } = await db.collection('sensors').add({ userid: authId2, categoryid: categoryId2, location: "lab", min: 0, max: 100, alert: false })
+    const { id: sensorId2 } = await db.collection('sensors').add({ userid: authId2, categoryid: categoryId2, modelId, location: "lab", min: 0, max: 100, alert: false })
     functions.logger.info("sensorId2", { sensorId2 })
 
     const { id: sensorId3 } = await db.collection('sensors').add({ userid: authId2, categoryid: categoryId3, modelId: modelId2, location: "lab", alert: "none" })
@@ -136,7 +136,7 @@ exports.onNewReading = functions.firestore.document('sensors/{sensorid}/readings
     const sensorDoc = await db.collection('sensors').doc(sensorid).get()
     const sensor = { id: sensorDoc.id, ...sensorDoc.data() }
 
-    const modelDoc = await db.collection('categories').doc(sensor.categoryid).collection('models').doc(sensor.modelId)
+    const modelDoc = await db.collection('categories').doc(sensor.categoryid).collection('models').doc(sensor.modelId).get()
     const model = { id: modelDoc.id, ...modelDoc.data() }
 
     functions.logger.info("sensor object", { sensor })
@@ -179,8 +179,10 @@ exports.onNewReading = functions.firestore.document('sensors/{sensorid}/readings
       functions.logger.info("temp alert update", { alert: reading.current > sensor.max || reading.current < sensor.min });
     }
     else if (category.name = "Light") {
-      await db.collection('sensors').doc(sensor.id).set({ alert: reading.current == model.luminence ? "equal" : reading.current > model.luminence ? "high" : "low" }, { merge: true })
-      functions.logger.info("light alert update", { alert: reading.current == model.luminence ? "equal" : reading.current > model.luminence ? "high" : "low" });
+      functions.logger.info("light alert update", "nope");
+      await db.collection('sensors').doc(sensor.id).set({ alert: reading.current > model.luminence*1 ? "high" : "low" }, { merge: true })
+      // await db.collection('sensors').doc(sensor.id).set({ alert: reading.current == model.luminence*1 ? "equal" : reading.current > model.luminence*1 ? "high" : "low" }, { merge: true })
+      functions.logger.info("light alert update", { alert: reading.current == model.luminence*1 ? "equal" : "nope" });
     }
     else {
       functions.logger.info("No such category", { category });
@@ -193,19 +195,22 @@ exports.onNewSensor = functions.firestore.document('sensors/{sensorid}').onCreat
   async (snap, context) => {
     functions.logger.info("VIEWING WISHLIST");
     const sensor = snap.data()
-    functions.logger.info("sensor", { sensor });
+    functions.logger.info("sensor on new", { sensor });
 
-    const catId = sensor.categoryid
-    const modelId = sensor.modelId
+    const categoryDoc = await db.collection('categories').doc(sensor.categoryid).get()
+    const category = { id: categoryDoc.id, ...categoryDoc.data() }
 
-    const category = await db.collection('categories').doc(catId).get()
-    const model = await db.collection('categories').doc(catId).collection('models').doc(modelId).get()
+    const modelDoc = await db.collection('categories').doc(sensor.categoryid).collection('models').doc(sensor.modelId).get()
+    functions.logger.info("MODLES", { modelDoc });
+    const model = { id: modelDoc.id, ...modelDoc.data() }
 
-    const allUsers = await db.collection('users').get()
+    const allUsersDoc = await db.collection('users').get()
+    const allUsers = await allUsersDoc.docs.map(doc => ({ id: doc.id, ...doc.data() }))
 
     Promise.all(
       allUsers.map(async user => {
-        const wishlist = await db.collection('users').doc(user.id).collection('wishlist').get()
+        const wishlistDoc = await db.collection('users').doc(user.id).collection('wishlist').get()
+        const wishlist = wishlistDoc.docs.map(doc => ({ id: doc.id, ...doc.data() }))
         await matchWishlist(wishlist, model, category, user.id)
       })
     )

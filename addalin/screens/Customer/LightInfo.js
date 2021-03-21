@@ -6,13 +6,8 @@ import {
     View,
     TextInput
 } from "react-native";
-import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import db from '../../../db'
-
-const image = {
-    uri: "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif"
-    // uri: "https://cdn.nohat.cc/image_by_url.php?url=https://image.freepik.com/free-vector/blue-tones-blurred-background_1107-128.jpg"
-};
 
 export default function LightInfo({ user, category, sensor }) {
 
@@ -22,21 +17,53 @@ export default function LightInfo({ user, category, sensor }) {
     const [model, setModel] = useState(null);
     useEffect(() => sensor ? db.Categories.Models.listenOneById(setModel, sensor.categoryid, sensor.modelId) : undefined, [sensor])
 
+    const barValue = reading && model ? reading.current / model.luminence * 1 * 200 : 0
+
+    console.log("barValue", barValue)
     return (
         <View style={styles.container}>
-            <ImageBackground source={image} style={styles.image}>
-                <Text style={styles.thirdTitle}>Maximum Luminence: {model.luminence}</Text>
-                {
-                    reading
-                    &&
-                    <Text>
-                        Current: {reading.current}
-                    </Text>
-                }
-                <Text>
-                    Alert: {sensor.alert}
+            <Text style={styles.secTitle}>Luminence: {model && model.luminence}</Text>
+            {
+                reading
+                &&
+                <Text style={styles.thirdTitle}>
+                    Current: {reading.current}
                 </Text>
-            </ImageBackground>
+            }
+            <View style={styles.progressBar}>
+                <View style={{
+                    height: 20,
+                    width: barValue > 101 ? 200 : barValue < 0 ? 0 : barValue,
+                    backgroundColor: '#d554fb',
+                    // borderColor: '#000',
+                    // borderWidth: 2,
+                    borderRadius: 5
+                }}>
+                </View>
+            </View>
+            <>
+                {
+                    barValue > 100 ?
+                        <Icon
+                            style={{ marginLeft: 100, marginTop: 10, marginBottom: 10 }}
+                            size={40}
+                            name='sun-o'
+                            type='font-awesome-5'
+                            color='yellow'
+                        />
+                        :
+                        <Icon
+                            style={{ marginLeft: 100, marginTop: 10, marginBottom: 10 }}
+                            size={40}
+                            name='moon-o'
+                            type='font-awesome-5'
+                            color='white'
+                        />
+                }
+            </>
+            <Text style={styles.thirdTitle}>
+                Alert: {sensor.alert}
+            </Text>
         </View>
     );
 }
@@ -90,5 +117,15 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         marginHorizontal: 50,
         marginVertical: 7,
+    },
+    progressBar: {
+        height: 20,
+        width: 200,
+        marginLeft: 20,
+        marginTop: 10,
+        // backgroundColor: 'white',
+        borderColor: 'white',
+        borderWidth: 2,
+        borderRadius: 5
     }
 });
