@@ -7,11 +7,12 @@ import {
     TouchableOpacity,
     TextInput
 } from "react-native";
-import { Button, SafeAreaView, Alert } from 'react-native';
+import { SafeAreaView, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import CategoryByUserPicker from "../../../screens/pickers/CategoryByUserPicker";
 import SensorByUserAndCategoryPicker from "../../../screens/pickers/SensorByUserAndCategoryPicker";
-
+import styleExt from './style'
+import { Button } from 'react-native-elements'
 
 export default function AddSuggestion({ user }) {
     const [about, setAbout] = useState('app')
@@ -35,7 +36,7 @@ export default function AddSuggestion({ user }) {
 
 
     let validate = () => {
-        if (description === '' ||  title === '') {
+        if (description === '' || title === '') {
             return false
         }
         else if (about === 'sensor' && !sensor) {
@@ -46,17 +47,17 @@ export default function AddSuggestion({ user }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.loremIpsum}>
+            <Text style={styleExt.secTitle}>
                 Make Report
             </Text>
-            <View style={{ alignSelf: "center", }}>
-                <Text>
+            <View>
+                <Text style={styleExt.thirdTitle}>
                     About
                  </Text>
                 <Picker
-                    style={{ height: 50, width: 200 }}
                     selectedValue={about}
                     onValueChange={setAbout}
+                    style={{ ...styleExt.input, color: 'black' }}
                 >
                     <Picker.Item label='Bug in the App' value="app" />
                     <Picker.Item label='Your Sensor' value="sensor" />
@@ -65,42 +66,40 @@ export default function AddSuggestion({ user }) {
             </View>
             {
                 about === 'sensor' &&
-                    <View style={{ alignSelf: "center", }}>
-                        {
-                            user
-                            &&
-                            <CategoryByUserPicker set={setCategory} />
-                        }
-                        {
-                            user
-                            &&
-                            category
-                            &&
-                            <SensorByUserAndCategoryPicker category={category} set={setSensor} />
-                        }
-                    </View>
+                <View style={{ alignSelf: "center", }}>
+                    {
+                        user
+                        &&
+                        <CategoryByUserPicker set={setCategory} />
+                    }
+                    {
+                        user
+                        &&
+                        category
+                        &&
+                        <SensorByUserAndCategoryPicker category={category} set={setSensor} />
+                    }
+                </View>
             }
-            <View style={{ alignSelf: "center", }}>
-                <TextInput
-                    placeholder="Title"
-                    style={{ borderWidth: 1, borderColor: 'lightgray', width: 250, padding: 11, color: 'black' }}
-                    onChangeText={setTitle}
-                    value={title}
-                />
-            </View>
+            <TextInput
+                placeholder="Title"
+                style={styleExt.input}
+                onChangeText={setTitle}
+                value={title}
+            />
             <View>
                 <TextInput
                     multiline={true}
                     numberOfLines={10}
                     placeholder="Describe the Issue"
-                    style={styles.placeholder}
+                    style={styleExt.textarea}
                     onChangeText={setDescription}
                     value={description}
                 />
                 <Button
                     title="Add"
                     onPress={() => addReport()}
-                    color='green'
+                    buttonStyle={styleExt.button}
                     disabled={!validate()}
                 />
                 {/* {
@@ -116,7 +115,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-start',
         marginHorizontal: 6,
-        backgroundColor: 'snow',
+        backgroundColor: 'rgba(71, 1, 120, 0.27)',
         marginTop: 10
     },
     loremIpsum: {

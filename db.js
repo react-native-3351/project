@@ -114,6 +114,21 @@ class Readings extends DB {
     listenLatestOne = (set, sensorId) =>
         db.collection(this.containing).doc(sensorId).collection(this.collection).orderBy("when", "desc").limit(1).onSnapshot(snap => set(snap.docs.map(this.reformat)[0]))
 
+    //Omar Sayed
+    listenCarsInParkings = (set, sensorId) =>
+        db.collection(this.containing).doc(sensorId).collection(this.collection).where('out', '==', '').onSnapshot(snap => set(snap.docs.map(this.reformat)))
+    findAllCarsInParkings = async sensorId => {
+        const data = await db.collection(this.containing).doc(sensorId).collection(this.collection).where('out', '==', '').get()
+        return data.docs.map(this.reformat)
+    }
+    findByPlate = async (sensorId, carPlate) => {
+        const data = await  db.collection(this.containing).doc(sensorId).collection(this.collection).where('out', '==', '').where('carPlate', '==', carPlate).get()
+        return data.docs.map(this.reformat)[0]
+    }
+    updatePlate = async (sensorId,item) => {
+        const { id, ...rest } = item
+        await db.collection(this.containing).doc(sensorId).collection(this.collection).doc(id).set(rest)
+    }
 }
 //Omar Sayed
 class Queries extends DB {
@@ -189,7 +204,7 @@ class FollowUpForm extends DB {
     }
     listenAllByRepo = (repoId, set) =>
         db.collection(this.containing).doc(repoId).collection(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
- 
+
     newFollowUpForm = (repoId, item) =>
         db.collection(this.containing).doc(repoId).collection(this.collection).add(item)
 

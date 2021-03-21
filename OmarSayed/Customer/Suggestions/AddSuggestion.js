@@ -7,8 +7,9 @@ import {
     TouchableOpacity,
     TextInput
 } from "react-native";
-import { Button, SafeAreaView, Alert } from 'react-native';
-
+import { SafeAreaView, Alert } from 'react-native';
+import {Button} from 'react-native-elements'
+import styleExt from './style'
 
 export default function AddSuggestion({user}) {
     const [description, setDescription] = useState('')
@@ -20,7 +21,7 @@ export default function AddSuggestion({user}) {
     }
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.loremIpsum}>
+            <Text style={styleExt.thirdTitle}>
                 What would you like to see in our app? 😀
             </Text>
             <View>
@@ -28,15 +29,15 @@ export default function AddSuggestion({user}) {
                     multiline={true}
                     numberOfLines={10}
                     placeholder="Describe the suggestion"
-                    style={styles.placeholder}
+                    style={styleExt.textarea}
                     onChangeText={setDescription}
                     value={description}
                 />
                 <Button
                     title="Add"
                     onPress={() => addSuggestion()}
-                    color='green'
                     disabled={description.length === 0 ? true : false}
+                    buttonStyle={styleExt.button}
                 />
             </View>
         </SafeAreaView>
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-start',
         marginHorizontal: 6,
-        backgroundColor: 'snow'
+        marginTop: 20
     },
     loremIpsum: {
         color: "#121212",

@@ -17,21 +17,23 @@ export default function ReportsScreen() {
     const [allReports, setAllReports] = useState([])
     useEffect(() => db.Reports.listenAllForCS(user.id, setAllReports), [user])
 
-    console.log(allReports)
+    // console.log(allReports)
     const [title, setTitle] = useState('')
     const [details, setDetails] = useState('')
     const [status, setStatus] = useState('ongoing')
 
 
     const newFollowUpForm = async () => {
-        await db.Reports.update({ ...selectedRepo, status })
         await db.Reports.FollowUpForm.newFollowUpForm(selectedRepo.id, { title, details, by: [user.id, user.name], createdDate: new Date() })
+        db.Reports.update({ ...selectedRepo, status })
+        setSelectedRepo({ ...selectedRepo, status })
         setTitle('')
         setDetails('')
         setStatus('ongoing')
         setModalVisible(!modalVisible)
         Alert.alert('Created ✔')
     }
+    // console.log(selectedRepo)
     const [modalVisible, setModalVisible] = useState(false);
 
     const [selectedRepo, setSelectedRepo] = useState(null)
@@ -49,7 +51,7 @@ export default function ReportsScreen() {
                 onRequestClose={() => {
                     Alert.alert("Modal has been closed.");
                     setModalVisible(!modalVisible);
-                }}
+                }}hggjjjgiufk
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
@@ -83,6 +85,7 @@ export default function ReportsScreen() {
                             title="Create"
                             onPress={() => newFollowUpForm()}
                             buttonStyle={{ backgroundColor: 'green', marginTop: 20, marginBottom: 5 }}
+                            disabled={title !== '' && details !== '' ? false : true}
                         />
                         <Button
                             title="  Close"
@@ -129,10 +132,10 @@ export default function ReportsScreen() {
                                 />
                                 :
                                 <Button
-                                title="Closed"
-                                disabled={true}
-                                buttonStyle={{ backgroundColor: 'green', marginBottom: 5, marginTop: 20 }}
-                            />
+                                    title="Closed"
+                                    disabled={true}
+                                    buttonStyle={{ backgroundColor: 'green', marginBottom: 5, marginTop: 20 }}
+                                />
 
                         }
 

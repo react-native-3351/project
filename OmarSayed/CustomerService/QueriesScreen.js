@@ -49,20 +49,23 @@ export default function QueriesScreen() {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <TextInput
-                            style={{ height: 40, width: 200, borderColor: 'gray', backgroundColor: 'snow', borderWidth: 1, paddingLeft: 11 }}
+                            style={{  width: 200, borderColor: 'gray', backgroundColor: 'snow', borderWidth: 1, paddingLeft: 11 }}
                             onChangeText={text => setAns(text)}
                             value={ans}
                             placeholder='Answer ...'
+                            multiline={true}
+                            numberOfLines={10}
                         />
                         <Button
                             title="  Submit"
                             onPress={() => submitAns()}
-                            buttonStyle={{backgroundColor:'green', marginTop: 10}}
+                            buttonStyle={{ backgroundColor: 'green', marginTop: 10 }}
+                            disabled={ans === '' ? true : false}
                         />
                         <Button
                             title="  Close"
-                            onPress={() =>  setModalVisible(!modalVisible)}
-                            buttonStyle={{backgroundColor:'red', marginTop: 10}}
+                            onPress={() => setModalVisible(!modalVisible)}
+                            buttonStyle={{ backgroundColor: 'red', marginTop: 10 }}
                         />
                         {/* <Pressable
                             style={[styles.button, styles.buttonClose]}
@@ -74,13 +77,16 @@ export default function QueriesScreen() {
                 </View>
             </Modal>
 
-            <Text style={styles.title}>Users unAnswered Questions</Text>
+            <Text style={styles.title}>Users Queries</Text>
             <ScrollView style={styles.scrollView}>
                 {
                     allQueries.map((i, index) =>
-                        <View key={i.id} style={{ borderWidth: 2, padding: 7, margin: 7, display: 'flex', justifyContent: 'center' }}>
+                        <View key={i.id} style={{ borderWidth: 1, padding: 7, margin: 7, }}>
                             <View style={styles.sensorBlocks}>
-                                <Text>{i.question}</Text>
+                                <Text>Question {i.question}</Text>
+                            </View>
+                            <View style={styles.sensorBlocks}>
+                                <Text> Sensor ID: {i.sensorId}</Text>
                             </View>
                             {/* <View style={styles.sensorBlocksReply}> */}
                             {i.reply === '' ?
@@ -92,17 +98,19 @@ export default function QueriesScreen() {
                                             setModalVisible(true)
                                         }}
                                     >
-                                        <Text style={styles.textStyle}>Show Modal</Text>
+                                        <Text style={styles.textStyle}>Answer</Text>
                                     </Pressable>
 
                                 </>
                                 :
                                 <></>
                             }
-                            {/* </View> */}
                         </View>
                     )
                 }
+                <Text style={styles.title2}>
+                    {allQueries.length === 0 && 'No Questions yet'}
+                </Text>
             </ScrollView>
         </SafeAreaView>
     );
@@ -169,20 +177,28 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         alignSelf: 'center',
-        backgroundColor:'lightblue',
+        backgroundColor: 'lightblue',
         padding: 10
+    },
+    title2: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        color: 'red',
+        padding: 15,
+        marginTop: 30
     },
     separator: {
         marginVertical: 30,
         height: 1,
         width: '80%',
     },
-    //Omar Sayed
     sensorBlocks: {
-        backgroundColor: '#fc86d9',
+        // backgroundColor: '#fc86d9',
+        backgroundColor: 'white',
         padding: 11,
-        width: '80%',
-        margin: 3
+        width: '100%',
+        // margin: 3
     },
     sensorBlocksReply: {
         backgroundColor: 'lightgreen',
@@ -194,9 +210,10 @@ const styles = StyleSheet.create({
     }, container: {
         flex: 1,
         paddingTop: StatusBar.currentHeight,
+        backgroundColor: 'white'
     },
     scrollView: {
-        backgroundColor: 'lightgrey',
+        backgroundColor: 'white',
         marginHorizontal: 0,
     },
     text: {
@@ -224,12 +241,12 @@ const styles = StyleSheet.create({
         elevation: 5
     },
     button: {
-        borderRadius: 20,
+        borderRadius: 5,
         padding: 10,
         elevation: 2
     },
     buttonOpen: {
-        backgroundColor: "#F194FF",
+        backgroundColor: "blue",
     },
     buttonClose: {
         backgroundColor: "#2196F3",

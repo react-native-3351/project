@@ -5,47 +5,59 @@ import {
     View,
     Text,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    ImageBackground
 } from "react-native";
-import { Button, SafeAreaView, Alert } from 'react-native';
-
+import { SafeAreaView, Alert } from 'react-native';
+import { Dimensions } from 'react-native';
+import { Button } from 'react-native-elements'
 import AddSuggestion from './AddSuggestion'
 import ShowSuggestions from './ShowSuggestions'
 import UserPrevSuggestions from './UserPrevSuggestions'
 
+const image = {
+    uri: "https://cdn.nohat.cc/image_by_url.php?url=https://image.freepik.com/free-vector/blue-tones-blurred-background_1107-128.jpg"
+};
+
 export default function SuggestionsScreen() {
     const [tab, setTab] = useState('AddSuggestion')
     const { user } = useContext(UserContext)
+
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.loremIpsum}>
-                {/* What would you like to see in our app? 😀 */}
-            </Text>
-            <View>
+            <ImageBackground source={image} style={styles.image}>
+                <Text style={styles.loremIpsum}>
+                    {/* What would you like to see in our app? 😀 */}
+                </Text>
                 <View style={styles.fixToText}>
                     <Button
-                        title="Add Suggestion"
+                        title="+ Suggestion"
                         onPress={() => setTab('AddSuggestion')}
+                        buttonStyle={{ width: (windowWidth / 3) - 15 }}
                     />
                     <Button
                         title="Show Prev"
                         onPress={() => setTab('PrevSuggestions')}
+                        buttonStyle={{ width: (windowWidth / 3) - 15 }}
                     />
                     <Button
                         title="Vote"
                         onPress={() => setTab('Vote')}
+                        buttonStyle={{ width: (windowWidth / 3) - 15 }}
                     />
                 </View>
-            </View>
 
-            {
-                /* section to submit the suggestion*/
-                tab === 'AddSuggestion' && <AddSuggestion user={user} /> ||
-                /* section two: to check previous suggestions */
-                tab === 'PrevSuggestions' && <UserPrevSuggestions user={user} /> ||
-                /*secion three: to see and vote for others*/
-                tab === 'Vote' && <ShowSuggestions user={user} />
-            }
+                {
+                    /* section to submit the suggestion*/
+                    tab === 'AddSuggestion' && <AddSuggestion user={user} /> ||
+                    /* section two: to check previous suggestions */
+                    tab === 'PrevSuggestions' && <UserPrevSuggestions user={user} /> ||
+                    /*secion three: to see and vote for others*/
+                    tab === 'Vote' && <ShowSuggestions user={user} />
+                }
+            </ImageBackground>
         </SafeAreaView>
     );
 }
@@ -54,7 +66,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        marginHorizontal: 16,
+        // marginHorizontal: 16,
+    },
+    image: {
+        flex: 1,
+        resizeMode: "cover",
     },
     loremIpsum: {
         color: "#121212",

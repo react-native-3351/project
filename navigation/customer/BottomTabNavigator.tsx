@@ -48,13 +48,6 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Settings"
-        component={TabThreeNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
         name="Queries"
         component={QueriesScreen}
         options={{
@@ -72,7 +65,14 @@ export default function BottomTabNavigator() {
         name="Reports"
         component={ReportsScreen}
         options={{
-          tabBarIcon: ({ color }) =><MaterialIcons name="report" size={24} color="gray" />,
+          tabBarIcon: ({ color }) => <MaterialIcons name="report" size={24} color="gray" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Settings"
+        component={TabThreeNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
       />
     </BottomTab.Navigator>

@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import { View } from '../../components/Themed';
 import MotionInfo from './MotionInfo'
 import TemperatureInfo from './TemperatureInfo'
+import ParkingInfo from '../../OmarSayed/Customer/Sensors/ParkingInfo'
 import CategoryByUserPicker from '../pickers/CategoryByUserPicker';
 import SensorByUserAndCategoryPicker from '../pickers/SensorByUserAndCategoryPicker';
 import UserContext from '../../UserContext'
@@ -49,6 +50,11 @@ export default function SensorsScreen() {
               category.name === "Temperature"
               &&
               <TemperatureInfo user={user} category={category} sensor={sensor} />
+            }
+               {
+              category.name === "Ultrasonic"
+              &&
+              <ParkingInfo user={user} category={category} sensor={sensor} />
             }
           </>
         }
