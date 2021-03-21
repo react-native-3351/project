@@ -1,12 +1,20 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
-import { Button, Overlay, Card } from 'react-native-elements';
-import { View, Text } from '../../../components/Themed';
-import UserContext from '../../../UserContext'
+import React, { useState, useEffect } from 'react';
+import { Button, Card } from 'react-native-elements';
+import {
+    ImageBackground,
+    StyleSheet,
+    Text,
+    View,
+    ScrollView,
+    TextInput
+} from "react-native";
 import db from '../../../db'
 
 export default function ViewFavoritesSensorScreen({ sensorId }) {
-
+    const image = {
+        uri: "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif"
+        // uri: "https://cdn.nohat.cc/image_by_url.php?url=https://image.freepik.com/free-vector/blue-tones-blurred-background_1107-128.jpg"
+    };
     const [sensor, setSensor] = useState(null);
     const [cat, setCat] = useState(null);
     const [model, setModel] = useState(null);
@@ -19,99 +27,95 @@ export default function ViewFavoritesSensorScreen({ sensorId }) {
 
     return (
         <View>
-            <View style={styles.getStartedContainer}>
-                <Card>
-                    <Card.Title>Sensor Details</Card.Title>
-                    <Card.Divider />
-                    <Text style={{ marginBottom: 10 }}>Category: {cat ? cat.name : ""}</Text>
-                    <Text style={{ marginBottom: 10 }}>Location: {sensor ? sensor.location : ""}</Text>
-                    <Text style={{ marginBottom: 10 }}>Material: {model ? model.material : ""}</Text>
-                    <Text style={{ marginBottom: 10 }}>techUsed: {model ? model.techUsed : ""}</Text>
-                    <Text style={{ marginBottom: 10 }}>Active: {model ? model.active ? "yes" : "no" : ""}</Text>
-                    <Text style={{ marginBottom: 10 }}>Contact: {model ? model.contact ? "yes" : "no" : ""}</Text>
-                    {
-                        cat && cat.name == "Temperature"
-                            ?
-                            <>
-                                <Text style={{ marginBottom: 10 }}>Min: {model ? model.min : ""}</Text>
-                                <Text style={{ marginBottom: 10 }}>Max: {model ? model.max : ""}</Text>
-                            </>
-                            :
-                            <></>
+            <View style={styles.container}>
+                <ImageBackground source={image} style={styles.image}>
+                    <Card>
+                        <Card.Title>Sensor Details</Card.Title>
+                        <Card.Divider />
+                        <Text style={{ marginBottom: 10 }}>Category: {cat ? cat.name : ""}</Text>
+                        <Text style={{ marginBottom: 10 }}>Location: {sensor ? sensor.location : ""}</Text>
+                        <Text style={{ marginBottom: 10 }}>Material: {model ? model.material : ""}</Text>
+                        <Text style={{ marginBottom: 10 }}>techUsed: {model ? model.techUsed : ""}</Text>
+                        <Text style={{ marginBottom: 10 }}>Active: {model ? model.active ? "yes" : "no" : ""}</Text>
+                        <Text style={{ marginBottom: 10 }}>Contact: {model ? model.contact ? "yes" : "no" : ""}</Text>
+                        {
+                            cat && cat.name == "Temperature"
+                                ?
+                                <>
+                                    <Text style={{ marginBottom: 10 }}>Min: {model ? model.min : ""}</Text>
+                                    <Text style={{ marginBottom: 10 }}>Max: {model ? model.max : ""}</Text>
+                                </>
+                                :
+                                <></>
 
-                    }
-                </Card>
+                        }
+                        {
+                            cat && cat.name == "Light"
+                                ?
+                                <>
+                                    <Text style={{ marginBottom: 10 }}>Luminence: {model ? model.luminence : ""}</Text>
+                                </>
+                                :
+                                <></>
+
+                        }
+                    </Card>
+                </ImageBackground>
             </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    tinyLogo: {
-        width: 150,
-        height: 150,
-    },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        flexDirection: "column",
+        width: 300
     },
-    developmentModeText: {
-        marginBottom: 20,
-        fontSize: 14,
-        lineHeight: 19,
-        textAlign: 'center',
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        // justifyContent: "center"
+        paddingTop: 50
     },
-    contentContainer: {
-        paddingTop: 30,
+    mainTitle: {
+        fontSize: 42,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "white"
     },
-    welcomeContainer: {
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 20,
+    secTitle: {
+        fontSize: 32,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "white"
     },
-    welcomeImage: {
-        width: 100,
-        height: 80,
-        resizeMode: 'contain',
-        marginTop: 3,
-        marginLeft: -10,
+    thirdTitle: {
+        fontSize: 22,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "white"
     },
-    getStartedContainer: {
-        alignItems: 'center',
+    input: {
+        borderWidth: 5,
+        borderColor: "#2a2a2a",
+        backgroundColor: "white",
+        width: 250,
+        borderRadius: 30,
+        padding: 10,
+        marginHorizontal: 30,
+        marginVertical: 12,
     },
-    homeScreenFilename: {
+    paragraph: {
+        fontSize: 12,
+        textAlign: "center",
+        color: "white"
+    },
+    button: {
+        // backgroundColor:'#2a2a2a',
+        backgroundColor: 'purple',
+        borderRadius: 30,
+        marginHorizontal: 50,
         marginVertical: 7,
-    },
-    codeHighlightText: {
-        color: 'rgba(96,100,109, 0.8)',
-    },
-    codeHighlightContainer: {
-        borderRadius: 3,
-        paddingHorizontal: 4,
-    },
-    getStartedText: {
-        fontSize: 17,
-        lineHeight: 24,
-        textAlign: 'center',
-    },
-    helpContainer: {
-        marginTop: 15,
-        marginHorizontal: 20,
-        alignItems: 'center',
-    },
-    helpLink: {
-        paddingVertical: 15,
-    },
-    helpLinkText: {
-        textAlign: 'center',
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
     },
 });

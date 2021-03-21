@@ -1,12 +1,24 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Button, Overlay, ListItem, Input } from 'react-native-elements';
+import { Overlay, ListItem, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { StyleSheet, ScrollView } from 'react-native';
-import { View, Text } from '../../../components/Themed';
+import {
+    ImageBackground,
+    StyleSheet,
+    Text,
+    View,
+    ScrollView,
+    TextInput
+} from "react-native";
+import { Button } from 'react-native-elements';
 import UserContext from '../../../UserContext'
 import db from '../../../db'
 
 export default function LiveChatScreen() {
+
+    const image = {
+        uri: "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif"
+        // uri: "https://cdn.nohat.cc/image_by_url.php?url=https://image.freepik.com/free-vector/blue-tones-blurred-background_1107-128.jpg"
+    };
 
     const { user } = useContext(UserContext)
     const userId = user.id ? user.id : '-'
@@ -39,157 +51,141 @@ export default function LiveChatScreen() {
     }
 
     return (
-        <View>
-            <View style={styles.getStartedContainer}>
-                <Button
-                    title="Open Chat"
-                    onPress={toggleOverlay}
-                    width={60}
-                    height={60}
-                    borderRadius={30}
-                    backgroundColor='#ee6e73'
-                    position='absolute'
-                    bottom={10}
-                    right={10}
-                />
+        <ImageBackground source={image} style={styles.image}>
+            <View>
+                <View>
+                    <Button
+                        title="Open Chat"
+                        onPress={toggleOverlay}
+                        buttonStyle={styles.button}
+                        position='absolute'
+                        bottom={10}
+                        right={10}
+                    />
 
-                <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-                    <View style={styles.getStartedContainer}>
-                        <Text>Live Chat</Text>
-                        <ScrollView style={styles.scrollView}>
-                            {messages.length !== 0 ?
-                                messages.map((message) => {
-                                    return (
-                                        <ListItem style={{ width: 350, textAlign: "right", backgroundColor: "#ebebeb" }} key={message.id} bottomDivider>
+                    <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+                        <View style={styles.container}>
+                            <ImageBackground source={image} style={styles.image}>
+                                <Text style={styles.secTitle}>Live Chat</Text>
+                                <ScrollView>
+                                    {messages.length !== 0 ?
+                                        messages.map((message) => {
+                                            return (
+                                                <ListItem style={{ width: 350 }} containerStyle={{ backgroundColor: "black" }} key={message.id} bottomDivider>
+                                                    <ListItem.Content>
+                                                        <ListItem.Title><Text style={styles.thirdTitle}>{message.message}</Text></ListItem.Title>
+                                                    </ListItem.Content>
+                                                </ListItem>
+                                            )
+                                        })
+                                        :
+                                        <ListItem style={{ width: 350 }} containerStyle={{ backgroundColor: "black" }} key={1}>
                                             <ListItem.Content>
-                                                <ListItem.Title>{message.message}</ListItem.Title>
+                                                <ListItem.Title><Text style={styles.thirdTitle}>Need Help ? Post Your Message Here</Text></ListItem.Title>
                                             </ListItem.Content>
                                         </ListItem>
-                                    )
-                                })
-                                :
-                                <ListItem style={{ width: 350 }} key={1}>
-                                    <ListItem.Content>
-                                        <ListItem.Title>Need Help ? Post Your Message Here</ListItem.Title>
-                                    </ListItem.Content>
-                                </ListItem>
-                            }
-                        </ScrollView>
-                        <View style={{ flexDirection: "row" }}>
-                            <Input
-                                placeholder='Type Your Message...'
-                                onChangeText={value => setChat(value)}
-                                value={chat}
-                            />
-                            {
-                                chat !== ""
-                                    ?
-                                    <Button
-                                        type="clear"
-                                        icon={
-                                            <Icon
-                                                size={40}
-                                                name='telegram'
-                                                type='font-awesome'
-                                                color='#339FFF'
-                                            />
-                                        }
-                                        iconRight
-                                        onPress={sendMessage}
+                                    }
+                                </ScrollView>
+                                <View style={{ flexDirection: "row" }}>
+                                    <TextInput
+                                        style={styles.input}
+                                        placeholder='Type Your Message...'
+                                        onChangeText={value => setChat(value)}
+                                        value={chat}
                                     />
-                                    :
-                                    <Button
-                                        type="clear"
-                                        onPress={() => { }}
-                                        icon={
-                                            <Icon
-                                                size={40}
-                                                name='telegram'
-                                                type='font-awesome'
-                                                color='#808080'
+                                    {
+                                        chat !== ""
+                                            ?
+                                            <Button
+                                                type="clear"
+                                                icon={
+                                                    <Icon
+                                                        size={40}
+                                                        name='telegram'
+                                                        type='font-awesome'
+                                                        color='#d554fb'
+                                                    />
+                                                }
+                                                marginTop="20"
+                                                onPress={sendMessage}
                                             />
-                                        }
-                                    />
-                            }
+                                            :
+                                            <Button
+                                                type="clear"
+                                                onPress={() => { }}
+                                                icon={
+                                                    <Icon
+                                                        size={40}
+                                                        name='telegram'
+                                                        type='font-awesome'
+                                                        color='#808080'
+                                                    />
+                                                }
+                                            />
+                                    }
 
 
 
+                                </View>
+                                <Button buttonStyle={styles.button} title="Close Chat" onPress={toggleOverlay} />
+                            </ImageBackground>
                         </View>
-                        <Button title="Close Chat" onPress={toggleOverlay} />
-                    </View>
-                </Overlay>
+                    </Overlay>
+                </View>
             </View>
-        </View>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
-    tinyLogo: {
-        width: 150,
-        height: 150,
-    },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        flexDirection: "column"
     },
-    developmentModeText: {
-        marginBottom: 20,
-        fontSize: 14,
-        lineHeight: 19,
-        textAlign: 'center',
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        // justifyContent: "center"
+        paddingTop: 50
     },
-    contentContainer: {
-        paddingTop: 30,
+    mainTitle: {
+        fontSize: 42,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "white"
     },
-    welcomeContainer: {
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 20,
+    secTitle: {
+        fontSize: 32,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "white"
     },
-    welcomeImage: {
-        width: 100,
-        height: 80,
-        resizeMode: 'contain',
-        marginTop: 3,
-        marginLeft: -10,
+    thirdTitle: {
+        fontSize: 22,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "white"
     },
-    getStartedContainer: {
-        alignItems: 'center',
+    input: {
+        borderWidth: 5,
+        borderColor: "#2a2a2a",
+        backgroundColor: "white",
+        width: 250,
+        borderRadius: 30,
+        padding: 10,
+        marginHorizontal: 30,
+        marginVertical: 12,
+    },
+    paragraph: {
+        fontSize: 12,
+        textAlign: "center",
+        color: "white"
+    },
+    button: {
+        // backgroundColor:'#2a2a2a',
+        backgroundColor: 'purple',
+        borderRadius: 30,
         marginHorizontal: 50,
-    },
-    homeScreenFilename: {
         marginVertical: 7,
-    },
-    codeHighlightText: {
-        color: 'rgba(96,100,109, 0.8)',
-    },
-    codeHighlightContainer: {
-        borderRadius: 3,
-        paddingHorizontal: 4,
-    },
-    getStartedText: {
-        fontSize: 17,
-        lineHeight: 24,
-        textAlign: 'center',
-    },
-    helpContainer: {
-        marginTop: 15,
-        marginHorizontal: 20,
-        alignItems: 'center',
-    },
-    helpLink: {
-        paddingVertical: 15,
-    },
-    helpLinkText: {
-        textAlign: 'center',
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
     },
 });
