@@ -1,29 +1,34 @@
-import * as Linking from 'expo-linking';
+import * as Linking from "expo-linking";
 
 export default {
-  prefixes: [Linking.makeUrl('/')],
-  config: {
-    screens: {
-      Root: {
+    prefixes: [Linking.makeUrl("/")],
+    config: {
         screens: {
-          TabOne: {
-            screens: {
-              DashboardScreen: 'one',
+            Root: {
+                screens: {
+                    TabOne: {
+                        screens: {
+                            DashboardScreen: "one",
+                        },
+                    },
+                    TabTwo: {
+                        screens: {
+                            ActionsScreen: "two",
+                        },
+                    },
+                    TabThree: {
+                        screens: {
+                            SettingsScreen: "three",
+                        },
+                    },
+                    TabFour: {
+                        screens: {
+                            SettingsScreen: "three",
+                        },
+                    },
+                },
             },
-          },
-          TabTwo: {
-            screens: {
-              ActionsScreen: 'two',
-            },
-          },
-          TabThree: {
-            screens: {
-              SettingsScreen: 'three',
-            },
-          },
+            NotFound: "*",
         },
-      },
-      NotFound: '*',
     },
-  },
 };

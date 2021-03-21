@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet, Alert } from "react-native";
+import { StyleSheet, Alert, TextInput, Text, ImageBackground } from "react-native";
 import { View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import UserContext from "../../UserContext";
-import { Button, Input, Text } from "react-native-elements";
+import { Button } from "react-native-elements";
 import UserPicker from "../../screens/pickers/UserPicker";
 import db from "../../db";
 
@@ -28,36 +28,50 @@ export default function NotifsAsmarScreen() {
         setTitle("");
         setBody("");
         setLink("");
-        Alert.alert("Notification Sent!", null, null, { cancelable: true });
+        Alert.alert("Sent!", null, null, { cancelable: true });
         //console.log("Notification sent!");
     };
 
     return (
-        <View>
-            <View style={styles.getStartedContainer}>
-                <Text h2>Send Notification</Text>
-                <UserPicker set={setUserNotif} />
-                <Text>Leave empty to send to all</Text>
-                <Input
-                    label="Title"
+        <View style={styles.container}>
+            <ImageBackground
+                source={{
+                    uri:
+                        "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif",
+                }}
+                style={styles.image}
+            >
+                <Text style={styles.mainTitle}>Send Notification{"\n"}</Text>
+                <Text style={styles.label}>Receiver</Text>
+                <UserPicker set={setUserNotif} style={styles.input} defaultLabel="Send to All" />
+                <Text style={styles.label}>Title</Text>
+                <TextInput
                     placeholder="Title"
                     value={title}
                     onChangeText={(value) => setTitle(value)}
+                    style={styles.input}
                 />
-                <Input
-                    label="Body"
+                <Text style={styles.label}>Body</Text>
+                <TextInput
                     placeholder="Body"
                     value={body}
                     onChangeText={(value) => setBody(value)}
+                    style={styles.input}
                 />
-                <Input
-                    label="Link"
+                <Text style={styles.label}>Link</Text>
+                <TextInput
                     placeholder="Link"
                     value={link}
                     onChangeText={(value) => setLink(value)}
+                    style={styles.input}
                 />
-                <Button title="Submit" onPress={submit} disabled={!isValid()} />
-            </View>
+                <Button
+                    title="Submit"
+                    onPress={submit}
+                    disabled={!isValid()}
+                    buttonStyle={styles.button}
+                />
+            </ImageBackground>
         </View>
     );
 }
@@ -65,6 +79,74 @@ export default function NotifsAsmarScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
+        flexDirection: "column",
+    },
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        // justifyContent: "center"
+        paddingTop: 50,
+    },
+    mainTitle: {
+        fontSize: 42,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "white",
+    },
+    secTitle: {
+        fontSize: 32,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "white",
+    },
+    thirdTitle: {
+        fontSize: 22,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "white",
+    },
+    input: {
+        borderWidth: 5,
+        borderColor: "#2a2a2a",
+        backgroundColor: "white",
+        color: "black",
+        borderRadius: 30,
+        padding: 10,
+        paddingLeft: 15,
+        marginHorizontal: 30,
+        marginVertical: 12,
+    },
+    inputDisplay: {
+        paddingTop: 20,
+    },
+    paragraph: {
+        fontSize: 12,
+        textAlign: "center",
+        color: "white",
+    },
+    button: {
+        // backgroundColor:'#2a2a2a',
+        backgroundColor: "purple",
+        borderRadius: 30,
+        marginHorizontal: 50,
+        marginVertical: 7,
+    },
+    label: {
+        fontSize: 16,
+        color: "white",
+        textAlign: "left",
+        marginHorizontal: 40,
+        marginBottom: -10,
+    },
+    picker: {
+        borderWidth: 5,
+        borderColor: "#2a2a2a",
+        backgroundColor: "white",
+        color: "black",
+        borderRadius: 30,
+        padding: 10,
+        paddingLeft: 15,
+        marginHorizontal: 30,
+        marginVertical: 12,
     },
 });

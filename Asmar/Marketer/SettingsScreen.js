@@ -1,26 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet } from "react-native";
-import db from "../../db";
-import { Picker } from "@react-native-picker/picker";
+import React, { useContext } from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View } from "../../components/Themed";
+import Colors from "../../constants/Colors";
+import UserContext from "../../UserContext";
+import fb from "../../fb";
 
-//Asmar: added styling and default
-export default function UserPicker({ set, style, defaultLabel }) {
-    const [users, setUsers] = useState([]);
-    useEffect(() => db.Users.listenAll(setUsers), []);
-    const [userId, setUserId] = useState("");
-    useEffect(() => db.Users.listenOne(set, userId), [userId]);
+export default function SettingsScreen() {
+    const { user } = useContext(UserContext);
+
+    const logout = async () => {
+        await fb.auth().signOut();
+    };
+
+    console.log(user);
 
     return (
-        <Picker
-            style={{ height: 50, width: 200, ...style }}
-            selectedValue={userId}
-            onValueChange={setUserId}
-        >
-            <Picker.Item label={defaultLabel ? defaultLabel : "Select User"} value="" />
-            {users.map((user) => (
-                <Picker.Item key={user.id} label={user.name} value={user.id} />
-            ))}
-        </Picker>
+        <View>
+            <View style={styles.getStartedContainer}>
+                <TouchableOpacity onPress={logout} style={styles.title}>
+                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+                        Logout
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        </View>
     );
 }
 

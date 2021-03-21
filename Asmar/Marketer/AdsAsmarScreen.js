@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TextInput, ImageBackground, Text, Pressable } from "react-native";
+import { Button } from "react-native-elements";
 import { View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import UserContext from "../../UserContext";
-import { Button, Input, Text } from "react-native-elements";
 import UserPicker from "../../screens/pickers/UserPicker";
 import * as ImagePicker from "expo-image-picker";
 import db from "../../db";
-import DatePicker from "react-native-datepicker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import fb from "../../fb";
 
 export default function NotifsAsmarScreen() {
@@ -23,12 +23,13 @@ export default function NotifsAsmarScreen() {
     }, []);
 
     const { user } = useContext(UserContext);
-    const [altText, setAltText] = useState("");
     const [link, setLink] = useState("");
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
+    const [startDate, setStartDate] = useState(new Date());
+    const [showStartDate, setShowStartDate] = useState(false);
+    const [endDate, setEndDate] = useState(new Date());
+    const [showEndDate, setShowEndDate] = useState(false);
 
-    const isValid = () => altText && link && startDate && endDate && startDate < endDate;
+    const isValid = () => link && startDate && endDate && startDate < endDate;
 
     const submit = async () => {
         const image = await ImagePicker.launchImageLibraryAsync({
@@ -43,7 +44,6 @@ export default function NotifsAsmarScreen() {
                 userId: user.id,
                 startDate,
                 endDate,
-                altText,
                 link,
             });
             // image's name is the ad's id
@@ -61,44 +61,66 @@ export default function NotifsAsmarScreen() {
         }
     };
 
+    const formatDate = (date) => {
+        return date instanceof Date
+            ? `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+            : "";
+    };
+
     return (
-        <View>
-            <View style={styles.getStartedContainer}>
-                <Text h2>Upload Advertisement</Text>
-                <Input
-                    label="Describe the Advertisement"
-                    placeholder="Alt Text"
-                    value={altText}
-                    onChangeText={(value) => setAltText(value)}
-                />
-                <Input
-                    label="Link"
+        <View style={styles.container}>
+            <ImageBackground
+                source={{
+                    uri:
+                        "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif",
+                }}
+                style={styles.image}
+            >
+                <Text style={styles.mainTitle}>Upload Advertisement{"\n"}</Text>
+                <Text style={styles.label}>Link</Text>
+                <TextInput
                     placeholder="Link"
                     value={link}
                     onChangeText={(value) => setLink(value)}
+                    style={styles.input}
                 />
-                <Text>Start Date</Text>
-                <DatePicker
-                    style={{ width: 200 }}
-                    date={startDate}
-                    onDateChange={(value) => setStartDate(value)}
-                    mode="date"
-                    format="YYYY-MM-DD"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
+                <Text style={styles.label}>Start Date</Text>
+                <Pressable onPress={() => setShowStartDate(true)}>
+                    <Text style={[styles.input, styles.inputDisplay]}>{formatDate(startDate)}</Text>
+                </Pressable>
+                {showStartDate && (
+                    <DateTimePicker
+                        minimumDate={new Date()}
+                        value={startDate}
+                        onChange={(event, date) => {
+                            setShowStartDate(false);
+                            date instanceof Date && setStartDate(date);
+                            if (startDate > endDate) setEndDate(startDate);
+                        }}
+                    />
+                )}
+                <Text style={styles.label}>End Date</Text>
+                <Pressable onPress={() => setShowEndDate(true)}>
+                    <Text style={[styles.input, styles.inputDisplay]}>{formatDate(endDate)}</Text>
+                </Pressable>
+                {showEndDate && (
+                    <DateTimePicker
+                        minimumDate={startDate}
+                        value={endDate}
+                        onChange={(event, date) => {
+                            setShowEndDate(false);
+                            date instanceof Date && setEndDate(date);
+                            if (startDate > endDate) setStartDate(endDate);
+                        }}
+                    />
+                )}
+                <Button
+                    buttonStyle={styles.button}
+                    title="Upload Image"
+                    onPress={submit}
+                    disabled={!isValid()}
                 />
-                <Text>End Date</Text>
-                <DatePicker
-                    style={{ width: 200 }}
-                    date={endDate}
-                    onDateChange={(value) => setEndDate(value)}
-                    mode="date"
-                    format="YYYY-MM-DD"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                />
-                <Button title="Submit" onPress={submit} disabled={isValid()} />
-            </View>
+            </ImageBackground>
         </View>
     );
 }
@@ -106,6 +128,63 @@ export default function NotifsAsmarScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
+        flexDirection: "column",
+    },
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        // justifyContent: "center"
+        paddingTop: 50,
+    },
+    mainTitle: {
+        fontSize: 42,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "white",
+    },
+    secTitle: {
+        fontSize: 32,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "white",
+    },
+    thirdTitle: {
+        fontSize: 22,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "white",
+    },
+    input: {
+        borderWidth: 5,
+        borderColor: "#2a2a2a",
+        backgroundColor: "white",
+        color: "black",
+        borderRadius: 30,
+        padding: 10,
+        paddingLeft: 15,
+        marginHorizontal: 30,
+        marginVertical: 12,
+    },
+    inputDisplay: {
+        paddingTop: 20,
+    },
+    paragraph: {
+        fontSize: 12,
+        textAlign: "center",
+        color: "white",
+    },
+    button: {
+        // backgroundColor:'#2a2a2a',
+        backgroundColor: "purple",
+        borderRadius: 30,
+        marginHorizontal: 50,
+        marginVertical: 7,
+    },
+    label: {
+        fontSize: 16,
+        color: "white",
+        textAlign: "left",
+        marginHorizontal: 40,
+        marginBottom: -10,
     },
 });
