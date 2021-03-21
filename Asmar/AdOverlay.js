@@ -1,7 +1,13 @@
 import * as React from "react";
 
 import { Text, Overlay, Image, Icon } from "react-native-elements";
-import { ImageBackground, ActivityIndicator, Dimensions } from "react-native";
+import {
+    ImageBackground,
+    ActivityIndicator,
+    Dimensions,
+    TouchableHighlight,
+    View,
+} from "react-native";
 import db from "../db";
 
 export default function AdOverlay({ visible, setVisible }) {
@@ -19,16 +25,6 @@ export default function AdOverlay({ visible, setVisible }) {
                 isVisible={visible}
                 onBackdropPress={() => setVisible(false)}
             >
-                <Icon
-                    name="close"
-                    type="material"
-                    style={{
-                        // position: "absolute",
-                        left: Dimensions.get("window").width / 2 - 10,
-                        top: 5,
-                    }}
-                    onPress={() => setVisible(false)}
-                />
                 <ImageBackground
                     source={{ uri: currentAd?.url }}
                     resizeMode="center"
@@ -37,7 +33,32 @@ export default function AdOverlay({ visible, setVisible }) {
                         height: Dimensions.get("window").height,
                     }}
                     PlaceholderContent={<ActivityIndicator />}
-                />
+                >
+                    <TouchableHighlight
+                        style={{ position: "absolute", right: 13, top: 13 }}
+                        onPress={() => setVisible(false)}
+                        underlayColor="white"
+                    >
+                        <Icon
+                            name="close"
+                            type="material"
+                            // raised
+                            reverse
+                        />
+                    </TouchableHighlight>
+                    <View
+                        style={{
+                            position: "absolute",
+                            bottom: 35,
+                            left: 0,
+                            right: 0,
+                            alignItems: "center",
+                            backgroundColor: "lightgray",
+                        }}
+                    >
+                        <Text>Advertisement placeholder text!</Text>
+                    </View>
+                </ImageBackground>
             </Overlay>
         </>
     );
