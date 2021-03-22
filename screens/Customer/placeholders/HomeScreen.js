@@ -1,33 +1,36 @@
 import React, { useContext } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
-import { Text, View } from "../../components/Themed";
-import Colors from "../../constants/Colors";
-import UserContext from "../../UserContext";
-import fb from "../../fb";
+import { Text, View } from "../../../components/Themed";
+import Colors from "../../../constants/Colors";
+import UserContext from "../../../UserContext";
+import fb from "../../../fb";
 
-export default function SettingsScreen({ navigation }) {
+export default function HomeScreen({ navigation }) {
     const { user } = useContext(UserContext);
-
-    const logout = async () => {
-        await fb.auth().signOut();
-    };
-
-    console.log(user);
 
     return (
         <View>
             <View style={styles.getStartedContainer}>
-                <TouchableOpacity onPress={logout} style={styles.title}>
-                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-                        Logout
-                    </Text>
-                </TouchableOpacity>
+                <Text style={styles.mainTitle}>Home Screen</Text>
+                <Text style={styles.secTitle}>Hello {user.name}</Text>
             </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+    mainTitle: {
+        fontSize: 42,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "black",
+    },
+    secTitle: {
+        fontSize: 32,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "black",
+    },
     tinyLogo: {
         width: 150,
         height: 150,

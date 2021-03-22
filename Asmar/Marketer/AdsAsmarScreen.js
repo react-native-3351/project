@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet, TextInput, ImageBackground, Text, Pressable } from "react-native";
+import { StyleSheet, TextInput, ImageBackground, Text, Pressable, Alert } from "react-native";
 import { Button } from "react-native-elements";
 import { View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
@@ -58,6 +58,10 @@ export default function NotifsAsmarScreen() {
 
             //TODO: make sure is necessary
             await db.Advertisements.update(doc.id, { url });
+            setLink("");
+            setStartDate(new Date());
+            setEndDate(new Date());
+            Alert.alert("Advertisement uploaded!", null, null, { cancelable: true });
         }
     };
 

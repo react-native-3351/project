@@ -192,9 +192,29 @@ class Advertisements extends DB {
         super("advertisements");
     }
 
+    reformat(doc) {
+        return {
+            id: doc.id,
+            ...doc.data(),
+            startDate: doc.data().startDate.toDate(),
+            endDate: doc.data().endDate.toDate(),
+        };
+    }
+
     update = async (id, fields) => {
         await db.collection(this.collection).doc(id).update(fields);
     };
+
+    listenAll = (set) =>
+        db
+            .collection(this.collection)
+            .onSnapshot((snap) =>
+                set(
+                    snap.docs
+                        .map(this.reformat)
+                        .filter((doc) => doc.startDate <= new Date() && doc.endDate >= new Date())
+                )
+            );
 }
 
 class Gifts extends DB {

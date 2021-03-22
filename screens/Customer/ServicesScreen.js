@@ -5,21 +5,39 @@ import Colors from "../../constants/Colors";
 import UserContext from "../../UserContext";
 import fb from "../../fb";
 
-export default function SettingsScreen({ navigation }) {
+export default function ServicesScreen({ navigation }) {
     const { user } = useContext(UserContext);
-
-    const logout = async () => {
-        await fb.auth().signOut();
-    };
-
-    console.log(user);
 
     return (
         <View>
             <View style={styles.getStartedContainer}>
-                <TouchableOpacity onPress={logout} style={styles.title}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Notifications")}
+                    style={styles.title}
+                >
                     <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-                        Logout
+                        Your Notifications
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Sensors")}
+                    style={styles.title}
+                >
+                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+                        Sensors
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Actions")}
+                    style={styles.title}
+                >
+                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+                        Actions
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Gifts")} style={styles.title}>
+                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+                        Gifts
                     </Text>
                 </TouchableOpacity>
             </View>

@@ -1,17 +1,26 @@
 export type BottomTabParamList = {
-    Notifications: undefined;
-    Gifts: undefined;
+    Home: undefined;
     Settings: undefined;
+    Services: undefined;
+    Support: undefined;
 };
 
 export type TabOneParamList = {
-    NotifsAsmarScreen: undefined;
+    HomeScreen: undefined;
 };
 
 export type TabTwoParamList = {
-    GiftsAsmarScreen: undefined;
+    ServicesScreen: undefined;
+    Actions: undefined;
+    Sensors: undefined;
+    Notifications: undefined;
+    Gifts: undefined;
 };
 
 export type TabThreeParamList = {
+    SupportScreen: undefined;
+};
+
+export type TabFourParamList = {
     SettingsScreen: undefined;
 };

@@ -6,12 +6,21 @@ import * as React from "react";
 import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
 import SensorsScreen from "../../screens/Customer/SensorsScreen";
+import ServicesScreen from "../../screens/Customer/ServicesScreen";
+import HomeScreen from "../../screens/Customer/placeholders/HomeScreen";
+import SupportScreen from "../../screens/Customer/placeholders/SupportScreen";
 import ActionsScreen from "../../screens/Customer/ActionsScreen";
 import SettingsScreen from "../../screens/Customer/SettingsScreen";
 import GiftsAsmarScreen from "../../Asmar/Customer/GiftsAsmarScreen";
 import NotifsAsmarScreen from "../../Asmar/Customer/NotifsAsmarScreen";
 import AdOverlay from "../../Asmar/AdOverlay";
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList } from "./types";
+import {
+    BottomTabParamList,
+    TabOneParamList,
+    TabTwoParamList,
+    TabThreeParamList,
+    TabFourParamList,
+} from "./types";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -25,14 +34,33 @@ export default function BottomTabNavigator() {
         <>
             <AdOverlay visible={visible} setVisible={setVisible} />
             <BottomTab.Navigator
-                initialRouteName="Notifications"
+                initialRouteName="Home"
                 tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
             >
                 <BottomTab.Screen
-                    name="Notifications"
+                    name="Home"
                     component={TabOneNavigator}
                     options={{
-                        tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                        tabBarIcon: ({ color }) => <TabBarIcon name="ios-home" color={color} />,
+                    }}
+                    // listeners={{
+                    //     focus: (e) => {
+                    //         if (screens == showAdsEvery) {
+                    //             setVisible(true);
+                    //             setScreens(0);
+                    //         } else {
+                    //             setScreens(screens + 1);
+                    //         }
+                    //     },
+                    // }}
+                />
+                <BottomTab.Screen
+                    name="Services"
+                    component={TabTwoNavigator}
+                    options={{
+                        tabBarIcon: ({ color }) => (
+                            <TabBarIcon name="file-tray-stacked" color={color} />
+                        ),
                     }}
                     listeners={{
                         focus: (e) => {
@@ -46,10 +74,10 @@ export default function BottomTabNavigator() {
                     }}
                 />
                 <BottomTab.Screen
-                    name="Gifts"
-                    component={TabTwoNavigator}
+                    name="Support"
+                    component={TabThreeNavigator}
                     options={{
-                        tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                        tabBarIcon: ({ color }) => <TabBarIcon name="construct" color={color} />,
                     }}
                     listeners={{
                         focus: (e) => {
@@ -64,9 +92,9 @@ export default function BottomTabNavigator() {
                 />
                 <BottomTab.Screen
                     name="Settings"
-                    component={TabThreeNavigator}
+                    component={TabFourNavigator}
                     options={{
-                        tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                        tabBarIcon: ({ color }) => <TabBarIcon name="settings" color={color} />,
                     }}
                     listeners={{
                         focus: (e) => {
@@ -99,9 +127,9 @@ function TabOneNavigator() {
     return (
         <TabOneStack.Navigator>
             <TabOneStack.Screen
-                name="NotifsAsmarScreen"
-                component={NotifsAsmarScreen}
-                options={{ headerTitle: "Sensors" }}
+                name="HomeScreen"
+                component={HomeScreen}
+                options={{ headerTitle: "Home" }}
             />
         </TabOneStack.Navigator>
     );
@@ -113,9 +141,29 @@ function TabTwoNavigator() {
     return (
         <TabTwoStack.Navigator>
             <TabTwoStack.Screen
-                name="GiftsAsmarScreen"
-                component={GiftsAsmarScreen}
+                name="ServicesScreen"
+                component={ServicesScreen}
+                options={{ headerTitle: "Services" }}
+            />
+            <TabTwoStack.Screen
+                name="Sensors"
+                component={SensorsScreen}
+                options={{ headerTitle: "Sensors" }}
+            />
+            <TabTwoStack.Screen
+                name="Actions"
+                component={ActionsScreen}
                 options={{ headerTitle: "Actions" }}
+            />
+            <TabTwoStack.Screen
+                name="Notifications"
+                component={NotifsAsmarScreen}
+                options={{ headerTitle: "Notifications" }}
+            />
+            <TabTwoStack.Screen
+                name="Gifts"
+                component={GiftsAsmarScreen}
+                options={{ headerTitle: "Gifts" }}
             />
         </TabTwoStack.Navigator>
     );
@@ -127,10 +175,24 @@ function TabThreeNavigator() {
     return (
         <TabThreeStack.Navigator>
             <TabThreeStack.Screen
+                name="SupportScreen"
+                component={SupportScreen}
+                options={{ headerTitle: "Support" }}
+            />
+        </TabThreeStack.Navigator>
+    );
+}
+
+const TabFourStack = createStackNavigator<TabFourParamList>();
+
+function TabFourNavigator() {
+    return (
+        <TabFourStack.Navigator>
+            <TabFourStack.Screen
                 name="SettingsScreen"
                 component={SettingsScreen}
                 options={{ headerTitle: "Settings" }}
             />
-        </TabThreeStack.Navigator>
+        </TabFourStack.Navigator>
     );
 }
