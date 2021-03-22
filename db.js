@@ -23,7 +23,7 @@ class DB {
     }
 
     reformat(doc) {
-        console.log("reformat", doc.id);
+        // console.log("reformat", doc.id);
         return { id: doc.id, ...doc.data() };
     }
 
@@ -194,8 +194,7 @@ class Advertisements extends DB {
 
     reformat(doc) {
         return {
-            id: doc.id,
-            ...doc.data(),
+            ...super.reformat(doc),
             startDate: doc.data().startDate.toDate(),
             endDate: doc.data().endDate.toDate(),
         };

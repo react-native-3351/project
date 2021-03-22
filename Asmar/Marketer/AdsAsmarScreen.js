@@ -85,7 +85,7 @@ export default function NotifsAsmarScreen() {
                 <TextInput
                     placeholder="Link"
                     value={link}
-                    onChangeText={(value) => setLink(value)}
+                    onChangeText={setLink}
                     style={styles.input}
                 />
                 <Text style={styles.label}>Start Date</Text>
@@ -98,8 +98,9 @@ export default function NotifsAsmarScreen() {
                         value={startDate}
                         onChange={(event, date) => {
                             setShowStartDate(false);
-                            date instanceof Date && setStartDate(date);
+                            setStartDate(date);
                             if (startDate > endDate) setEndDate(startDate);
+                            console.log(startDate, endDate);
                         }}
                     />
                 )}
@@ -109,11 +110,11 @@ export default function NotifsAsmarScreen() {
                 </Pressable>
                 {showEndDate && (
                     <DateTimePicker
-                        minimumDate={startDate}
+                        // minimumDate={startDate}
                         value={endDate}
                         onChange={(event, date) => {
                             setShowEndDate(false);
-                            date instanceof Date && setEndDate(date);
+                            setEndDate(date);
                             if (startDate > endDate) setStartDate(endDate);
                         }}
                     />

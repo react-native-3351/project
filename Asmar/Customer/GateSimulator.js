@@ -1,49 +1,58 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet } from "react-native";
+import React, { useState, useEffect, useContext } from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { Text, View } from "../../components/Themed";
+import UserContext from "../../UserContext";
 import db from "../../db";
 
 // all picker values should be non-object (number, string, etc.)
 
-export default function TemperatureInfo({ sensor }) {
-    const [reading, setReading] = useState(null);
-    useEffect(
-        () => (sensor ? db.Sensors.Readings.listenLatestOne(setReading, sensor.id) : undefined),
-        [sensor]
-    );
+export default function GateSimulator({ sensor }) {
+    const { user } = useContext(UserContext);
+    useEffect(() => handleStopSimulator(), [user]);
+
+    // return "stop simulator function", to be called on component unmount, stopping the timer
+    useEffect(() => handleStopSimulator, []);
+
+    const [intervalId, setIntervalId] = useState(0);
+
+    // start uploading random readings every second
+    const handleStartSimulator = () => setIntervalId(setInterval(insertRandomReading, 2500));
+
+    const handleStopSimulator = () => {
+        clearInterval(intervalId);
+        setIntervalId(0);
+    };
+    const insertRandomReading = async () => {
+        const spots = [
+            Boolean(Math.round(Math.random() - 0.4)),
+            Boolean(Math.round(Math.random() - 0.4)),
+            Boolean(Math.round(Math.random() - 0.4)),
+            Boolean(Math.round(Math.random() - 0.4)),
+            Boolean(Math.round(Math.random() - 0.4)),
+        ];
+        console.log("spots", spots);
+        await db.Sensors.Readings.createReading(sensor.id, {
+            when: new Date(),
+            spots: spots,
+        });
+    };
 
     return (
         <View>
-            <Text
-                style={styles.getStartedText}
-                lightColor="rgba(0,0,0,0.8)"
-                darkColor="rgba(255,255,255,0.8)"
+            <TouchableOpacity
+                onPress={handleStartSimulator}
+                style={styles.title}
+                disabled={intervalId !== 0}
             >
-                Max: {sensor.max}
-            </Text>
-            <Text
-                style={styles.getStartedText}
-                lightColor="rgba(0,0,0,0.8)"
-                darkColor="rgba(255,255,255,0.8)"
+                <Text style={styles.helpLinkText}>Start simulator</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={handleStopSimulator}
+                style={styles.title}
+                disabled={intervalId === 0}
             >
-                Min: {sensor.min}
-            </Text>
-            {reading && (
-                <Text
-                    style={sensor.alert ? styles.getStartedRed : styles.getStartedGreen}
-                    lightColor="rgba(0,0,0,0.8)"
-                    darkColor="rgba(255,255,255,0.8)"
-                >
-                    Current: {reading.current}
-                </Text>
-            )}
-            <Text
-                style={sensor.alert ? styles.getStartedRed : styles.getStartedGreen}
-                lightColor="rgba(0,0,0,0.8)"
-                darkColor="rgba(255,255,255,0.8)"
-            >
-                Alert: {sensor.alert ? "True" : "False"}
-            </Text>
+                <Text style={styles.helpLinkText}>Stop simulator</Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -119,6 +128,7 @@ const styles = StyleSheet.create({
     },
     helpLinkText: {
         textAlign: "center",
+        color: "blue",
     },
     title: {
         fontSize: 20,
