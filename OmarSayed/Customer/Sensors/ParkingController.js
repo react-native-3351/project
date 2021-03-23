@@ -29,10 +29,10 @@ export default function ParkingController({ sensor }) {
         let countCars = await db.Sensors.Readings.findAllCarsInParkings(sensor.id)
         // let countCars = sensor.currentCars
         // new car set in the parking yes/no
-        let dec = Math.floor(Math.random() * 4)
+        let dec = Math.floor(Math.random() * 3)
         // let dec = 0
         // decision is yes, add new car
-        if (dec === 1 || dec === 3) {
+        if (dec === 1 ) {
             let carPlate = (Math.floor(Math.random() * 9999999)) + ''
             // console.log(countCars.length)
             // console.log('================')

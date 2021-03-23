@@ -18,7 +18,9 @@ export default function ParkingInfo({ user, category, sensor }) {
                 {
                     sensor.spots.map((r, index) =>
                         <React.Fragment key={index}>
-                        {r === '' ? <Text style={{...styles.spot, backgroundColor:'red'}}>*</Text>:<Text style={{...styles.spot, backgroundColor:'green'}}>*</Text>}
+                        {r === '' ? <Text style={{...styles.spot, backgroundColor:'green'}}>*</Text>
+                        :
+                        <Text style={{...styles.spot, backgroundColor:'red'}}>{ sensor.spots[index]}</Text>}
                             {
                                 index % 2 == 0 &&
                                 <Text style={styles.street}>|</Text>
