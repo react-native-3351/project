@@ -5,6 +5,7 @@ import CategoryPicker from '../pickers/CategoryPicker'
 import SensorByCategoryPicker from '../pickers/SensorByCategoryPicker'
 import TemperatureActions from './TemperatureActions'
 import MotionActions from './MotionActions'
+import ParkingController from '../../OmarSayed/Customer/Sensors/ParkingController'
 
 export default function ActionsScreen() {
 
@@ -37,6 +38,15 @@ export default function ActionsScreen() {
         category.name === "Temperature"
         &&
         <TemperatureActions sensor={sensor} />
+      }
+      {
+        category
+        &&
+        sensor
+        &&
+        category.name === "Ultrasonic"
+        &&
+        <ParkingController sensor={sensor} />
       }
     </View>
   );

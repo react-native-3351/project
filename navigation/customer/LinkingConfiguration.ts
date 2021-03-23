@@ -21,6 +21,21 @@ export default {
               SettingsScreen: 'three',
             },
           },
+          TabFour: {
+            screens: {
+              QueriesScreen: 'four',
+            },
+          },
+          TabFiveOmar: {
+            screens: {
+              SuggestionsScreen: 'five',
+            },
+          },
+          TabSixOmar: {
+            screens: {
+              ReportsScreen: 'six',
+            },
+          },
         },
       },
       NotFound: '*',
