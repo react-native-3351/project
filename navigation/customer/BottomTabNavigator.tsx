@@ -1,4 +1,4 @@
-import { Ionicons } from "@expo/vector-icons";
+import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
@@ -20,7 +20,13 @@ import {
     TabTwoParamList,
     TabThreeParamList,
     TabFourParamList,
+    TabQueriesScreenParamList,
+    TabSuggestionsScreenParamList,
+    TabReportsScreenParamList,
 } from "./types";
+import QueriesScreen from "../../OmarSayed/Customer/Queries/QueriesScreen";
+import SuggestionsScreen from "../../OmarSayed/Customer/Suggestions/SuggestionsScreen";
+import ReportsScreen from "../../OmarSayed/Customer/Reports/ReportsScreen";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -164,6 +170,21 @@ function TabTwoNavigator() {
                 name="Gifts"
                 component={GiftsAsmarScreen}
                 options={{ headerTitle: "Gifts" }}
+            />
+            <TabTwoStack.Screen
+                name="Queries"
+                component={QueriesScreen}
+                options={{ headerTitle: "Queries" }}
+            />
+            <TabTwoStack.Screen
+                name="Suggestions"
+                component={SuggestionsScreen}
+                options={{ headerTitle: "Suggestions" }}
+            />
+            <TabTwoStack.Screen
+                name="Reports"
+                component={ReportsScreen}
+                options={{ headerTitle: "Reports" }}
             />
         </TabTwoStack.Navigator>
     );

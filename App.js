@@ -6,6 +6,7 @@ import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import NavigationCustomer from "./navigation/customer";
 import NavigationAdmin from "./navigation/admin";
+import NavigationCS from './OmarSayed/navigation/customerservice';
 import NavigationMarketer from "./navigation/marketer";
 
 import { LogBox } from "react-native";
@@ -60,6 +61,8 @@ export default function App() {
             return <NavigationAdmin colorScheme={colorScheme} />;
         } else if (user?.role === "Marketer") {
             return <NavigationMarketer colorScheme={colorScheme} />;
+        }else if (user?.role === "customerservice") {
+          return <NavigationCS colorScheme={colorScheme} />
         } else {
             console.log("user role", user?.role);
             fb.auth().signOut();

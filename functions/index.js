@@ -13,14 +13,13 @@ exports.findAuthUser = functions.https.onCall(async (uid, context) => {
     return authUser;
 });
 
-const db = admin.firestore();
-const reformat = (doc) => ({ id: doc.id, ...doc.data() });
-const findAll = async (collection) => (await db.collection(collection).get()).docs.map(reformat);
-const findOneSubAll = async (collection, id, subcollection) =>
-    (await db.collection(collection).doc(id).collection(subcollection).get()).docs.map(reformat);
-const removeOneSubOne = async (collection, id, subcollection, subId) =>
-    await db.collection(collection).doc(id).collection(subcollection).doc(subId).delete();
-const removeOne = async (collection, id) => await db.collection(collection).doc(id).delete();
+const db = admin.firestore()
+const reformat = doc => ({ id: doc.id, ...doc.data() })
+const findAll = async collection => (await db.collection(collection).get()).docs.map(reformat)
+const findOneSubAll = async (collection, id, subcollection) => (await db.collection(collection).doc(id).collection(subcollection).get()).docs.map(reformat)
+const removeOneSubOne = async (collection, id, subcollection, subId) => await db.collection(collection).doc(id).collection(subcollection).doc(subId).delete()
+const removeOne = async (collection, id) => await db.collection(collection).doc(id).delete()
+let spots = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
 
 exports.createSampleData = functions.https.onCall(async (data, context) => {
     // comment the following out to reset auth db every time
@@ -170,7 +169,7 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
     const { id: categoryId3 } = await db.collection("categories").add({ name: "Gate" });
     functions.logger.info("categoryId3", { categoryId3 });
 
-    const { id: sensorId3 } = await db.collection("sensors").add({
+    const { id: sensorId4 } = await db.collection("sensors").add({
         userid: authId1,
         categoryid: categoryId3,
         location: "entrance",
@@ -178,8 +177,28 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
         status: "closed",
         mode: "auto",
     });
-    functions.logger.info("sensorId3", { sensorId3 });
+    functions.logger.info("sensorId4", { sensorId4 });
     // Asmar End
+
+    //Omar Sayed
+
+    const { uid: authId6 } = await admin.auth().createUser({ email: "cs@cs.com", password: "123456" })
+    // functions.logger.info("authId4", { authId4 })
+
+    const result6 = await db.collection('users').doc(authId6).set({ name: "CS", role: "customerservice" })
+    // functions.logger.info("result4", { result4 })
+
+    const { id: categoryId4 } = await db.collection('categories').add({ name: "Ultrasonic" })
+    // functions.logger.info("categoryId2", { categoryId2 })
+
+
+    const { id: sensorId3 } = await db.collection('sensors').add({ name: 'Sns 1', categoryid: categoryId2, sample: true, url: 'https://www.techprate.com/wp-content/uploads/2020/01/internet-of-things.jpg', description: 'Imagine waking up, not by an alarm blaring from your phone, but to the smell of coffee, light coming in your window from a curtain being drawn back, and a gentle stirring massage or vibration from your mattress. You wake up rested because a sleep sensor has made sure not to rouse you during a round of REM sleep.' })
+    const { id: sensorId4 } = await db.collection('sensors').add({ name: 'Sns 2', categoryid: categoryId1, sample: true, url: 'https://circuitdigest.com/sites/default/files/inlineimages/Nest-Learning_thermostate.jpg', description: 'With face recognition technology you won\'t need a key to enter and exit your home, a face scan will let you in and lock up behind you. When you leave the house, a sensor communicates to a thermostat, the temperature resets to the desired "inactive" state and the lights shut off automatically to conserve energy. You live in a smart home, filled with smart appliances. Some of these IoT technologies are already widely adopted, some are still in the design phase, but it will all be a reality in the future.' })
+    const { id: sensorId5 } = await db.collection('sensors').add({ name: 'Sns 3', categoryid: categoryId1, sample: true, url: 'https://www.scnsoft.com/blog-pictures/internet-of-things/cover_.png', description: 'You\'ve run out of milk for your cereal, but your smart fridge has already sent an electronic order for milk to an online grocery store who automatically charge a card on file for the food they deliver by drone to your front door. You can turn on the lights, turn up or lower the temperature of your home and ensure the door is locked all through voice instructions given to your connected home.' })
+    // functions.logger.info("sensorId2", { sensorId2 })
+    const { id: sensorId6 } = await db.collection('sensors').add({ userid: authId1, categoryid: categoryId4, spots, location: "Front Parkings", currentCars: 0, open: false })
+
+    //Omar end
 });
 
 exports.onNewReading = functions.firestore
@@ -298,3 +317,4 @@ exports.onNewReading = functions.firestore
             functions.logger.info("No such category", { category });
         }
     });
+

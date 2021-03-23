@@ -39,6 +39,8 @@ export default function RegisterLogin() {
 
     const valid = () => email !== "" && password !== "";
 
+    const valid = () => email !== "" && password !== "";
+
     return (
         <View style={styles.container}>
             <LoginPicker setEmail={setEmail} setPassword={setPassword} />
@@ -62,6 +64,9 @@ export default function RegisterLogin() {
                     Register
                 </Text>
             </TouchableOpacity>
+            {/* <TouchableOpacity onPress={() => createSampleData} style={styles.title}>
+        <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>sample data</Text>
+      </TouchableOpacity> */}
         </View>
     );
 }

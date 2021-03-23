@@ -11,11 +11,11 @@ export default {
               SensorsScreen: 'one',
             },
           },
-          TabTwo: {
-            screens: {
-              ActionsScreen: 'two',
-            },
-          },
+          // TabTwo: {
+          //   screens: {
+          //     ActionsScreen: 'two',
+          //   },
+          // },
           TabThree: {
             screens: {
               SettingsScreen: 'three',
@@ -28,12 +28,7 @@ export default {
           },
           TabFiveOmar: {
             screens: {
-              SuggestionsScreen: 'five',
-            },
-          },
-          TabSixOmar: {
-            screens: {
-              ReportsScreen: 'six',
+              ReportsScreen: 'five',
             },
           },
         },
