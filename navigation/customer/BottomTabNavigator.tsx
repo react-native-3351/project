@@ -83,7 +83,14 @@ export default function BottomTabNavigator() {
                     name="Support"
                     component={TabThreeNavigator}
                     options={{
-                        tabBarIcon: ({ color }) => <TabBarIcon name="construct" color={color} />,
+                        tabBarIcon: ({ color }) => (
+                            <AntDesign
+                                size={30}
+                                style={{ marginBottom: -3 }}
+                                name="customerservice"
+                                color={color}
+                            />
+                        ),
                     }}
                     listeners={{
                         focus: (e) => {

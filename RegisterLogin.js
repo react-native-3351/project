@@ -39,8 +39,6 @@ export default function RegisterLogin() {
 
     const valid = () => email !== "" && password !== "";
 
-    const valid = () => email !== "" && password !== "";
-
     return (
         <View style={styles.container}>
             <LoginPicker setEmail={setEmail} setPassword={setPassword} />

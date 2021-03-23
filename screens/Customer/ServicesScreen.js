@@ -35,6 +35,30 @@ export default function ServicesScreen({ navigation }) {
                         Actions
                     </Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Queries")}
+                    style={styles.title}
+                >
+                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+                        Queries
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Reports")}
+                    style={styles.title}
+                >
+                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+                        Reports
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Suggestions")}
+                    style={styles.title}
+                >
+                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+                        Suggestions
+                    </Text>
+                </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate("Gifts")} style={styles.title}>
                     <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
                         Gifts

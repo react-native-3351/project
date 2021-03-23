@@ -1,20 +1,5 @@
 import firebase from "./fb";
-import fetch from "node-fetch";
-import { createIconSetFromFontello } from "@expo/vector-icons";
 const db = firebase.firestore();
-
-// const a = async () => {
-//     const response = await fetch('https://10.0.2.2:8080',
-//         {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-//         }
-//     )
-//     console.log(response.ok)
-// }
-// a()
 
 // all database functionality here
 class DB {
