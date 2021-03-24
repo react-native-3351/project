@@ -248,7 +248,6 @@ class LiveChat extends DB {
         const { id, ...rest } = livechat
         await db.collection(this.collection).doc(id).collection('messages').add(message)
         await db.collection(this.collection).doc(id).set({ ...rest, messageStatus: 'unread' })
-        // await db.collection('notification').add({ message: 'You have an unread message', date: new Date(), from: 'AAAO Website', status: 'unread', path: `adminChat/${livechat.id}`, userId: livechat.employeeId })
     }
 
     createLivechat = async (message, userId) => {
@@ -307,4 +306,5 @@ export default {
     Users: new Users(),
     //Addalin 
     LiveChat: new LiveChat()
+    //
 }

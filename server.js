@@ -70,10 +70,10 @@ const simulateReading = async sensor => {
         })
     }
     else if (isCategory(sensor, "Light")) {
-        const current = readings.length > 0 ? readings[0].current : 10
+        const current = readings.length > 0 ? readings[0].current : 5
         await db.collection('sensors').doc(sensor.id).collection('readings').add({
             when: new Date(),
-            current: current + Math.floor(Math.random() * 10) - 10
+            current: current + Math.floor(Math.random() * 10) - 2
         })
     }
     else {
