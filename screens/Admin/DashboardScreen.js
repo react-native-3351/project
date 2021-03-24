@@ -38,6 +38,7 @@ export default function DashboardScreen() {
         &&
         <TemperatureActions sensor={sensor} />
       }
+      
     </View>
   );
 }

@@ -21,6 +21,8 @@ export default function RegisterLogin() {
       await fb.auth().createUserWithEmailAndPassword(email, password)
       console.log(fb.auth().currentUser.uid)
       await db.Users.update({ id: fb.auth().currentUser.uid, role: "Customer" })
+     await db.Carts.create({userid:fb.auth().currentUser.uid, checkOut:false })
+
     } catch (error) {
       alert(error.message)
     }

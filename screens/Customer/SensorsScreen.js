@@ -6,7 +6,7 @@ import TemperatureInfo from './TemperatureInfo'
 import CategoryByUserPicker from '../pickers/CategoryByUserPicker';
 import SensorByUserAndCategoryPicker from '../pickers/SensorByUserAndCategoryPicker';
 import UserContext from '../../UserContext'
-
+import WeightInfo from '../../Aya/WeightInfo'
 export default function SensorsScreen() {
 
   const { user } = useContext(UserContext)
@@ -49,6 +49,11 @@ export default function SensorsScreen() {
               category.name === "Temperature"
               &&
               <TemperatureInfo user={user} category={category} sensor={sensor} />
+            }
+            {
+              category.name === "Weight"
+              &&
+              <WeightInfo user={user} category={category} sensor={sensor} />
             }
           </>
         }

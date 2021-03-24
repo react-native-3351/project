@@ -21,7 +21,22 @@ export default {
               SettingsScreen: 'three',
             },
           },
+          TabOneAya: {
+            screens: {
+              CartScreen: 'oneAya',
+            },
+          },
+        TabTwoAya: {
+          screens: {
+            FeedbackScreen: 'twoAya',
+          },
         },
+        TabThreeAya: {
+          screens: {
+            FAQScreen: 'threeAya',
+          },
+        },
+      },
       },
       NotFound: '*',
     },

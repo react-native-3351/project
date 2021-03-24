@@ -12,8 +12,8 @@ export default function CategoryPicker({ set }) {
   
     return (
         <Picker
-          style={{ height: 50, width: 200 }}
-          selectedValue={categoryId}
+        style={{ color: 'white', height: 40, width: 300,  alignSelf:'center' }}
+        selectedValue={categoryId}
           onValueChange={setCategoryId}
         >
           <Picker.Item label='Select Category' value="" />

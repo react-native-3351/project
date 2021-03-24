@@ -121,6 +121,7 @@ class Categories extends DB {
 
     constructor() {
         super('categories')
+        this.Models= new Models(this.collection)
     }
 
     // max 10
@@ -128,9 +129,93 @@ class Categories extends DB {
         db.collection(this.collection).where(db.FieldPath.documentId(), "in", ids).onSnapshot(snap => set(snap.docs.map(this.reformat)))
 
 }
+class Models extends DB {
 
+    constructor(containing) {
+        super('models')
+        this.containing = containing
+    }
+    listenAllModels = (set, catId) =>
+         db.collection(this.containing).doc(catId).collection(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
+    listenOneModel = (set, modelId, catId) =>
+         db.collection(this.containing).doc(catId).collection(this.collection).doc(modelId).onSnapshot(snap => set(this.reformat(snap)))
+
+    createModel = (catId, model) =>
+        db.collection(this.containing).doc(catId).collection(this.collection).add(model)
+
+}
+class Carts extends DB {
+
+    constructor() {
+        super('carts')
+        this.Items= new Items(this.collection)
+    }
+    listenLastNotFinished=(set, userid)=>
+        db.collection(this.collection).where("userid","==",userid).where("checkOut","==",false).onSnapshot(snap => set(snap.docs.map(this.reformat)[0]))
+    createCart=(cartId, cart)=>{
+        db.collection(this.collection).add(cart)
+
+        db.collection(this.collection).doc(cartId).set({ checkOut:true }, { merge: true })
+
+    }
+
+    
+
+}
+class Items extends DB{
+    constructor(containing) {
+        super('items')
+        this.containing = containing
+    }
+    listenAllItems=(set,cartId)=>{
+        db.collection(this.containing).doc(cartId).collection(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
+
+    }
+    createItem = (cartId, item) =>
+    db.collection(this.containing).doc(cartId).collection(this.collection).add(item)
+
+}
+class Payments extends DB {
+
+    constructor() {
+        super('payments')
+    }
+   
+}
+class Feedbacks extends DB {
+
+    constructor() {
+        super('feedbacks')
+    }
+   
+}
+class Faqs extends DB {
+
+    constructor() {
+        super('faqs')
+        this.Rates= new Rates(this.collection)
+
+    }
+    update = (id, answer) =>
+    db.collection(this.collection).doc(id).set({ answer:answer }, { merge: true })   
+}
+class Rates extends DB {
+
+    constructor(containing) {
+        super('rates')
+        this.containing = containing
+
+    }
+    create = (id, rate) =>
+    db.collection(this.containing).doc(id).collection(this.collection).add(rate)
+   
+}
 export default {
     Categories: new Categories(),
     Sensors: new Sensors(),
-    Users: new Users()
+    Users: new Users(), 
+    Carts:new Carts(),
+    Payments: new Payments(),
+    Feedbacks: new Feedbacks(),
+    Faqs: new Faqs()
 }
