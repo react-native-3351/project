@@ -61,16 +61,14 @@ export default function LightInfo({ user, category, sensor }) {
                 {
                     sensor
                         &&
-                        reading
-                         && 
+                        
                         sensor.alert == "high"
                         ?
                         <Text style={styles.thirdTitle}>
                             Very Bright ! Turning Lights Off...
                             </Text>
                         :
-                        reading
-                         &&
+                        
                         sensor.alert == "equal"
                             ?
                             <Text style={styles.thirdTitle}>
