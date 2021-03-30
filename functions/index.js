@@ -103,6 +103,7 @@ exports.createSampleData = functions.https.onCall(
     const { id: categoryId2 } = await db.collection('categories').add({ name: "Temperature" })
     functions.logger.info("categoryId2", { categoryId2 })
 
+    //Addalin Start
     const { id: categoryId3 } = await db.collection('categories').add({ name: "Light" })
     functions.logger.info("categoryId3", { categoryId3 })
 
@@ -120,6 +121,7 @@ exports.createSampleData = functions.https.onCall(
 
     const { id: sensorId3 } = await db.collection('sensors').add({ userid: authId2, categoryid: categoryId3, modelId: modelId2, location: "lab", alert: "none" })
     functions.logger.info("sensorId3", { sensorId3 })
+    //Addalin end
   }
 )
 
@@ -178,10 +180,12 @@ exports.onNewReading = functions.firestore.document('sensors/{sensorid}/readings
       await db.collection('sensors').doc(sensor.id).set({ alert: reading.current > sensor.max || reading.current < sensor.min }, { merge: true })
       functions.logger.info("temp alert update", { alert: reading.current > sensor.max || reading.current < sensor.min });
     }
+    //Addalin Start
     else if (category.name == "Light") {
       await db.collection('sensors').doc(sensor.id).set({ alert: reading.current == model.luminence ? "equal" : reading.current > model.luminence ? "high" : "low" }, { merge: true })
       functions.logger.info("light alert update", { alert: reading.current == model.luminence*1 ? "equal" : "nope" });
     }
+    //Addalin end
     else {
       functions.logger.info("No such category", { category });
     }
