@@ -1,80 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import { TextInput, StyleSheet, ImageBackground, Image } from 'react-native';
-import { Text, View } from '../components/Themed';
-import db from '../db'
-import { Button } from 'react-native-elements';
-import Colors from '../constants/Colors';
+import React, { useState, useEffect } from "react";
+import { TextInput, StyleSheet, ImageBackground, Image } from "react-native";
+import { Text, View } from "../components/Themed";
+import db from "../db";
+import { Button } from "react-native-elements";
+import Colors from "../constants/Colors";
 
 // all picker values should be non-object (number, string, etc.)
 
-export default function WeightInfo({ user, category, sensor }) {
+export default function WeightInfo({ sensor }) {
+    const [reading, setReading] = useState(null);
+    useEffect(
+        () => (sensor ? db.Sensors.Readings.listenLatestOne(setReading, sensor.id) : undefined),
+        [sensor]
+    );
 
-    const [reading, setReading] = useState(null)
-    useEffect(() => sensor ? db.Sensors.Readings.listenLatestOne(setReading, sensor.id) : undefined, [sensor])
-
-
-    const [product, setProduct] = useState(null)
-    const [totalprice, setTotalPrice] = useState(0)
-    const [randomItems, setRandomItems] = useState([{ name: 'orange', img: require('../assets/images/orange.jpg'), price: 10.5 },
-    { name: 'apple', img: require('../assets/images/apple.png'), price: 12 },
-    { name: 'banana', img: require('../assets/images/banana.jpg'), price: 9 },
-    { name: 'pineapple', img: require('../assets/images/pineapple.jpg'), price: 12 },
-    { name: 'cherry', img: require('../assets/images/cherry.jpg'), price: 12.5 },
-    { name: 'mango', img: require('../assets/images/mango.jpg'), price: 12.5 }])
-    useEffect(() =>reading? handleSimulate():undefined, [reading])
+    const [product, setProduct] = useState(null);
+    const [totalprice, setTotalPrice] = useState(0);
+    const [randomItems, setRandomItems] = useState([
+        { name: "orange", img: require("../assets/images/orange.jpg"), price: 10.5 },
+        { name: "apple", img: require("../assets/images/apple.png"), price: 12 },
+        { name: "banana", img: require("../assets/images/banana.jpg"), price: 9 },
+        { name: "pineapple", img: require("../assets/images/pineapple.jpg"), price: 12 },
+        { name: "cherry", img: require("../assets/images/cherry.jpg"), price: 12.5 },
+        { name: "mango", img: require("../assets/images/mango.jpg"), price: 12.5 },
+    ]);
+    useEffect(() => (reading ? handleSimulate() : undefined), [reading]);
     const handleSimulate = () => {
-        let item = randomItems[Math.floor(Math.random() * randomItems.length)]
-        console.log(item)
-        setProduct(item)
-        let total = item.price * reading.current
-        setTotalPrice(total)
-    }
-
+        let item = randomItems[Math.floor(Math.random() * randomItems.length)];
+        //console.log(item);
+        setProduct(item);
+        let total = item.price * reading.current;
+        setTotalPrice(total);
+    };
 
     return (
         <View>
-            {product&&<>
-                <Text
-                style={styles.paragraph}
-                lightColor="rgba(0,0,0,0.8)"
-                darkColor="rgba(255,255,255,0.8)">
-                Product : {product.name}
-            </Text>
+            {product && (
+                <>
+                    <Text
+                        style={styles.paragraph}
+                        lightColor="rgba(0,0,0,0.8)"
+                        darkColor="rgba(255,255,255,0.8)"
+                    >
+                        Product : {product.name}
+                    </Text>
 
-            <Text
-                style={styles.paragraph}
-                lightColor="rgba(0,0,0,0.8)"
-                darkColor="rgba(255,255,255,0.8)">
-                Pric per gram: {product.price}
-            </Text>
-             <Image
-                style={styles.img}
-                source={product.img}
-            /> 
-             {
-                reading
-                &&
-                <Text
-                    style={styles.paragraph}
-                    lightColor="rgba(0,0,0,0.8)"
-                    darkColor="rgba(255,255,255,0.8)">
-                    Current Weight: {reading.current}
-                </Text>
-            }
-                <Text
-                    style={styles.paragraph}
-                    lightColor="rgba(0,0,0,0.8)"
-                    darkColor="rgba(255,255,255,0.8)">
-                    price: {totalprice}
-            </Text>
-            
-            </>}
-           
-           
-
-            
-               
-
+                    <Text
+                        style={styles.paragraph}
+                        lightColor="rgba(0,0,0,0.8)"
+                        darkColor="rgba(255,255,255,0.8)"
+                    >
+                        Pric per gram: {product.price}
+                    </Text>
+                    <Image style={styles.img} source={product.img} />
+                    {reading && (
+                        <Text
+                            style={styles.paragraph}
+                            lightColor="rgba(0,0,0,0.8)"
+                            darkColor="rgba(255,255,255,0.8)"
+                        >
+                            Current Weight: {reading.current}
+                        </Text>
+                    )}
+                    <Text
+                        style={styles.paragraph}
+                        lightColor="rgba(0,0,0,0.8)"
+                        darkColor="rgba(255,255,255,0.8)"
+                    >
+                        price: {totalprice}
+                    </Text>
+                </>
+            )}
         </View>
     );
 }
@@ -82,31 +78,31 @@ export default function WeightInfo({ user, category, sensor }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: "column"
+        flexDirection: "column",
     },
     image: {
         flex: 1,
         resizeMode: "cover",
         // justifyContent: "center"
-        paddingTop: 50
+        paddingTop: 50,
     },
     mainTitle: {
         fontSize: 42,
         fontWeight: "bold",
         textAlign: "center",
-        color: "white"
+        color: "white",
     },
     secTitle: {
         fontSize: 32,
         fontWeight: "bold",
         textAlign: "center",
-        color: "white"
+        color: "white",
     },
     thirdTitle: {
         fontSize: 22,
         fontWeight: "bold",
         textAlign: "center",
-        color: "white"
+        color: "white",
     },
     input: {
         borderWidth: 1,
@@ -122,11 +118,11 @@ const styles = StyleSheet.create({
     paragraph: {
         fontSize: 12,
         textAlign: "center",
-        color: "black"
+        color: "black",
     },
     button: {
         // backgroundColor:'#2a2a2a',
-        backgroundColor: 'purple',
+        backgroundColor: "purple",
         borderRadius: 30,
         marginHorizontal: 50,
         marginVertical: 7,
@@ -144,64 +140,64 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         fontSize: 14,
         lineHeight: 19,
-        textAlign: 'center',
+        textAlign: "center",
     },
     contentContainer: {
         paddingTop: 30,
     },
     welcomeContainer: {
-        alignItems: 'center',
+        alignItems: "center",
         marginTop: 10,
         marginBottom: 20,
     },
     welcomeImage: {
         width: 100,
         height: 80,
-        resizeMode: 'contain',
+        resizeMode: "contain",
         marginTop: 3,
         marginLeft: -10,
     },
     getStartedContainer: {
-        alignItems: 'center',
+        alignItems: "center",
         marginHorizontal: 50,
     },
     homeScreenFilename: {
         marginVertical: 7,
     },
     codeHighlightText: {
-        color: 'rgba(96,100,109, 0.8)',
+        color: "rgba(96,100,109, 0.8)",
     },
     codeHighlightContainer: {
         borderRadius: 3,
         paddingHorizontal: 4,
     },
     getStartedText: {
-        backgroundColor: 'transparent',
+        backgroundColor: "transparent",
         fontSize: 23,
         lineHeight: 24,
-        textAlign: 'left',
+        textAlign: "left",
     },
     helpContainer: {
         marginTop: 15,
         marginHorizontal: 20,
-        alignItems: 'center',
+        alignItems: "center",
     },
     helpLink: {
         paddingVertical: 15,
     },
     helpLinkText: {
         fontSize: 23,
-        textAlign: 'center',
+        textAlign: "center",
     },
     title: {
         padding: 15,
-        textAlign: 'center',
+        textAlign: "center",
         fontSize: 30,
-        fontWeight: 'bold',
+        fontWeight: "bold",
     },
     separator: {
         marginVertical: 30,
         height: 1,
-        width: '80%',
+        width: "80%",
     },
 });
