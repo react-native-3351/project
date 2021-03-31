@@ -33,6 +33,11 @@ import ViewFavoritesScreen from "../../addalin/screens/Customer/ViewFavoritesScr
 import WishListScreen from "../../addalin/screens/Customer/WishListScreen";
 import ViewAllSensorsScreen from "../../addalin/screens/Customer/ViewAllSensorsScreen";
 //---Addalin
+//Aya Start
+import CartScreen from "../../Aya/CartScreen";
+import FeedbackScreen from "../../Aya/FeedbackScreen";
+import FAQScreen from "../../Aya/FAQScreen";
+//Aya End
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -213,6 +218,21 @@ function TabTwoNavigator() {
                 name="Wishlist"
                 component={WishListScreen}
                 options={{ headerTitle: "WishList" }}
+            />
+            <TabTwoStack.Screen
+                name="CartScreen"
+                component={CartScreen}
+                options={{ headerTitle: "Cart" }}
+            />
+            <TabTwoStack.Screen
+                name="FeedbackScreen"
+                component={FeedbackScreen}
+                options={{ headerTitle: "Feedback" }}
+            />
+            <TabTwoStack.Screen
+                name="FAQs"
+                component={FAQScreen}
+                options={{ headerTitle: "FAQ" }}
             />
         </TabTwoStack.Navigator>
     );

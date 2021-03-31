@@ -270,6 +270,30 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
     });
     functions.logger.info("sensorId8", { sensorId8 });
     //Addalin end
+
+    const { id: categoryId6 } = await db.collection("categories").add({ name: "Weight" });
+    functions.logger.info("categoryId6", { categoryId6 });
+    db.collection("categories")
+        .doc(categoryId6)
+        .collection("models")
+        .add({
+            active: true,
+            contact: false,
+            material: "glass",
+            techUsed: "hydraulic ",
+            quantity: 20,
+            price: 1000,
+        });
+
+    const { id: sensorId9 } = await db
+        .collection("sensors")
+        .add({ userid: authId2, categoryid: categoryId6, location: "lab", min: 0, max: 100 });
+    functions.logger.info("sensorId9", { sensorId9 });
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 20) - 10 });
 });
 
 exports.onNewReading = functions.firestore

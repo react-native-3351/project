@@ -29,6 +29,9 @@ export type TabTwoParamList = {
     Favorites: undefined;
     AddalinSensors: undefined;
     Wishlist: undefined;
+    CartScreen: undefined;
+    FeedbackScreen: undefined;
+    FAQs: undefined;
 };
 
 export type TabThreeParamList = {

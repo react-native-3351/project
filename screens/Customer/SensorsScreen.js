@@ -9,6 +9,7 @@ import { View } from "../../components/Themed";
 import MotionInfo from "./MotionInfo";
 import TemperatureInfo from "./TemperatureInfo";
 import LightInfo from "../../addalin/screens/Customer/LightInfo";
+import WeightInfo from "../../Aya/WeightInfo";
 
 export default function SensorsScreen() {
     const { user } = useContext(UserContext);
@@ -33,6 +34,7 @@ export default function SensorsScreen() {
                         {category.name === "Gate" && <GateInfo sensor={sensor} />}
                         {category.name === "Ultrasonic" && <ParkingInfo sensor={sensor} />}
                         {category.name === "Light" && <LightInfo sensor={sensor} />}
+                        {category.name === "Weight" && <WeightInfo sensor={sensor} />}
                     </>
                 )}
             </View>
