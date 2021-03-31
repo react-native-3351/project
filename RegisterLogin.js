@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import fb from "./fb";
 import db from "./db";
-import { StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import Colors from "./constants/Colors";
 import { Text, View } from "./components/Themed";
 import LoginPicker from "./screens/pickers/LoginPicker";
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 
 export default function RegisterLogin() {
     const [email, setEmail] = useState("");
@@ -37,106 +37,94 @@ export default function RegisterLogin() {
         }
     };
 
+    const image = {
+        uri: "https://i.pinimg.com/originals/7e/c0/c8/7ec0c8a050546e72ea781d8aa047c48c.jpg",
+        // uri: "https://www.itl.cat/pngfile/big/7-73431_true-black-wallpapers-for-the-iphone-x-iphone.jpg"
+    };
+
     const valid = () => email !== "" && password !== "";
 
     return (
-        <View style={styles.container}>
-            <LoginPicker setEmail={setEmail} setPassword={setPassword} />
-            <TextInput
-                style={{ height: 40, width: 200, borderColor: "gray", borderWidth: 1 }}
-                onChangeText={(text) => setEmail(text)}
-                value={email}
-            />
-            <TextInput
-                style={{ height: 40, width: 200, borderColor: "gray", borderWidth: 1 }}
-                onChangeText={(text) => setPassword(text)}
-                value={password}
-            />
-            <TouchableOpacity disabled={!valid()} onPress={login} style={styles.title}>
-                <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-                    Login
-                </Text>
-            </TouchableOpacity>
-            <TouchableOpacity disabled={!valid()} onPress={register} style={styles.title}>
-                <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-                    Register
-                </Text>
-            </TouchableOpacity>
-            {/* <TouchableOpacity onPress={() => createSampleData} style={styles.title}>
-        <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>sample data</Text>
-      </TouchableOpacity> */}
-        </View>
+        <ImageBackground source={image} style={styles.image}>
+            <View style={styles.container}>
+                <Text style={styles.logo}>TechMart</Text>
+                <View style={styles.inputView}>
+                    <TextInput
+                        style={styles.inputText}
+                        placeholder="Email..."
+                        placeholderTextColor="#003f5c"
+                        onChangeText={(text) => setEmail(text)}
+                        value={email}
+                    />
+                </View>
+                <View style={styles.inputView}>
+                    <TextInput
+                        secureTextEntry
+                        style={styles.inputText}
+                        placeholder="Password..."
+                        placeholderTextColor="#003f5c"
+                        onChangeText={(text) => setPassword(text)}
+                        value={password}
+                    />
+                </View>
+                <TouchableOpacity disabled={!valid()} onPress={login} style={styles.loginBtn}>
+                    <Text style={styles.loginText}>LOGIN</Text>
+                </TouchableOpacity>
+                <TouchableOpacity disabled={!valid()} onPress={register} style={styles.loginBtn}>
+                    <Text style={styles.loginText}>REGISTER</Text>
+                </TouchableOpacity>
+            </View>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
-    tinyLogo: {
-        width: 150,
-        height: 150,
-    },
     container: {
         flex: 1,
+        // backgroundColor: 'black',
         alignItems: "center",
         justifyContent: "center",
     },
-    developmentModeText: {
-        marginBottom: 20,
-        fontSize: 14,
-        lineHeight: 19,
-        textAlign: "center",
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        // justifyContent: "center"
+        paddingTop: 50,
     },
-    contentContainer: {
-        paddingTop: 30,
-    },
-    welcomeContainer: {
-        alignItems: "center",
-        marginTop: 10,
-        marginBottom: 20,
-    },
-    welcomeImage: {
-        width: 100,
-        height: 80,
-        resizeMode: "contain",
-        marginTop: 3,
-        marginLeft: -10,
-    },
-    getStartedContainer: {
-        alignItems: "center",
-        marginHorizontal: 50,
-    },
-    homeScreenFilename: {
-        marginVertical: 7,
-    },
-    codeHighlightText: {
-        color: "rgba(96,100,109, 0.8)",
-    },
-    codeHighlightContainer: {
-        borderRadius: 3,
-        paddingHorizontal: 4,
-    },
-    getStartedText: {
-        fontSize: 17,
-        lineHeight: 24,
-        textAlign: "center",
-    },
-    helpContainer: {
-        marginTop: 15,
-        marginHorizontal: 20,
-        alignItems: "center",
-    },
-    helpLink: {
-        paddingVertical: 15,
-    },
-    helpLinkText: {
-        textAlign: "center",
-    },
-    title: {
-        fontSize: 20,
+    logo: {
         fontWeight: "bold",
+        fontSize: 50,
+        color: "#ecdbff",
+        marginBottom: 40,
     },
-    separator: {
-        marginVertical: 30,
-        height: 1,
+    inputView: {
         width: "80%",
+        backgroundColor: "#ca9aff",
+        borderRadius: 25,
+        height: 50,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20,
+    },
+    inputText: {
+        height: 50,
+        color: "white",
+    },
+    forgot: {
+        color: "white",
+        fontSize: 11,
+    },
+    loginBtn: {
+        width: "80%",
+        backgroundColor: "#c577ff",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 40,
+        marginBottom: 10,
+    },
+    loginText: {
+        color: "white",
     },
 });

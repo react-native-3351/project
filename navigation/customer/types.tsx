@@ -5,6 +5,12 @@ export type BottomTabParamList = {
     Sensors: undefined;
     Actions: undefined;
     Settings: undefined;
+    //Addalin
+    liveChat: undefined;
+    ViewFavorites: undefined;
+    WishList: undefined;
+    ViewAllSensors: undefined;
+    //
 };
 
 export type TabOneParamList = {
@@ -20,10 +26,13 @@ export type TabTwoParamList = {
     Queries: undefined;
     Suggestions: undefined;
     Reports: undefined;
+    ViewFavoritesScreen: undefined;
+    ViewAllSensorsScreen: undefined;
+    WishListScreen: undefined;
 };
 
 export type TabThreeParamList = {
-    SupportScreen: undefined;
+    liveChatScreen: undefined;
 };
 
 export type TabFourParamList = {
@@ -41,3 +50,21 @@ export type TabSuggestionsScreenParamList = {
 export type TabReportsScreenParamList = {
     ReportsScreen: undefined;
 };
+
+//Addalin
+export type TabFourAddalinParamList = {
+    liveChatScreen: undefined;
+};
+
+export type TabFiveAddalinParamList = {
+    ViewFavoritesScreen: undefined;
+};
+
+export type TabSixAddalinParamList = {
+    WishListScreen: undefined;
+};
+
+export type TabSevenAddalinParamList = {
+    ViewAllSensorsScreen: undefined;
+};
+//

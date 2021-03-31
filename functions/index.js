@@ -1,4 +1,5 @@
 // must use older 'require' syntax for import
+//Addalin
 const fetch = require("node-fetch");
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
@@ -198,50 +199,79 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
     const { id: categoryId4 } = await db.collection("categories").add({ name: "Ultrasonic" });
     // functions.logger.info("categoryId2", { categoryId2 })
 
-    const { id: sensorId3 } = await db
-        .collection("sensors")
-        .add({
-            name: "Sns 1",
-            categoryid: categoryId2,
-            sample: true,
-            url: "https://www.techprate.com/wp-content/uploads/2020/01/internet-of-things.jpg",
-            description:
-                "Imagine waking up, not by an alarm blaring from your phone, but to the smell of coffee, light coming in your window from a curtain being drawn back, and a gentle stirring massage or vibration from your mattress. You wake up rested because a sleep sensor has made sure not to rouse you during a round of REM sleep.",
-        });
-    const { id: sensorId4 } = await db
-        .collection("sensors")
-        .add({
-            name: "Sns 2",
-            categoryid: categoryId1,
-            sample: true,
-            url:
-                "https://circuitdigest.com/sites/default/files/inlineimages/Nest-Learning_thermostate.jpg",
-            description:
-                'With face recognition technology you won\'t need a key to enter and exit your home, a face scan will let you in and lock up behind you. When you leave the house, a sensor communicates to a thermostat, the temperature resets to the desired "inactive" state and the lights shut off automatically to conserve energy. You live in a smart home, filled with smart appliances. Some of these IoT technologies are already widely adopted, some are still in the design phase, but it will all be a reality in the future.',
-        });
-    const { id: sensorId5 } = await db
-        .collection("sensors")
-        .add({
-            name: "Sns 3",
-            categoryid: categoryId1,
-            sample: true,
-            url: "https://www.scnsoft.com/blog-pictures/internet-of-things/cover_.png",
-            description:
-                "You've run out of milk for your cereal, but your smart fridge has already sent an electronic order for milk to an online grocery store who automatically charge a card on file for the food they deliver by drone to your front door. You can turn on the lights, turn up or lower the temperature of your home and ensure the door is locked all through voice instructions given to your connected home.",
-        });
+    const { id: sensorId3 } = await db.collection("sensors").add({
+        name: "Sns 1",
+        categoryid: categoryId2,
+        sample: true,
+        url: "https://www.techprate.com/wp-content/uploads/2020/01/internet-of-things.jpg",
+        description:
+            "Imagine waking up, not by an alarm blaring from your phone, but to the smell of coffee, light coming in your window from a curtain being drawn back, and a gentle stirring massage or vibration from your mattress. You wake up rested because a sleep sensor has made sure not to rouse you during a round of REM sleep.",
+    });
+    const { id: sensorId4 } = await db.collection("sensors").add({
+        name: "Sns 2",
+        categoryid: categoryId1,
+        sample: true,
+        url:
+            "https://circuitdigest.com/sites/default/files/inlineimages/Nest-Learning_thermostate.jpg",
+        description:
+            'With face recognition technology you won\'t need a key to enter and exit your home, a face scan will let you in and lock up behind you. When you leave the house, a sensor communicates to a thermostat, the temperature resets to the desired "inactive" state and the lights shut off automatically to conserve energy. You live in a smart home, filled with smart appliances. Some of these IoT technologies are already widely adopted, some are still in the design phase, but it will all be a reality in the future.',
+    });
+    const { id: sensorId5 } = await db.collection("sensors").add({
+        name: "Sns 3",
+        categoryid: categoryId1,
+        sample: true,
+        url: "https://www.scnsoft.com/blog-pictures/internet-of-things/cover_.png",
+        description:
+            "You've run out of milk for your cereal, but your smart fridge has already sent an electronic order for milk to an online grocery store who automatically charge a card on file for the food they deliver by drone to your front door. You can turn on the lights, turn up or lower the temperature of your home and ensure the door is locked all through voice instructions given to your connected home.",
+    });
     // functions.logger.info("sensorId2", { sensorId2 })
-    const { id: sensorId6 } = await db
-        .collection("sensors")
-        .add({
-            userid: authId1,
-            categoryid: categoryId4,
-            spots,
-            location: "Front Parkings",
-            currentCars: 0,
-            open: false,
-        });
+    const { id: sensorId6 } = await db.collection("sensors").add({
+        userid: authId1,
+        categoryid: categoryId4,
+        spots,
+        location: "Front Parkings",
+        currentCars: 0,
+        open: false,
+    });
 
     //Omar end
+
+    //Addalin Start
+    const { id: categoryId5 } = await db.collection("categories").add({ name: "Light" });
+    functions.logger.info("categoryId5", { categoryId5 });
+
+    const { id: modelId } = await db
+        .collection("categories")
+        .doc(categoryId2)
+        .collection("models")
+        .add({
+            active: true,
+            contact: false,
+            material: "Ceramics",
+            techUsed: "IR",
+            min: 0,
+            max: 100,
+        });
+    functions.logger.info("modelId", { modelId });
+
+    const { id: modelId2 } = await db
+        .collection("categories")
+        .doc(categoryId5)
+        .collection("models")
+        .add({ active: true, contact: false, material: "Ceramics", techUsed: "IR", luminence: 5 });
+    functions.logger.info("modelId2", { modelId2 });
+
+    const { id: sensorId8 } = await db
+        .collection("sensors")
+        .add({
+            userid: authId2,
+            categoryid: categoryId5,
+            modelId: modelId2,
+            location: "lab",
+            alert: "none",
+        });
+    functions.logger.info("sensorId8", { sensorId8 });
+    //Addalin end
 });
 
 exports.onNewReading = functions.firestore
@@ -356,7 +386,118 @@ exports.onNewReading = functions.firestore
                 status: status,
                 access: numAccesses,
             });
-        } else {
+        } //Addalin Start
+        else if (category.name == "Light") {
+            await db
+                .collection("sensors")
+                .doc(sensor.id)
+                .set(
+                    {
+                        alert:
+                            reading.current == model.luminence
+                                ? "equal"
+                                : reading.current > model.luminence
+                                ? "high"
+                                : "low",
+                    },
+                    { merge: true }
+                );
+            functions.logger.info("light alert update", {
+                alert: reading.current == model.luminence * 1 ? "equal" : "nope",
+            });
+        }
+        //Addalin end
+        else {
             functions.logger.info("No such category", { category });
         }
     });
+
+//Addalin Start
+exports.onNewSensor = functions.firestore
+    .document("sensors/{sensorid}")
+    .onCreate(async (snap, context) => {
+        functions.logger.info("VIEWING WISHLIST");
+        const sensor = snap.data();
+        functions.logger.info("sensor on new", { sensor });
+
+        const categoryDoc = await db.collection("categories").doc(sensor.categoryid).get();
+        const category = { id: categoryDoc.id, ...categoryDoc.data() };
+
+        const modelDoc = await db
+            .collection("categories")
+            .doc(sensor.categoryid)
+            .collection("models")
+            .doc(sensor.modelId)
+            .get();
+        functions.logger.info("MODLES", { modelDoc });
+        const model = { id: modelDoc.id, ...modelDoc.data() };
+
+        const allUsersDoc = await db.collection("users").get();
+        const allUsers = await allUsersDoc.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+
+        Promise.all(
+            allUsers.map(async (user) => {
+                const wishlistDoc = await db
+                    .collection("users")
+                    .doc(user.id)
+                    .collection("wishlist")
+                    .get();
+                const wishlist = wishlistDoc.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+                await matchWishlist(wishlist, model, category, user.id);
+            })
+        );
+
+        matchWishlist = async (wishlist, item, category, userId) => {
+            Promise.all(
+                wishlist.map(async (list) =>
+                    this.matchingList(list, item, category)
+                        ? await db
+                              .collection("notification")
+                              .add({
+                                  userId,
+                                  sensorId: sensor.id,
+                                  timestamp: new Date(),
+                                  title: "Wishlist has something new",
+                                  body: "Your wishlist has a new sensor !",
+                                  link: "",
+                                  isRead: false,
+                              })
+                        : null
+                )
+            );
+        };
+
+        matchingList = (wishlist, item, category) => {
+            let result = false;
+
+            if (wishlist.category !== "") {
+                result = wishlist.category === category.name;
+            }
+            if (wishlist.material !== "") {
+                result = wishlist.material === item.material;
+            }
+            if (wishlist.techUsed !== "") {
+                result = wishlist.techUsed === item.techUsed;
+            }
+            if (wishlist.active !== "") {
+                result = wishlist.active === item.active;
+            }
+            if (wishlist.contact !== "") {
+                result = wishlist.contact === item.contact;
+            }
+            if (wishlist.min !== "") {
+                result = wishlist.min === item.min;
+            }
+            if (wishlist.max !== "") {
+                result = wishlist.max === item.max;
+            }
+            if (wishlist.radius !== "") {
+                result = wishlist.radius === item.radius;
+            }
+            if (wishlist.luminence !== "") {
+                result = wishlist.luminence === item.luminence;
+            }
+            return result;
+        };
+    });
+//Addalin End

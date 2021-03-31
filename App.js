@@ -8,6 +8,7 @@ import NavigationCustomer from "./navigation/customer";
 import NavigationAdmin from "./navigation/admin";
 import NavigationCS from './OmarSayed/navigation/customerservice';
 import NavigationMarketer from "./navigation/marketer";
+import NavigationSupport from './navigation/support';
 
 import { LogBox } from "react-native";
 LogBox.ignoreLogs(["Setting a timer for a long period of time"]);
@@ -63,6 +64,8 @@ export default function App() {
             return <NavigationMarketer colorScheme={colorScheme} />;
         }else if (user?.role === "customerservice") {
           return <NavigationCS colorScheme={colorScheme} />
+        } else if (user?.role === "Support") {
+          return <NavigationSupport colorScheme={colorScheme} />
         } else {
             console.log("user role", user?.role);
             fb.auth().signOut();

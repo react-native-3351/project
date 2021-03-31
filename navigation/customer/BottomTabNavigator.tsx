@@ -27,6 +27,12 @@ import {
 import QueriesScreen from "../../OmarSayed/Customer/Queries/QueriesScreen";
 import SuggestionsScreen from "../../OmarSayed/Customer/Suggestions/SuggestionsScreen";
 import ReportsScreen from "../../OmarSayed/Customer/Reports/ReportsScreen";
+//---Addalin
+import liveChatScreen from "../../addalin/screens/Customer/LiveChatScreen";
+import ViewFavoritesScreen from "../../addalin/screens/Customer/ViewFavoritesScreen";
+import WishListScreen from "../../addalin/screens/Customer/WishListScreen";
+import ViewAllSensorsScreen from "../../addalin/screens/Customer/ViewAllSensorsScreen";
+//---Addalin
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -193,6 +199,21 @@ function TabTwoNavigator() {
                 component={ReportsScreen}
                 options={{ headerTitle: "Reports" }}
             />
+            <TabTwoStack.Screen
+                name="ViewFavoritesScreen"
+                component={ViewFavoritesScreen}
+                options={{ headerTitle: "Favorites" }}
+            />
+            <TabTwoStack.Screen
+                name="ViewAllSensorsScreen"
+                component={ViewAllSensorsScreen}
+                options={{ headerTitle: "All Sensors" }}
+            />
+            <TabTwoStack.Screen
+                name="WishListScreen"
+                component={WishListScreen}
+                options={{ headerTitle: "WishList" }}
+            />
         </TabTwoStack.Navigator>
     );
 }
@@ -203,9 +224,9 @@ function TabThreeNavigator() {
     return (
         <TabThreeStack.Navigator>
             <TabThreeStack.Screen
-                name="SupportScreen"
-                component={SupportScreen}
-                options={{ headerTitle: "Support" }}
+                name="liveChatScreen"
+                component={liveChatScreen}
+                options={{ headerTitle: "live chat" }}
             />
         </TabThreeStack.Navigator>
     );

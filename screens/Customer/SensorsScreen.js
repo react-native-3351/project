@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet } from "react-native";
-import { View } from "../../components/Themed";
-import MotionInfo from "./MotionInfo";
-import TemperatureInfo from "./TemperatureInfo";
 import GateInfo from "../../Asmar/Customer/GateInfo";
 import CategoryByUserPicker from "../pickers/CategoryByUserPicker";
 import SensorByUserAndCategoryPicker from "../pickers/SensorByUserAndCategoryPicker";
 import UserContext from "../../UserContext";
-import ParkingInfo from '../../OmarSayed/Customer/Sensors/ParkingInfo'
+import ParkingInfo from "../../OmarSayed/Customer/Sensors/ParkingInfo";
+import { StyleSheet, ImageBackground } from "react-native";
+import { View } from "../../components/Themed";
+import MotionInfo from "./MotionInfo";
+import TemperatureInfo from "./TemperatureInfo";
+import LightInfo from "../../addalin/screens/Customer/LightInfo";
 
 export default function SensorsScreen() {
     const { user } = useContext(UserContext);
@@ -31,6 +32,7 @@ export default function SensorsScreen() {
                         {category.name === "Temperature" && <TemperatureInfo sensor={sensor} />}
                         {category.name === "Gate" && <GateInfo sensor={sensor} />}
                         {category.name === "Ultrasonic" && <ParkingInfo sensor={sensor} />}
+                        {category.name === "Light" && <LightInfo sensor={sensor} />}
                     </>
                 )}
             </View>
