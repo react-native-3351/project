@@ -1,44 +1,59 @@
-import * as Linking from 'expo-linking';
+import * as Linking from "expo-linking";
 
 export default {
-  prefixes: [Linking.makeUrl('/')],
-  config: {
-    screens: {
-      Root: {
+    prefixes: [Linking.makeUrl("/")],
+    config: {
         screens: {
-          TabOne: {
-            screens: {
-              SensorsScreen: 'one',
+            Root: {
+                screens: {
+                    TabOne: {
+                        screens: {
+                            SensorsScreen: "one",
+                        },
+                    },
+                    TabTwo: {
+                        screens: {
+                            ActionsScreen: "two",
+                        },
+                    },
+                    TabThree: {
+                        screens: {
+                            SettingsScreen: "three",
+                        },
+                    },
+                    TabFour: {
+                        screens: {
+                            QueriesScreen: "four",
+                        },
+                    },
+                    TabFiveOmar: {
+                        screens: {
+                            SuggestionsScreen: "five",
+                        },
+                    },
+                    TabSixOmar: {
+                        screens: {
+                            ReportsScreen: "six",
+                        },
+                    },
+                    TabOneAya: {
+                        screens: {
+                            CartScreen: "oneAya",
+                        },
+                    },
+                    TabTwoAya: {
+                        screens: {
+                            FeedbackScreen: "twoAya",
+                        },
+                    },
+                    TabThreeAya: {
+                        screens: {
+                            FAQScreen: "threeAya",
+                        },
+                    },
+                },
+                NotFound: "*",
             },
-          },
-          TabTwo: {
-            screens: {
-              ActionsScreen: 'two',
-            },
-          },
-          TabThree: {
-            screens: {
-              SettingsScreen: 'three',
-            },
-          },
-          TabOneAya: {
-            screens: {
-              CartScreen: 'oneAya',
-            },
-          },
-        TabTwoAya: {
-          screens: {
-            FeedbackScreen: 'twoAya',
-          },
         },
-        TabThreeAya: {
-          screens: {
-            FAQScreen: 'threeAya',
-          },
-        },
-      },
-      },
-      NotFound: '*',
     },
-  },
 };
