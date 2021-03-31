@@ -14,7 +14,7 @@ export default function RegisterLogin() {
     };
 
     const register = async () => {
-        console.log("register");
+        //console.log("register");
         try {
             await fb.auth().createUserWithEmailAndPassword(email, password);
             const uid = fb.auth().currentUser.uid;

@@ -30,7 +30,7 @@ export default function GateSimulator({ sensor }) {
             Boolean(Math.round(Math.random() - 0.4)),
             Boolean(Math.round(Math.random() - 0.4)),
         ];
-        console.log("spots", spots);
+        //console.log("spots", spots);
         await db.Sensors.Readings.createReading(sensor.id, {
             when: new Date(),
             spots: spots,

@@ -37,7 +37,7 @@ export default function PromotionsAsmarScreen() {
             discount: disc,
             ...(selectedIdx == 0 && { max }),
         }); //TODO: NEEDS TESTING
-        console.log("Discount: ", disc);
+        //console.log("Discount: ", disc);
     };
 
     const formatDate = (date) => {

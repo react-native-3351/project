@@ -27,7 +27,7 @@ export default function WeightInfo({ sensor }) {
     useEffect(() => (reading ? handleSimulate() : undefined), [reading]);
     const handleSimulate = () => {
         let item = randomItems[Math.floor(Math.random() * randomItems.length)];
-        console.log(item);
+        //console.log(item);
         setProduct(item);
         let total = item.price * reading.current;
         setTotalPrice(total);

@@ -21,7 +21,7 @@ export default function LightInfo({ sensor }) {
 
     const barValue = reading && model ? (reading.current / model.luminence) * 200 : 0;
 
-    console.log("barValue", barValue);
+    //console.log("barValue", barValue);
     return (
         <View style={styles.container}>
             <Text style={styles.secTitle}>Luminence: {model && model.luminence}</Text>

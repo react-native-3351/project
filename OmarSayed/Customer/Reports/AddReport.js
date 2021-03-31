@@ -1,86 +1,73 @@
 import React, { useEffect, useState } from "react";
-import db from '../../../db'
-import {
-    StyleSheet,
-    View,
-    Text,
-    TouchableOpacity,
-    TextInput
-} from "react-native";
-import { SafeAreaView, Alert } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import db from "../../../db";
+import { StyleSheet, View, Text, TouchableOpacity, TextInput } from "react-native";
+import { SafeAreaView, Alert } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import CategoryByUserPicker from "../../../screens/pickers/CategoryByUserPicker";
 import SensorByUserAndCategoryPicker from "../../../screens/pickers/SensorByUserAndCategoryPicker";
-import styleExt from './style'
-import { Button } from 'react-native-elements'
+import styleExt from "./style";
+import { Button } from "react-native-elements";
 
 export default function AddSuggestion({ user }) {
-    const [about, setAbout] = useState('app')
+    const [about, setAbout] = useState("app");
 
-    const [description, setDescription] = useState('')
-    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState("");
+    const [title, setTitle] = useState("");
 
-    useEffect(() => setCategory(null), [user])
-    const [category, setCategory] = useState(null)
-    useEffect(() => setSensor(null), [category])
-    const [sensor, setSensor] = useState(null)
+    useEffect(() => setCategory(null), [user]);
+    const [category, setCategory] = useState(null);
+    useEffect(() => setSensor(null), [category]);
+    const [sensor, setSensor] = useState(null);
 
     const addReport = () => {
-        // console.log({ userId: user.id, description, likes: 0, dislikes: 0, typedDate: new Date() })
-        db.Reports.create({ title, sensorId: sensor && sensor.id !== null ? sensor.id : '', userId: user.id, description, typedDate: new Date(), about, status: 'new', reply: '', repliedBy: '' })
-        setDescription('')
-        setTitle('')
-        Alert.alert('Will Contact with You Soon 🌹')
-    }
-
-
+        // //console.log({ userId: user.id, description, likes: 0, dislikes: 0, typedDate: new Date() })
+        db.Reports.create({
+            title,
+            sensorId: sensor && sensor.id !== null ? sensor.id : "",
+            userId: user.id,
+            description,
+            typedDate: new Date(),
+            about,
+            status: "new",
+            reply: "",
+            repliedBy: "",
+        });
+        setDescription("");
+        setTitle("");
+        Alert.alert("Will Contact with You Soon 🌹");
+    };
 
     let validate = () => {
-        if (description === '' || title === '') {
-            return false
+        if (description === "" || title === "") {
+            return false;
+        } else if (about === "sensor" && !sensor) {
+            return false;
         }
-        else if (about === 'sensor' && !sensor) {
-            return false
-        }
-        return true
-    }
+        return true;
+    };
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styleExt.secTitle}>
-                Make Report
-            </Text>
+            <Text style={styleExt.secTitle}>Make Report</Text>
             <View>
-                <Text style={styleExt.thirdTitle}>
-                    About
-                 </Text>
+                <Text style={styleExt.thirdTitle}>About</Text>
                 <Picker
                     selectedValue={about}
                     onValueChange={setAbout}
-                    style={{ ...styleExt.input, color: 'black' }}
+                    style={{ ...styleExt.input, color: "black" }}
                 >
-                    <Picker.Item label='Bug in the App' value="app" />
-                    <Picker.Item label='Your Sensor' value="sensor" />
-
+                    <Picker.Item label="Bug in the App" value="app" />
+                    <Picker.Item label="Your Sensor" value="sensor" />
                 </Picker>
             </View>
-            {
-                about === 'sensor' &&
-                <View style={{ alignSelf: "center", }}>
-                    {
-                        user
-                        &&
-                        <CategoryByUserPicker set={setCategory} />
-                    }
-                    {
-                        user
-                        &&
-                        category
-                        &&
+            {about === "sensor" && (
+                <View style={{ alignSelf: "center" }}>
+                    {user && <CategoryByUserPicker set={setCategory} />}
+                    {user && category && (
                         <SensorByUserAndCategoryPicker category={category} set={setSensor} />
-                    }
+                    )}
                 </View>
-            }
+            )}
             <TextInput
                 placeholder="Title"
                 style={styleExt.input}
@@ -103,7 +90,7 @@ export default function AddSuggestion({ user }) {
                     disabled={!validate()}
                 />
                 {/* {
-                    console.log(description === '' ? about === 'app' && title === ''? true:false : true)
+                    //console.log(description === '' ? about === 'app' && title === ''? true:false : true)
                 } */}
             </View>
         </SafeAreaView>
@@ -113,17 +100,17 @@ export default function AddSuggestion({ user }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'flex-start',
+        justifyContent: "flex-start",
         marginHorizontal: 6,
-        backgroundColor: 'rgba(71, 1, 120, 0.27)',
-        marginTop: 10
+        backgroundColor: "rgba(71, 1, 120, 0.27)",
+        marginTop: 10,
     },
     loremIpsum: {
         color: "#121212",
         fontSize: 15,
         marginTop: 10,
         alignSelf: "center",
-        marginBottom: 10
+        marginBottom: 10,
     },
     placeholder: {
         color: "#121212",
@@ -134,21 +121,20 @@ const styles = StyleSheet.create({
         shadowColor: "rgba(0,0,0,1)",
         shadowOffset: {
             width: 0,
-            height: 3
+            height: 3,
         },
         borderWidth: 1,
-        borderColor: 'lightgray',
+        borderColor: "lightgray",
         shadowOpacity: 1,
         shadowRadius: 0,
         marginTop: 10,
         marginLeft: 23,
         marginBottom: 40,
 
-        padding: 11
+        padding: 11,
     },
     fixToText: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-    }
+        flexDirection: "row",
+        justifyContent: "space-around",
+    },
 });
-

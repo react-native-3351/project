@@ -27,7 +27,7 @@ export default function CartScreen() {
     const [total, setTotal] = useState(0);
     const [checkOut, setCheckOut] = useState(false);
     useEffect(() => db.Carts.listenLastNotFinished(setCart, user.id), [user]);
-    console.log(cart);
+    //console.log(cart);
     useEffect(() => (cart ? db.Carts.Items.listenAllItems(setItems, cart.id) : undefined), [cart]);
     useEffect(() => (items ? calTotal() : setTotal(0)), [items]);
     const calTotal = () => {

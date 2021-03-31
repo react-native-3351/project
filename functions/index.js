@@ -273,17 +273,14 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
 
     const { id: categoryId6 } = await db.collection("categories").add({ name: "Weight" });
     functions.logger.info("categoryId6", { categoryId6 });
-    db.collection("categories")
-        .doc(categoryId6)
-        .collection("models")
-        .add({
-            active: true,
-            contact: false,
-            material: "glass",
-            techUsed: "hydraulic ",
-            quantity: 20,
-            price: 1000,
-        });
+    db.collection("categories").doc(categoryId6).collection("models").add({
+        active: true,
+        contact: false,
+        material: "glass",
+        techUsed: "hydraulic ",
+        quantity: 20,
+        price: 1000,
+    });
 
     const { id: sensorId9 } = await db
         .collection("sensors")
@@ -410,6 +407,14 @@ exports.onNewReading = functions.firestore
             });
         } //Addalin Start
         else if (category.name == "Light") {
+            const modelDoc = await db
+                .collection("categories")
+                .doc(sensor.categoryid)
+                .collection("models")
+                .doc(sensor.modelId)
+                .get();
+            functions.logger.info("MODLES", { modelDoc });
+            const model = { id: modelDoc.id, ...modelDoc.data() };
             await db
                 .collection("sensors")
                 .doc(sensor.id)

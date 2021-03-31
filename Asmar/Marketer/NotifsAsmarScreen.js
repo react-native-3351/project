@@ -29,7 +29,7 @@ export default function NotifsAsmarScreen() {
         setBody("");
         setLink("");
         Alert.alert("Sent!", null, null, { cancelable: true });
-        //console.log("Notification sent!");
+        ////console.log("Notification sent!");
     };
 
     return (

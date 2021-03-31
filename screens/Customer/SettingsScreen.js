@@ -12,7 +12,7 @@ export default function SettingsScreen({ navigation }) {
         await fb.auth().signOut();
     };
 
-    console.log(user);
+    //console.log(user);
 
     return (
         <View>

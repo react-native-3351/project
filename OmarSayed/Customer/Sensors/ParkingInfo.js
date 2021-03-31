@@ -14,7 +14,7 @@ export default function ParkingInfo({ sensor }) {
             sensor ? db.Sensors.Readings.listenCarsInParkings(setReading, sensor.id) : undefined,
         [sensor]
     );
-    console.log(reading);
+    //console.log(reading);
     return (
         <View style={styles.app}>
             <View style={styles.carView}>

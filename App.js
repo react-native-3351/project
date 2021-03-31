@@ -6,9 +6,9 @@ import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import NavigationCustomer from "./navigation/customer";
 import NavigationAdmin from "./navigation/admin";
-import NavigationCS from './OmarSayed/navigation/customerservice';
+import NavigationCS from "./OmarSayed/navigation/customerservice";
 import NavigationMarketer from "./navigation/marketer";
-import NavigationSupport from './navigation/support';
+import NavigationSupport from "./navigation/support";
 
 import { LogBox } from "react-native";
 LogBox.ignoreLogs(["Setting a timer for a long period of time"]);
@@ -51,7 +51,7 @@ export default function App() {
         };
     }, []);
 
-    console.log("user", user);
+    //console.log("user", user);
 
     const selectNavigation = () => {
         if (!user) {
@@ -62,12 +62,12 @@ export default function App() {
             return <NavigationAdmin colorScheme={colorScheme} />;
         } else if (user?.role === "Marketer") {
             return <NavigationMarketer colorScheme={colorScheme} />;
-        }else if (user?.role === "customerservice") {
-          return <NavigationCS colorScheme={colorScheme} />
+        } else if (user?.role === "customerservice") {
+            return <NavigationCS colorScheme={colorScheme} />;
         } else if (user?.role === "Support") {
-          return <NavigationSupport colorScheme={colorScheme} />
+            return <NavigationSupport colorScheme={colorScheme} />;
         } else {
-            console.log("user role", user?.role);
+            //console.log("user role", user?.role);
             fb.auth().signOut();
             return null;
         }

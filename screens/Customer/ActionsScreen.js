@@ -14,7 +14,7 @@ export default function ActionsScreen() {
     useEffect(() => setSensor(null), [category]);
     const [sensor, setSensor] = useState(null);
 
-    console.log(user, category, sensor);
+    //console.log(user, category, sensor);
 
     return (
         <View>

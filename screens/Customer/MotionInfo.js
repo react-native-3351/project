@@ -28,7 +28,7 @@ export default function MotionInfo({ sensor }) {
         previousImageURL = readings[1].url;
     }
 
-    console.log(readings.length);
+    //console.log(readings.length);
 
     return (
         <View>

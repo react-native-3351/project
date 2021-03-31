@@ -88,6 +88,27 @@ export default function ServicesScreen({ navigation }) {
                         Wishlist
                     </Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("FAQs")} style={styles.title}>
+                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+                        FAQs
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("CartScreen")}
+                    style={styles.title}
+                >
+                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+                        Your Cart!
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("FeedbackScreen")}
+                    style={styles.title}
+                >
+                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+                        Feedback
+                    </Text>
+                </TouchableOpacity>
             </View>
         </View>
     );

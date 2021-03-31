@@ -8,7 +8,7 @@ class DB {
     }
 
     reformat(doc) {
-        // console.log("reformat", doc.id);
+        // //console.log("reformat", doc.id);
         return { id: doc.id, ...doc.data() };
     }
 
@@ -100,15 +100,21 @@ class Sensors extends DB {
             .where("sample", "==", true)
             .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
     //Addalin Start
-    toggleLightAlert = sensor => {
-        const alertArray = ["high", "equal", "low"]
-        const randomNum = Math.floor(Math.random() * Math.floor(3))
-        db.collection(this.collection).doc(sensor.id).set({ alert: alertArray[randomNum] }, { merge: true })
-    }
-    
+    toggleLightAlert = (sensor) => {
+        const alertArray = ["high", "equal", "low"];
+        const randomNum = Math.floor(Math.random() * Math.floor(3));
+        db.collection(this.collection)
+            .doc(sensor.id)
+            .set({ alert: alertArray[randomNum] }, { merge: true });
+    };
+
     listenItemsForWishlist = (set, catId, modelId) => {
-        db.collection(this.collection).where('categoryid', '==', catId).where('modelId', '==', modelId).where('userid', '==', "").onSnapshot(snap => set(snap.docs.map(this.reformat)))
-    }
+        db.collection(this.collection)
+            .where("categoryid", "==", catId)
+            .where("modelId", "==", modelId)
+            .where("userid", "==", "")
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+    };
     //Addalin End
 }
 
@@ -284,17 +290,17 @@ class Users extends DB {
         this.Notifications = new Notifications(this.collection);
         this.Gifts = new Gifts(this.collection);
         //Addalin Start
-        this.Favorite = new Favorite(this.collection)
-        this.Wishlist = new Wishlist(this.collection)
+        this.Favorite = new Favorite(this.collection);
+        this.Wishlist = new Wishlist(this.collection);
         //Addalin End
     }
 }
 
 class Categories extends DB {
     constructor() {
-        super('categories')
+        super("categories");
         //Addalin Start
-        this.Models = new Models(this.collection)
+        this.Models = new Models(this.collection);
         //Addalin End
     }
 
@@ -305,12 +311,13 @@ class Categories extends DB {
             .where(db.FieldPath.documentId(), "in", ids)
             .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 
-                //Addalin Start
+    //Addalin Start
     listenOneByName = (set, name) => {
-        db.collection(this.collection).where('name', '==', name).onSnapshot(snap => set(snap.docs.map(this.reformat)))
-    }
+        db.collection(this.collection)
+            .where("name", "==", name)
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+    };
     //Addalin End
-
 }
 
 //Asmar Start
@@ -405,229 +412,295 @@ class Promotions extends DB {
 
 //Addalin Start
 
-class Models extends DB {
-
-    constructor(containing) {
-        super('models')
-        this.containing = containing
-    }
-
-    updateLuminence = async (sensor, value) => {
-        const { id, ...rest } = sensor
-        await db.collection(this.containing).doc(sensor.categoryid).collection(this.collection).doc(sensor.modelId).set({ ...rest, luminence: value })
-    }
-
-    listenOneById = (set, catId, modelId) => db.collection(this.containing).doc(catId).collection(this.collection).doc(modelId).onSnapshot(snap => set(this.reformat(snap)))
-
-    listenModelByWishList = (set, catId, wishlist) => {
-
-        console.log("Model", wishlist)
-        let query = db.collection(this.containing).doc(catId).collection(this.collection)
-
-        if (wishlist.material !== "") {
-            query = query.where('material', '==', wishlist.material)
-        }
-        if (wishlist.techUsed !== "") {
-            query = query.where('techUsed', '==', wishlist.techUsed)
-        }
-        if (wishlist.active !== "") {
-            query = query.where('active', '==', wishlist.active)
-        }
-        if (wishlist.contact !== "") {
-            query = query.where('contact', '==', wishlist.contact)
-        }
-        if (wishlist.min !== "") {
-            query = query.where('min', '==', wishlist.min * 1)
-        }
-        if (wishlist.max !== "") {
-            query = query.where('max', '==', wishlist.max * 1)
-        }
-        if (wishlist.radius !== "") {
-            query = query.where('radius', '==', wishlist.radius)
-        }
-        if (wishlist.luminence !== "") {
-            query = query.where('luminence', '==', wishlist.luminence)
-        }
-
-        query.onSnapshot(snap => set(snap.docs.map(this.reformat)))
-    }
-}
-
 class LiveChat extends DB {
     constructor() {
-        super('livechat')
+        super("livechat");
     }
 
     listenOnlyMessages = async (chatArray, set) => {
-        await Promise.all(chatArray.map(async chat => {
-            db.collection(this.collection).doc(chat.id).collection('messages').orderBy("messageDate", "asc").onSnapshot(snap =>
-                set(snap.docs.map(this.reformat)))
-        })
-        )
-    }
+        await Promise.all(
+            chatArray.map(async (chat) => {
+                db.collection(this.collection)
+                    .doc(chat.id)
+                    .collection("messages")
+                    .orderBy("messageDate", "asc")
+                    .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+            })
+        );
+    };
 
-    listenChat = async (set, userId) => db.collection('livechat').where('userId', '==', userId).where('chatStatus', '==', 'open').onSnapshot(snap => this.listenOnlyMessages(snap.docs.map(this.reformat), set))
+    listenChat = async (set, userId) =>
+        db
+            .collection("livechat")
+            .where("userId", "==", userId)
+            .where("chatStatus", "==", "open")
+            .onSnapshot((snap) => this.listenOnlyMessages(snap.docs.map(this.reformat), set));
 
-    listenChatOnly = (set, userId) => db.collection(this.collection).where('userId', '==', userId).where('chatStatus', '==', 'open').onSnapshot(snap => set(snap.docs.map(this.reformat)))
+    listenChatOnly = (set, userId) =>
+        db
+            .collection(this.collection)
+            .where("userId", "==", userId)
+            .where("chatStatus", "==", "open")
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 
     listenNewChatAdmin = (set, userId) => {
-        db.collection(this.collection).where('supportId', 'in', [userId, ""]).where('chatStatus', '==', 'open').where('messageStatus', '==', 'unread').onSnapshot(snap => set(snap.docs.map(this.reformat)))
-    }
+        db.collection(this.collection)
+            .where("supportId", "in", [userId, ""])
+            .where("chatStatus", "==", "open")
+            .where("messageStatus", "==", "unread")
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+    };
 
     selectUser = async (livechat, userId) => {
-        const { id, ...rest } = livechat
-        await db.collection(this.collection).doc(id).set({ ...rest, supportId: userId })
-    }
+        const { id, ...rest } = livechat;
+        await db
+            .collection(this.collection)
+            .doc(id)
+            .set({ ...rest, supportId: userId });
+    };
 
     listenMessagesAdmin = (set, docId) => {
-        db.collection(this.collection).doc(docId).collection('messages').orderBy('messageDate', 'asc').onSnapshot(snap => set(snap.docs.map(this.reformat)))
-    }
+        db.collection(this.collection)
+            .doc(docId)
+            .collection("messages")
+            .orderBy("messageDate", "asc")
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+    };
 
     updateStatus = async (livechat) => {
-        const { id, ...rest } = livechat
-        await db.collection(this.collection).doc(id).set({ ...rest, messageStatus: "read" })
-    }
+        const { id, ...rest } = livechat;
+        await db
+            .collection(this.collection)
+            .doc(id)
+            .set({ ...rest, messageStatus: "read" });
+    };
 
     updateChatStatus = async (livechat) => {
-        const { id, ...rest } = livechat
-        return await db.collection(this.collection).doc(id).set({ ...rest, chatStatus: "close" })
-    }
+        const { id, ...rest } = livechat;
+        return await db
+            .collection(this.collection)
+            .doc(id)
+            .set({ ...rest, chatStatus: "close" });
+    };
 
     createMessageUser = async (message, livechat) => {
-        const { id, ...rest } = livechat
-        await db.collection(this.collection).doc(id).collection('messages').add(message)
-        await db.collection(this.collection).doc(id).set({ ...rest, messageStatus: 'unread' })
-    }
+        const { id, ...rest } = livechat;
+        await db.collection(this.collection).doc(id).collection("messages").add(message);
+        await db
+            .collection(this.collection)
+            .doc(id)
+            .set({ ...rest, messageStatus: "unread" });
+    };
 
     createLivechat = async (message, userId) => {
-        await db.collection(this.collection).add({ supportId: "", userId, messageStatus: "unread", chatStatus: "open" }).then(async doc => {
-            await db.collection(this.collection).doc(doc.id).collection('messages').add(message)
-        })
-    }
+        await db
+            .collection(this.collection)
+            .add({ supportId: "", userId, messageStatus: "unread", chatStatus: "open" })
+            .then(async (doc) => {
+                await db
+                    .collection(this.collection)
+                    .doc(doc.id)
+                    .collection("messages")
+                    .add(message);
+            });
+    };
 
     createMessageAdmin = async (livechatId, message) => {
-        await db.collection(this.collection).doc(livechatId).collection('messages').add(message)
-    }
-
+        await db.collection(this.collection).doc(livechatId).collection("messages").add(message);
+    };
 }
 
 class Favorite extends DB {
     constructor(containing) {
-        super('favorite')
-        this.containing = containing
+        super("favorite");
+        this.containing = containing;
     }
 
-    listenToUsersFavorite = (set, userId) => db.collection(this.containing).doc(userId).collection(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
+    listenToUsersFavorite = (set, userId) =>
+        db
+            .collection(this.containing)
+            .doc(userId)
+            .collection(this.collection)
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 
     deleteFavorite = async (userId, favId) =>
-        await db.collection(this.containing).doc(userId).collection(this.collection).doc(favId).delete()
+        await db
+            .collection(this.containing)
+            .doc(userId)
+            .collection(this.collection)
+            .doc(favId)
+            .delete();
 
     deleteFavoriteBySensorId = async (userId, favId) =>
-        await db.collection(this.containing).doc(userId).collection(this.collection).where('sensorId', '==', favId).delete()
+        await db
+            .collection(this.containing)
+            .doc(userId)
+            .collection(this.collection)
+            .where("sensorId", "==", favId)
+            .delete();
 
     saveFavorite = async (sensorId, userId) =>
-        await db.collection(this.containing).doc(userId).collection(this.collection).add({ sensorId, date: new Date() })
-
+        await db
+            .collection(this.containing)
+            .doc(userId)
+            .collection(this.collection)
+            .add({ sensorId, date: new Date() });
 }
 
 class Wishlist extends DB {
     constructor(containing) {
-        super('wishlist')
-        this.containing = containing
+        super("wishlist");
+        this.containing = containing;
     }
 
     listenAllWishlists = (set, userId) => {
-        db.collection(this.containing).doc(userId).collection(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
-    }
+        db.collection(this.containing)
+            .doc(userId)
+            .collection(this.collection)
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+    };
 
     deleteWishlist = async (userId, listId) => {
-        await db.collection(this.containing).doc(userId).collection(this.collection).doc(listId).delete()
-    }
+        await db
+            .collection(this.containing)
+            .doc(userId)
+            .collection(this.collection)
+            .doc(listId)
+            .delete();
+    };
 
     createWishlist = async (item, userId) => {
-        await db.collection(this.containing).doc(userId).collection(this.collection).add(item)
-    }
+        await db.collection(this.containing).doc(userId).collection(this.collection).add(item);
+    };
 }
 class Models extends DB {
-
     constructor(containing) {
-        super('models')
-        this.containing = containing
+        super("models");
+        this.containing = containing;
     }
     listenAllModels = (set, catId) =>
-         db.collection(this.containing).doc(catId).collection(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
+        db
+            .collection(this.containing)
+            .doc(catId)
+            .collection(this.collection)
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
     listenOneModel = (set, modelId, catId) =>
-         db.collection(this.containing).doc(catId).collection(this.collection).doc(modelId).onSnapshot(snap => set(this.reformat(snap)))
+        db
+            .collection(this.containing)
+            .doc(catId)
+            .collection(this.collection)
+            .doc(modelId)
+            .onSnapshot((snap) => set(this.reformat(snap)));
 
     createModel = (catId, model) =>
-        db.collection(this.containing).doc(catId).collection(this.collection).add(model)
+        db.collection(this.containing).doc(catId).collection(this.collection).add(model);
 
+    updateLuminence = async (sensor, value) => {
+        const { id, ...rest } = sensor;
+        await db
+            .collection(this.containing)
+            .doc(sensor.categoryid)
+            .collection(this.collection)
+            .doc(sensor.modelId)
+            .set({ ...rest, luminence: value });
+    };
+
+    listenOneById = (set, catId, modelId) =>
+        db
+            .collection(this.containing)
+            .doc(catId)
+            .collection(this.collection)
+            .doc(modelId)
+            .onSnapshot((snap) => set(this.reformat(snap)));
+
+    listenModelByWishList = (set, catId, wishlist) => {
+        //console.log("Model", wishlist);
+        let query = db.collection(this.containing).doc(catId).collection(this.collection);
+
+        if (wishlist.material !== "") {
+            query = query.where("material", "==", wishlist.material);
+        }
+        if (wishlist.techUsed !== "") {
+            query = query.where("techUsed", "==", wishlist.techUsed);
+        }
+        if (wishlist.active !== "") {
+            query = query.where("active", "==", wishlist.active);
+        }
+        if (wishlist.contact !== "") {
+            query = query.where("contact", "==", wishlist.contact);
+        }
+        if (wishlist.min !== "") {
+            query = query.where("min", "==", wishlist.min * 1);
+        }
+        if (wishlist.max !== "") {
+            query = query.where("max", "==", wishlist.max * 1);
+        }
+        if (wishlist.radius !== "") {
+            query = query.where("radius", "==", wishlist.radius);
+        }
+        if (wishlist.luminence !== "") {
+            query = query.where("luminence", "==", wishlist.luminence);
+        }
+
+        query.onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+    };
 }
 class Carts extends DB {
-
     constructor() {
-        super('carts')
-        this.Items= new Items(this.collection)
+        super("carts");
+        this.Items = new Items(this.collection);
     }
-    listenLastNotFinished=(set, userid)=>
-        db.collection(this.collection).where("userid","==",userid).where("checkOut","==",false).onSnapshot(snap => set(snap.docs.map(this.reformat)[0]))
-    createCart=(cartId, cart)=>{
-        db.collection(this.collection).add(cart)
+    listenLastNotFinished = (set, userid) =>
+        db
+            .collection(this.collection)
+            .where("userid", "==", userid)
+            .where("checkOut", "==", false)
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)[0]));
+    createCart = (cartId, cart) => {
+        db.collection(this.collection).add(cart);
 
-        db.collection(this.collection).doc(cartId).set({ checkOut:true }, { merge: true })
-
-    }
-
-    
-
+        db.collection(this.collection).doc(cartId).set({ checkOut: true }, { merge: true });
+    };
 }
-class Items extends DB{
+class Items extends DB {
     constructor(containing) {
-        super('items')
-        this.containing = containing
+        super("items");
+        this.containing = containing;
     }
-    listenAllItems=(set,cartId)=>{
-        db.collection(this.containing).doc(cartId).collection(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
-
-    }
+    listenAllItems = (set, cartId) => {
+        db.collection(this.containing)
+            .doc(cartId)
+            .collection(this.collection)
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+    };
     createItem = (cartId, item) =>
-    db.collection(this.containing).doc(cartId).collection(this.collection).add(item)
-
+        db.collection(this.containing).doc(cartId).collection(this.collection).add(item);
 }
 class Payments extends DB {
-
     constructor() {
-        super('payments')
+        super("payments");
     }
-   
 }
 class Feedbacks extends DB {
-
     constructor() {
-        super('feedbacks')
+        super("feedbacks");
     }
-   
 }
 class Faqs extends DB {
-
     constructor() {
-        super('faqs')
-        this.Rates= new Rates(this.collection)
-
+        super("faqs");
+        this.Rates = new Rates(this.collection);
     }
     update = (id, answer) =>
-    db.collection(this.collection).doc(id).set({ answer:answer }, { merge: true })   
+        db.collection(this.collection).doc(id).set({ answer: answer }, { merge: true });
 }
 class Rates extends DB {
-
     constructor(containing) {
-        super('rates')
-        this.containing = containing
-
+        super("rates");
+        this.containing = containing;
     }
     create = (id, rate) =>
-    db.collection(this.containing).doc(id).collection(this.collection).add(rate)
-   
+        db.collection(this.containing).doc(id).collection(this.collection).add(rate);
 }
 export default {
     Categories: new Categories(),
@@ -642,13 +715,13 @@ export default {
     Queries: new Queries(),
     Suggestions: new Suggestions(),
     Reports: new Reports(),
-    //Addalin 
+    //Addalin
     LiveChat: new LiveChat(),
     //
     //Aya Start
-    Carts:new Carts(),
+    Carts: new Carts(),
     Payments: new Payments(),
     Feedbacks: new Feedbacks(),
-    Faqs: new Faqs()
+    Faqs: new Faqs(),
     //Aya End
 };

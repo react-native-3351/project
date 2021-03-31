@@ -1,93 +1,89 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, Switch, TouchableOpacity } from 'react-native';
-import Colors from '../../../constants/Colors';
-import { Text, View } from '../../../components/Themed';
-import db from '../../../db'
-import UserContext from '../../../UserContext'
+import React, { useEffect, useState, useContext } from "react";
+import { StyleSheet, Switch, TouchableOpacity } from "react-native";
+import Colors from "../../../constants/Colors";
+import { Text, View } from "../../../components/Themed";
+import db from "../../../db";
+import UserContext from "../../../UserContext";
 
 export default function ParkingController({ sensor }) {
-
-    const { user } = useContext(UserContext)
-    useEffect(() => handleStopSimulator(), [user])
+    const { user } = useContext(UserContext);
+    useEffect(() => handleStopSimulator(), [user]);
 
     // return "stop simulator function", to be called on component unmount, stopping the timer
-    useEffect(() => handleStopSimulator, [])
+    useEffect(() => handleStopSimulator, []);
 
-    const [reading, setReading] = useState(null)
-    useEffect(() => db.Sensors.Readings.listenLatestOne(setReading, sensor.id), [sensor])
+    const [reading, setReading] = useState(null);
+    useEffect(() => db.Sensors.Readings.listenLatestOne(setReading, sensor.id), [sensor]);
 
     // const handleToggleAlert = async () => await db.Sensors.toggleAlert(sensor)
 
-
-    const [delay, setDelay] = useState(7)
-    const [intervalId, setIntervalId] = useState(0)
+    const [delay, setDelay] = useState(7);
+    const [intervalId, setIntervalId] = useState(0);
 
     // start uploading random readings every 5 seconds
-    const handleStartSimulator = () => setIntervalId(setInterval(newReading, delay * 1000))
+    const handleStartSimulator = () => setIntervalId(setInterval(newReading, delay * 1000));
 
     const newReading = async () => {
-        let countCars = await db.Sensors.Readings.findAllCarsInParkings(sensor.id)
+        let countCars = await db.Sensors.Readings.findAllCarsInParkings(sensor.id);
         // let countCars = sensor.currentCars
         // new car set in the parking yes/no
-        let dec = Math.floor(Math.random() * 3)
+        let dec = Math.floor(Math.random() * 3);
         // let dec = 0
         // decision is yes, add new car
-        if (dec === 1 ) {
-            let carPlate = (Math.floor(Math.random() * 9999999)) + ''
-            // console.log(countCars.length)
-            // console.log('================')
+        if (dec === 1) {
+            let carPlate = Math.floor(Math.random() * 9999999) + "";
+            // //console.log(countCars.length)
+            // //console.log('================')
             if (countCars.length < 20) {
                 await db.Sensors.Readings.createReading(sensor.id, {
                     carPlate,
                     in: new Date(),
-                    out: '',
-                })
-                let setInSpot = Math.floor(Math.random() * 20)
-                while (sensor.spots[setInSpot] !== '') {
-                    setInSpot = Math.floor(Math.random() * 20)
+                    out: "",
+                });
+                let setInSpot = Math.floor(Math.random() * 20);
+                while (sensor.spots[setInSpot] !== "") {
+                    setInSpot = Math.floor(Math.random() * 20);
                 }
-                sensor.spots[setInSpot] = carPlate
-                sensor.currentCars = countCars.length + 1
-                await db.Sensors.update({ ...sensor })
+                sensor.spots[setInSpot] = carPlate;
+                sensor.currentCars = countCars.length + 1;
+                await db.Sensors.update({ ...sensor });
             } else {
-                console.log('Parkings are Full')
+                //console.log('Parkings are Full')
             }
         }
         // remove from spot
         else if (dec === 0) {
-
             if (countCars.length > 0) {
-                let carPlate = ''
-                let setInSpot = Math.floor(Math.random() * 20)
-                while (sensor.spots[setInSpot] === '') {
-                    setInSpot = Math.floor(Math.random() * 20)
+                let carPlate = "";
+                let setInSpot = Math.floor(Math.random() * 20);
+                while (sensor.spots[setInSpot] === "") {
+                    setInSpot = Math.floor(Math.random() * 20);
                 }
-                carPlate = sensor.spots[setInSpot]
-                sensor.spots[setInSpot] = ''
-                // console.log(carPlate)
-                let a = await db.Sensors.Readings.findByPlate(sensor.id, carPlate)
-                await db.Sensors.Readings.updatePlate(sensor.id, { ...a, out: new Date })
-                sensor.currentCars = countCars.length - 1
-                await db.Sensors.update({ ...sensor })
+                carPlate = sensor.spots[setInSpot];
+                sensor.spots[setInSpot] = "";
+                // //console.log(carPlate)
+                let a = await db.Sensors.Readings.findByPlate(sensor.id, carPlate);
+                await db.Sensors.Readings.updatePlate(sensor.id, { ...a, out: new Date() });
+                sensor.currentCars = countCars.length - 1;
+                await db.Sensors.update({ ...sensor });
                 // await db.Sensors.update({ ...sensor, currentCars: countCars - 1 })
-                // // console.log(a)
-                console.log(`remove car from paking, plate number ${carPlate}`)
+                // // //console.log(a)
+                //console.log(`remove car from paking, plate number ${carPlate}`)
             }
+        } else if (dec === 2) {
+            //console.log(' Stay Same - ')
         }
-        else if (dec === 2) {
-            console.log(' Stay Same - ')
-        }
-    }
+    };
 
     const handleStopSimulator = () => {
-        clearInterval(intervalId)
-        setIntervalId(0)
-    }
+        clearInterval(intervalId);
+        setIntervalId(0);
+    };
 
     const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
-    useEffect(() => isEnabled ? handleStartSimulator() : handleStopSimulator(), [isEnabled])
+    useEffect(() => (isEnabled ? handleStartSimulator() : handleStopSimulator()), [isEnabled]);
     return (
         <View style={styles.helpContainer}>
             {/*        
@@ -126,26 +122,31 @@ export default function ParkingController({ sensor }) {
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={toggleSwitch}
                 value={isEnabled}
-                style={{ alignSelf: 'center', height: 30, transform: [{ scaleX: 2 }, { scaleY: 2 }], marginVertical: 30 }}
+                style={{
+                    alignSelf: "center",
+                    height: 30,
+                    transform: [{ scaleX: 2 }, { scaleY: 2 }],
+                    marginVertical: 30,
+                }}
             />
-            <Text>Simulator Status: {isEnabled + ''}</Text>
+            <Text>Simulator Status: {isEnabled + ""}</Text>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
     },
     title: {
         fontSize: 20,
-        fontWeight: 'bold',
+        fontWeight: "bold",
     },
     separator: {
         marginVertical: 30,
         height: 1,
-        width: '80%',
+        width: "80%",
     },
 });

@@ -53,7 +53,7 @@ export default function NotifsAsmarScreen() {
             const blob = await response.blob();
             await imageRef.put(blob);
             const url = await imageRef.getDownloadURL();
-            console.log("url", url);
+            //console.log("url", url);
             blob.close();
 
             //TODO: make sure is necessary
@@ -100,7 +100,7 @@ export default function NotifsAsmarScreen() {
                             setShowStartDate(false);
                             setStartDate(date);
                             if (startDate > endDate) setEndDate(startDate);
-                            console.log(startDate, endDate);
+                            //console.log(startDate, endDate);
                         }}
                     />
                 )}

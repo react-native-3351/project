@@ -10,7 +10,7 @@ export default function ActionsScreen() {
     const [gifts, setGifts] = useState(null);
     useEffect(() => db.Users.Gifts.listenAll(setGifts, user.id), []);
 
-    // useEffect(() => console.log("Gifts: ", gifts), [gifts]);
+    // useEffect(() => //console.log("Gifts: ", gifts), [gifts]);
     return (
         <View>
             <View style={styles.getStartedContainer}>

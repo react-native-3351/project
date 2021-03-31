@@ -13,7 +13,7 @@ import db from "../db";
 export default function AdOverlay({ visible, setVisible }) {
     const [ads, setAds] = React.useState([]);
     React.useEffect(() => db.Advertisements.listenAll(setAds), []);
-    // React.useEffect(() => console.log(ads), [ads]);
+    // React.useEffect(() => //console.log(ads), [ads]);
 
     const [currentAd, setCurrentAd] = React.useState(null);
     const randomizeCurrentAd = () => setCurrentAd(ads[Math.floor(Math.random() * ads.length)]);
