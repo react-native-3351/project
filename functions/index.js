@@ -26,11 +26,11 @@ let spots = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
 
 exports.createSampleData = functions.https.onCall(async (data, context) => {
     // comment the following out to reset auth db every time
-    const users = await db.collection("users").get();
-    if (users.docs.length > 0) {
-        functions.logger.info("already have data", {});
-        return;
-    }
+    // const users = await db.collection("users").get();
+    // if (users.docs.length > 0) {
+    //     functions.logger.info("already have data", {});
+    //     return;
+    // }
 
     const sensors = await findAll("sensors");
     await Promise.all(
@@ -261,15 +261,13 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
         .add({ active: true, contact: false, material: "Ceramics", techUsed: "IR", luminence: 5 });
     functions.logger.info("modelId2", { modelId2 });
 
-    const { id: sensorId8 } = await db
-        .collection("sensors")
-        .add({
-            userid: authId2,
-            categoryid: categoryId5,
-            modelId: modelId2,
-            location: "lab",
-            alert: "none",
-        });
+    const { id: sensorId8 } = await db.collection("sensors").add({
+        userid: authId2,
+        categoryid: categoryId5,
+        modelId: modelId2,
+        location: "lab",
+        alert: "none",
+    });
     functions.logger.info("sensorId8", { sensorId8 });
     //Addalin end
 });
@@ -451,17 +449,15 @@ exports.onNewSensor = functions.firestore
             Promise.all(
                 wishlist.map(async (list) =>
                     this.matchingList(list, item, category)
-                        ? await db
-                              .collection("notification")
-                              .add({
-                                  userId,
-                                  sensorId: sensor.id,
-                                  timestamp: new Date(),
-                                  title: "Wishlist has something new",
-                                  body: "Your wishlist has a new sensor !",
-                                  link: "",
-                                  isRead: false,
-                              })
+                        ? await db.collection("notification").add({
+                              userId,
+                              sensorId: sensor.id,
+                              timestamp: new Date(),
+                              title: "Wishlist has something new",
+                              body: "Your wishlist has a new sensor !",
+                              link: "",
+                              isRead: false,
+                          })
                         : null
                 )
             );

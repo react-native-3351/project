@@ -64,6 +64,30 @@ export default function ServicesScreen({ navigation }) {
                         Gifts
                     </Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Favorites")}
+                    style={styles.title}
+                >
+                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+                        Favorites
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("AddalinSensors")}
+                    style={styles.title}
+                >
+                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+                        AddalinSensors
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Wishlist")}
+                    style={styles.title}
+                >
+                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+                        Wishlist
+                    </Text>
+                </TouchableOpacity>
             </View>
         </View>
     );

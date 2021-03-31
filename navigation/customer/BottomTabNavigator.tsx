@@ -200,17 +200,17 @@ function TabTwoNavigator() {
                 options={{ headerTitle: "Reports" }}
             />
             <TabTwoStack.Screen
-                name="ViewFavoritesScreen"
+                name="Favorites"
                 component={ViewFavoritesScreen}
                 options={{ headerTitle: "Favorites" }}
             />
             <TabTwoStack.Screen
-                name="ViewAllSensorsScreen"
+                name="AddalinSensors"
                 component={ViewAllSensorsScreen}
                 options={{ headerTitle: "All Sensors" }}
             />
             <TabTwoStack.Screen
-                name="WishListScreen"
+                name="Wishlist"
                 component={WishListScreen}
                 options={{ headerTitle: "WishList" }}
             />

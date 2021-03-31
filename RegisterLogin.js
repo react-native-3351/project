@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import fb from "./fb";
 import db from "./db";
 import Colors from "./constants/Colors";
-import { Text, View } from "./components/Themed";
 import LoginPicker from "./screens/pickers/LoginPicker";
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from "react-native";
+import { StyleSheet, TextInput, TouchableOpacity, ImageBackground, Text, View } from "react-native";
 
 export default function RegisterLogin() {
     const [email, setEmail] = useState("");
