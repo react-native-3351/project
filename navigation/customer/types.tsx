@@ -20,6 +20,7 @@ export type TabOneParamList = {
 export type TabTwoParamList = {
     ServicesScreen: undefined;
     Actions: undefined;
+    Sensors: undefined;
     Notifications: undefined;
     Gifts: undefined;
     Queries: undefined;
