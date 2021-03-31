@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { TextInput, StyleSheet, ImageBackground, Image } from 'react-native';
-import { Text, View } from '../components/Themed';
-import db from '../db'
-import { Button } from 'react-native-elements';
-import Colors from '../constants/Colors';
+
+import React, { useState, useEffect } from "react";
+import { TextInput, StyleSheet, ImageBackground, Image } from "react-native";
+import { Text, View } from "../components/Themed";
+import db from "../db";
+import { Button } from "react-native-elements";
+import Colors from "../constants/Colors";
+import { Slider } from 'react-native-elements';
 
 // all picker values should be non-object (number, string, etc.)
 
@@ -68,13 +70,19 @@ export default function WeightInfo({ user, category, sensor }) {
                     price: {totalprice}
             </Text>
             
-            </>}
-           
-           
-
-            
-               
-
+                    <Slider
+          value={reading.current/100}
+        //  onValueChange={setKG}
+          thumbStyle={{ height: 30, width: 30, backgroundColor: 'pink' }}
+          thumbProps={{
+            Component: Animated.Image,
+            source: {
+              uri: 'https://cdn4.iconfinder.com/data/icons/kitchen-tools-line/32/Weighing-scale_Weight_Scale-512.png',
+            },
+          }}
+        />
+                </>
+            }
         </View>
     );
 }
