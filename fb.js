@@ -21,10 +21,22 @@ const firebaseConfig = {
 //     appId: "1:270778823937:web:ed7ac90f09f6ac1090d700",
 //     measurementId: "G-JGF6NWVDM3"
 // }
-firebase.initializeApp(firebaseConfig);
+import { Platform } from "react-native";
+console.log("Platform.OS", Platform.OS); // ios, android
 
-firebase.firestore().useEmulator("10.0.2.2", 8080);
-firebase.functions().useEmulator("10.0.2.2", 5001);
-firebase.auth().useEmulator("http://10.0.2.2:9099");
+import Constants from "expo-constants";
+
+if (firebase.apps.length === 0) {
+    firebase.initializeApp(firebaseConfig);
+
+    const { manifest } = Constants;
+    const ip = `${manifest.debuggerHost.split(":").shift()}`;
+
+    firebase.firestore().useEmulator(ip, 8080);
+    firebase.functions().useEmulator(ip, 5001);
+    firebase.auth().useEmulator(`http://${ip}:9099`);
+}
+
+export default firebase;
 
 export default firebase;
