@@ -6,7 +6,7 @@ import * as React from "react";
 import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
 import SensorsScreen from "../../screens/Customer/SensorsScreen";
-import ServicesScreen from "../../screens/Customer/ServicesScreen";
+import ServicesScreen from "../../Asmar/Customer/ServicesScreen";
 import HomeScreen from "../../screens/Customer/placeholders/HomeScreen";
 import SupportScreen from "../../screens/Customer/placeholders/SupportScreen";
 import ActionsScreen from "../../screens/Customer/ActionsScreen";
@@ -20,9 +20,6 @@ import {
     TabTwoParamList,
     TabThreeParamList,
     TabFourParamList,
-    TabQueriesScreenParamList,
-    TabSuggestionsScreenParamList,
-    TabReportsScreenParamList,
 } from "./types";
 import QueriesScreen from "../../OmarSayed/Customer/Queries/QueriesScreen";
 import SuggestionsScreen from "../../OmarSayed/Customer/Suggestions/SuggestionsScreen";
