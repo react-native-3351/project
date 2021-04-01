@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
-import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
-import { Text, View } from "../../components/Themed";
+import { StyleSheet, ScrollView } from "react-native";
+import { View } from "../../components/Themed";
 import { ListItem, Icon } from "react-native-elements";
-import Colors from "../../constants/Colors";
 import UserContext from "../../UserContext";
-import fb from "../../fb";
 
 export default function ServicesScreen({ navigation }) {
     const { user } = useContext(UserContext);
@@ -72,7 +70,7 @@ export default function ServicesScreen({ navigation }) {
                     style={styles.listItem}
                     bottomDivider
                 >
-                    <Icon name="card-giftcard" type="material" />
+                    <Icon name="gift" type="material-community" />
                     <ListItem.Content>
                         <ListItem.Title>Gifts</ListItem.Title>
                     </ListItem.Content>
@@ -136,110 +134,6 @@ export default function ServicesScreen({ navigation }) {
             </ScrollView>
         </View>
     );
-    // return (
-    //     <View>
-    //         <View style={styles.getStartedContainer}>
-    //             <TouchableOpacity
-    //                 onPress={() => navigation.navigate("Notifications")}
-    //                 style={styles.title}
-    //             >
-    //                 <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-    //                     Your Notifications
-    //                 </Text>
-    //             </TouchableOpacity>
-    //             <TouchableOpacity
-    //                 onPress={() => navigation.navigate("Sensors")}
-    //                 style={styles.title}
-    //             >
-    //                 <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-    //                     Sensors
-    //                 </Text>
-    //             </TouchableOpacity>
-    //             <TouchableOpacity
-    //                 onPress={() => navigation.navigate("Actions")}
-    //                 style={styles.title}
-    //             >
-    //                 <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-    //                     Actions
-    //                 </Text>
-    //             </TouchableOpacity>
-    //             <TouchableOpacity
-    //                 onPress={() => navigation.navigate("Queries")}
-    //                 style={styles.title}
-    //             >
-    //                 <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-    //                     Queries
-    //                 </Text>
-    //             </TouchableOpacity>
-    //             <TouchableOpacity
-    //                 onPress={() => navigation.navigate("Reports")}
-    //                 style={styles.title}
-    //             >
-    //                 <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-    //                     Reports
-    //                 </Text>
-    //             </TouchableOpacity>
-    //             <TouchableOpacity
-    //                 onPress={() => navigation.navigate("Suggestions")}
-    //                 style={styles.title}
-    //             >
-    //                 <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-    //                     Suggestions
-    //                 </Text>
-    //             </TouchableOpacity>
-    //             <TouchableOpacity onPress={() => navigation.navigate("Gifts")} style={styles.title}>
-    //                 <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-    //                     Gifts
-    //                 </Text>
-    //             </TouchableOpacity>
-    //             <TouchableOpacity
-    //                 onPress={() => navigation.navigate("Favorites")}
-    //                 style={styles.title}
-    //             >
-    //                 <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-    //                     Favorites
-    //                 </Text>
-    //             </TouchableOpacity>
-    //             <TouchableOpacity
-    //                 onPress={() => navigation.navigate("AddalinSensors")}
-    //                 style={styles.title}
-    //             >
-    //                 <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-    //                     AddalinSensors
-    //                 </Text>
-    //             </TouchableOpacity>
-    //             <TouchableOpacity
-    //                 onPress={() => navigation.navigate("Wishlist")}
-    //                 style={styles.title}
-    //             >
-    //                 <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-    //                     Wishlist
-    //                 </Text>
-    //             </TouchableOpacity>
-    //             <TouchableOpacity onPress={() => navigation.navigate("FAQs")} style={styles.title}>
-    //                 <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-    //                     FAQs
-    //                 </Text>
-    //             </TouchableOpacity>
-    //             <TouchableOpacity
-    //                 onPress={() => navigation.navigate("CartScreen")}
-    //                 style={styles.title}
-    //             >
-    //                 <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-    //                     Your Cart!
-    //                 </Text>
-    //             </TouchableOpacity>
-    //             <TouchableOpacity
-    //                 onPress={() => navigation.navigate("FeedbackScreen")}
-    //                 style={styles.title}
-    //             >
-    //                 <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-    //                     Feedback
-    //                 </Text>
-    //             </TouchableOpacity>
-    //         </View>
-    //     </View>
-    // );
 }
 
 const styles = StyleSheet.create({

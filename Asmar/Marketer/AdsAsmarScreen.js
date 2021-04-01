@@ -5,10 +5,12 @@ import { View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import UserContext from "../../UserContext";
 import UserPicker from "../../screens/pickers/UserPicker";
+import LinkPicker from "../../screens/pickers/LinkPicker";
 import * as ImagePicker from "expo-image-picker";
 import db from "../../db";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import fb from "../../fb";
+import { Link } from "@react-navigation/native";
 
 export default function NotifsAsmarScreen() {
     useEffect(() => {
@@ -71,6 +73,8 @@ export default function NotifsAsmarScreen() {
             : "";
     };
 
+    useEffect(() => console.log(link), [link]);
+
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -82,12 +86,7 @@ export default function NotifsAsmarScreen() {
             >
                 <Text style={styles.mainTitle}>Upload Advertisement{"\n"}</Text>
                 <Text style={styles.label}>Link</Text>
-                <TextInput
-                    placeholder="Link"
-                    value={link}
-                    onChangeText={setLink}
-                    style={styles.input}
-                />
+                <LinkPicker set={setLink} style={styles.input}/>
                 <Text style={styles.label}>Start Date</Text>
                 <Pressable onPress={() => setShowStartDate(true)}>
                     <Text style={[styles.input, styles.inputDisplay]}>{formatDate(startDate)}</Text>
@@ -110,7 +109,6 @@ export default function NotifsAsmarScreen() {
                 </Pressable>
                 {showEndDate && (
                     <DateTimePicker
-                        // minimumDate={startDate}
                         value={endDate}
                         onChange={(event, date) => {
                             setShowEndDate(false);

@@ -69,7 +69,7 @@ export default function RegisterLogin() {
                 <TouchableOpacity disabled={!valid()} onPress={login} style={styles.loginBtn}>
                     <Text style={styles.loginText}>LOGIN</Text>
                 </TouchableOpacity>
-                <TouchableOpacity disabled={!valid()} onPress={register} style={styles.loginBtn}>
+                <TouchableOpacity disabled={!valid()} onPress={register} style={styles.registerBtn}>
                     <Text style={styles.loginText}>REGISTER</Text>
                 </TouchableOpacity>
             </View>
@@ -121,6 +121,15 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginTop: 40,
+        marginBottom: 10,
+    },
+    registerBtn: {
+        width: "80%",
+        backgroundColor: "#c577ff",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
         marginBottom: 10,
     },
     loginText: {
