@@ -40,6 +40,8 @@ export default function Payment({ Total, Cart }) {
     const [years, setYears] = useState(["21", "22", "23", "24", "25", "26", "27"]);
     const [month, setMonth] = useState(0);
     const [year, setYear] = useState(0);
+    const [gift, setGift]= useState(null)
+
     const Pay = async () => {
         let expireDate = month + " " + year;
         //console.log(expireDate);
@@ -59,12 +61,9 @@ export default function Payment({ Total, Cart }) {
     };
     return (
         <SafeAreaView style={styles.container}>
-            <ImageBackground
-                style={{ flex: 1 }}
-                //We are using online image to set background
-                source={require("../assets/images/kitten.jpg")}
-                //You can also set image from your project folder
-                //require('./images/background_image.jpg')        //
+             <ImageBackground style={{ flex: 1 }} 
+            
+            source={{uri: "https://i.pinimg.com/originals/7e/c0/c8/7ec0c8a050546e72ea781d8aa047c48c.jpg"}}
             >
                 {finished ? (
                     <Text style={styles.title} lightColor={Colors.light.tint}>

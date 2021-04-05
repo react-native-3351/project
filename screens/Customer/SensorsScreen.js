@@ -4,7 +4,7 @@ import CategoryByUserPicker from "../pickers/CategoryByUserPicker";
 import SensorByUserAndCategoryPicker from "../pickers/SensorByUserAndCategoryPicker";
 import UserContext from "../../UserContext";
 import ParkingInfo from "../../OmarSayed/Customer/Sensors/ParkingInfo";
-import { StyleSheet, ImageBackground } from "react-native";
+import { StyleSheet, ImageBackground, ScrollView } from "react-native";
 import { View } from "../../components/Themed";
 import MotionInfo from "./MotionInfo";
 import TemperatureInfo from "./TemperatureInfo";
@@ -22,6 +22,7 @@ export default function SensorsScreen() {
 
     return (
         <View>
+            <ScrollView>
             <View style={styles.getStartedContainer}>
                 {user && <CategoryByUserPicker set={setCategory} />}
                 {user && category && (
@@ -38,6 +39,7 @@ export default function SensorsScreen() {
                     </>
                 )}
             </View>
+            </ScrollView>
         </View>
     );
 }

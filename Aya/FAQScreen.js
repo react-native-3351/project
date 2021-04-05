@@ -180,11 +180,12 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 30,
         padding: 10,
+        fontSize: 28,
         marginHorizontal: 30,
         marginVertical: 12,
     },
     paragraph: {
-        fontSize: 12,
+        fontSize: 28,
         textAlign: "center",
         color: "white",
     },

@@ -9,12 +9,16 @@ import AdsAsmarScreen from "../../Asmar/Marketer/AdsAsmarScreen";
 import NotifsAsmarScreen from "../../Asmar/Marketer/NotifsAsmarScreen";
 import PromotionsAsmarScreen from "../../Asmar/Marketer/PromotionsAsmarScreen";
 import SettingsScreen from "../../Asmar/Marketer/SettingsScreen";
+import DashboardScreen from "../../Asmar/Marketer/DashboardScreen";
+
 import {
     BottomTabParamList,
     TabOneParamList,
     TabTwoParamList,
     TabThreeParamList,
     TabFourParamList,
+    TabFiveParamList,
+
 } from "./types";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -23,12 +27,19 @@ export default function BottomTabNavigator() {
     const colorScheme = useColorScheme();
     return (
         <BottomTab.Navigator
-            initialRouteName="Notifications"
+            initialRouteName="Dashboard"
             tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
         >
             <BottomTab.Screen
-                name="Notifications"
+                name="Dashboard"
                 component={TabOneNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                }}
+            />
+            <BottomTab.Screen
+                name="Notifications"
+                component={TabFiveNavigator}
                 options={{
                     tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
                 }}
@@ -73,9 +84,9 @@ function TabOneNavigator() {
     return (
         <TabOneStack.Navigator>
             <TabOneStack.Screen
-                name="NotifsAsmarScreen"
-                component={NotifsAsmarScreen}
-                options={{ headerTitle: "Notifications" }}
+                name="Dashboard"
+                component={DashboardScreen}
+                options={{ headerTitle: "Dashboard" }}
             />
         </TabOneStack.Navigator>
     );
@@ -120,5 +131,18 @@ function TabFourNavigator() {
                 options={{ headerTitle: "Settings" }}
             />
         </TabFourStack.Navigator>
+    );
+}
+const TabFiveStack = createStackNavigator<TabFiveParamList>();
+
+function TabFiveNavigator() {
+    return (
+        <TabFiveStack.Navigator>
+            <TabFiveStack.Screen
+                name="NotifsAsmarScreen"
+                component={NotifsAsmarScreen}
+                options={{ headerTitle: "Notifications" }}
+            />
+        </TabFiveStack.Navigator>
     );
 }

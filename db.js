@@ -116,6 +116,11 @@ class Sensors extends DB {
             .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
     };
     //Addalin End
+    //Aya
+    getCount=async(catId)=>{
+        let result = await db.collection(this.collection).where("categoryid", "==", catId).get();
+        return result.docs.length
+    }
 }
 
 class Readings extends DB {
@@ -181,6 +186,16 @@ class Readings extends DB {
             .doc(id)
             .set(rest);
     };
+    //aya
+    listenLatestTen = (set, sensorId) =>
+    db
+        .collection(this.containing)
+        .doc(sensorId)
+        .collection(this.collection)
+        .orderBy("when", "desc")
+        .limit(10)
+        .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+
 }
 //Omar Sayed
 class Queries extends DB {
@@ -306,6 +321,10 @@ class Categories extends DB {
         this.Models = new Models(this.collection);
         //Addalin End
     }
+    findAll = async () => {
+        const data = await db.collection(this.collection).get();
+        return data.docs.map(this.reformat);
+    };
 
     // max 10
     listenInIds = (set, ids) =>
@@ -374,15 +393,9 @@ class Advertisements extends DB {
 
     listenAll = (set) =>
         db
-            .collection(this.collection)
-            .onSnapshot((snap) =>
-                set(
-                    snap.docs
-                        .map(this.reformat)
-                        .filter((doc) => doc.startDate <= new Date() && doc.endDate >= new Date())
-                )
-            );
-}
+            .collection(this.collection).where('endDate', '<=', new Date())
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+ }
 
 class Gifts extends DB {
     constructor(containing) {
@@ -404,12 +417,20 @@ class Gifts extends DB {
             .doc(userId)
             .collection(this.collection)
             .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+
+    listenNotExpires  = (set) => db
+            .collection(this.containing)
+            .doc(userId)
+            .collection(this.collection)
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 }
 
 class Promotions extends DB {
     constructor() {
         super("promotions");
     }
+    listenNotExpires=(set)=>
+    db.collection(this.collection).onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 }
 //Asmar End
 

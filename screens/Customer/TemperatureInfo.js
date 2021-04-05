@@ -2,16 +2,25 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { Text, View } from "../../components/Themed";
 import db from "../../db";
+import {
+    LineChart,
+   
+  } from "react-native-chart-kit";
 
 // all picker values should be non-object (number, string, etc.)
 
 export default function TemperatureInfo({ sensor }) {
     const [reading, setReading] = useState(null);
+    const [readings, setReadings] = useState([]);
+
     useEffect(
         () => (sensor ? db.Sensors.Readings.listenLatestOne(setReading, sensor.id) : undefined),
         [sensor]
     );
-
+    useEffect(
+        () => (sensor ? db.Sensors.Readings.listenLatestTen(setReadings, sensor.id) : undefined),
+        [sensor]
+    );
     return (
         <View>
             <Text
@@ -44,7 +53,58 @@ export default function TemperatureInfo({ sensor }) {
             >
                 Alert: {sensor.alert ? "True" : "False"}
             </Text>
+            {readings.length>9&&
+  <LineChart
+    data={{
+      labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9","10"],
+      datasets: [
+        {
+          data: [
+           
+            readings[9].current,
+            readings[8].current,
+            readings[7].current,
+            readings[6].current,
+            readings[5].current,
+            readings[4].current,
+            readings[3].current,
+           readings[2].current,
+           readings[1].current,
+           readings[0].current,
+          ]
+        }
+      ]
+    }}
+    width={350} // from react-native
+    height={220}
+    yAxisLabel="$"
+    yAxisSuffix="k"
+    yAxisInterval={1} // optional, defaults to 1
+    chartConfig={{
+      backgroundColor: "#e26a00",
+      backgroundGradientFrom: "#fb8c00",
+      backgroundGradientTo: "#ffa726",
+      decimalPlaces: 2, // optional, defaults to 2dp
+      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+      style: {
+        borderRadius: 16
+      },
+      propsForDots: {
+        r: "6",
+        strokeWidth: "2",
+        stroke: "#ffa726"
+      }
+    }}
+    bezier
+    style={{
+      marginVertical: 8,
+      borderRadius: 16
+    }}
+  />        
+} 
         </View>
+
     );
 }
 

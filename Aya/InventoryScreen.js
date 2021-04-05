@@ -4,13 +4,12 @@ import {
     StyleSheet,
     TouchableOpacity,
     TextInput,
+    ScrollView,
     SafeAreaView,
 } from "react-native";
 import { View, Text } from "../components/Themed";
 import Colors from "../constants/Colors";
 import CategoryPicker from "../screens/pickers/CategoryPicker";
-import TemperatureActions from "../screens/Admin/TemperatureActions";
-import MotionActions from "../screens/Admin/MotionActions";
 import { Picker } from "@react-native-picker/picker";
 import db from "../db";
 import { Button } from "react-native-elements";
@@ -75,50 +74,55 @@ export default function InventoryScreen() {
     };
     return (
         <SafeAreaView style={styles.container}>
-            <ImageBackground style={{ flex: 1 }} source={image}>
-                <CategoryPicker
-                    style={{ color: "white", height: 40, width: 300, alignSelf: "center" }}
-                    set={setCategory}
-                />
+            <ScrollView>
 
-                <Picker
-                    style={{ color: "white", height: 40, width: 300, alignSelf: "center" }}
-                    selectedValue={active}
-                    onValueChange={setActive}
+                <ImageBackground style={{ flex: 1 }}
+
+                    source={image}
                 >
-                    <Picker.Item label="Active" value="" />
-                    <Picker.Item label="True" value="true" />
+                    <CategoryPicker
+                        style={{ color: "white", height: 40, width: 300, alignSelf: "center" }}
+                        set={setCategory}
+                    />
 
-                    <Picker.Item label="False" value="false" />
-                </Picker>
-                <Picker
-                    style={{ color: "white", height: 40, width: 300, alignSelf: "center" }}
-                    selectedValue={contact}
-                    onValueChange={setContact}
-                >
-                    <Picker.Item label="Contact" value="" />
-                    <Picker.Item label="True" value="true" />
+                    <Picker
+                        style={{ color: "white", height: 40, width: 300, alignSelf: "center" }}
+                        selectedValue={active}
+                        onValueChange={setActive}
+                    >
+                        <Picker.Item label="Active" value="" />
+                        <Picker.Item label="True" value="true" />
 
-                    <Picker.Item label="False" value="false" />
-                </Picker>
-                <Text style={styles.paragraph} lightColor={Colors.dark.tint}>
-                    Choose material{" "}
-                </Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(text) => setMaterial(text)}
-                    value={material}
-                />
-                <Text style={styles.paragraph} lightColor={Colors.dark.tint}>
-                    Choose used technology{" "}
-                </Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(text) => setTechUsed(text)}
-                    value={techUsed}
-                />
+                        <Picker.Item label="False" value="false" />
+                    </Picker>
+                    <Picker
+                        style={{ color: "white", height: 40, width: 300, alignSelf: "center" }}
+                        selectedValue={contact}
+                        onValueChange={setContact}
+                    >
+                        <Picker.Item label="Contact" value="" />
+                        <Picker.Item label="True" value="true" />
 
-                {/* 
+                        <Picker.Item label="False" value="false" />
+                    </Picker>
+                    <Text style={styles.paragraph} lightColor={Colors.dark.tint}>
+                        Choose material{" "}
+                    </Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={(text) => setMaterial(text)}
+                        value={material}
+                    />
+                    <Text style={styles.paragraph} lightColor={Colors.dark.tint}>
+                        Choose used technology{" "}
+                    </Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={(text) => setTechUsed(text)}
+                        value={techUsed}
+                    />
+
+                    {/* 
             {   
 
                 category.name === "Motion"
@@ -164,30 +168,31 @@ export default function InventoryScreen() {
 
 
                 </>} */}
-                <Text style={styles.paragraph} lightColor={Colors.dark.tint}>
-                    Choose quantity{" "}
-                </Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(text) => setQuantity(text)}
-                    value={quantity}
-                />
+                    <Text style={styles.paragraph} lightColor={Colors.dark.tint}>
+                        Choose quantity{" "}
+                    </Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={(text) => setQuantity(text)}
+                        value={quantity}
+                    />
 
-                <Text style={styles.paragraph} lightColor={Colors.dark.tint}>
-                    Choose price{" "}
-                </Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(text) => setPrice(text)}
-                    value={price}
-                />
-                <Button
-                    title="Submit"
-                    onPress={() => SubmitInventory()}
-                    buttonStyle={styles.button}
-                    lightColor={Colors.dark.tint}
-                />
-            </ImageBackground>
+                    <Text style={styles.paragraph} lightColor={Colors.dark.tint}>
+                        Choose price{" "}
+                    </Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={(text) => setPrice(text)}
+                        value={price}
+                    />
+                    <Button
+                        title="Submit"
+                        onPress={() => SubmitInventory()}
+                        buttonStyle={styles.button}
+                        lightColor={Colors.dark.tint}
+                    />
+                </ImageBackground>
+            </ScrollView>
         </SafeAreaView>
     );
 }
