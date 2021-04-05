@@ -14,7 +14,9 @@ import MotionActions from "../screens/Admin/MotionActions";
 import { Picker } from "@react-native-picker/picker";
 import db from "../db";
 import { Button } from "react-native-elements";
-
+const image = {
+    uri: "https://wallpaperaccess.com/full/1105968.jpg",
+};
 export default function InventoryScreen() {
     const [category, setCategory] = useState(null);
     const [active, setActive] = useState("");
@@ -73,7 +75,7 @@ export default function InventoryScreen() {
     };
     return (
         <SafeAreaView style={styles.container}>
-            <ImageBackground style={{ flex: 1 }} source={require("../assets/images/kitten.jpg")}>
+            <ImageBackground style={{ flex: 1 }} source={image}>
                 <CategoryPicker
                     style={{ color: "white", height: 40, width: 300, alignSelf: "center" }}
                     set={setCategory}

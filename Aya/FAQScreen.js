@@ -13,7 +13,9 @@ import db from "../db";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import { setTokenSourceMapRange } from "typescript";
 import { Button } from "react-native-elements";
-
+const image = {
+    uri: "https://wallpaperaccess.com/full/1105968.jpg",
+};
 export default function FAQScreen() {
     const { user } = useContext(UserContext);
 
@@ -42,7 +44,7 @@ export default function FAQScreen() {
             <ImageBackground
                 style={{ flex: 1 }}
                 //We are using online image to set background
-                source={require("../assets/images/kitten.jpg")}
+                source={image}
             >
                 {user && user.role == "Admin" && (
                     <>
