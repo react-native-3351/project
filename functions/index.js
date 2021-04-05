@@ -83,12 +83,14 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
         .doc(authId1)
         .set({ name: "Joe", role: "Customer" });
     functions.logger.info("result1", { result1 });
+    await db.collection('carts').add({ userid: authId1, checkOut: false })
 
     const result2 = await db
         .collection("users")
         .doc(authId2)
         .set({ name: "Ann", role: "Customer" });
     functions.logger.info("result2", { result2 });
+    await db.collection('carts').add({ userid: authId2, checkOut: false })
 
     const result3 = await db.collection("users").doc(authId3).set({ name: "Admin", role: "Admin" });
     functions.logger.info("result3", { result3 });
@@ -206,6 +208,69 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
         description:
             "Imagine waking up, not by an alarm blaring from your phone, but to the smell of coffee, light coming in your window from a curtain being drawn back, and a gentle stirring massage or vibration from your mattress. You wake up rested because a sleep sensor has made sure not to rouse you during a round of REM sleep.",
     });
+    await db
+        .collection("sensors")
+        .doc(sensorId2)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+        await db
+        .collection("sensors")
+        .doc(sensorId2)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+       
+        await db
+        .collection("sensors")
+        .doc(sensorId2)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+        await db
+        .collection("sensors")
+        .doc(sensorId2)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+        await db
+        .collection("sensors")
+        .doc(sensorId2)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+        await db
+        .collection("sensors")
+        .doc(sensorId2)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+        await db
+        .collection("sensors")
+        .doc(sensorId2)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+        await db
+        .collection("sensors")
+        .doc(sensorId2)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+        await db
+        .collection("sensors")
+        .doc(sensorId2)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+        await db
+        .collection("sensors")
+        .doc(sensorId2)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+        await db
+        .collection("sensors")
+        .doc(sensorId2)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+        await db
+        .collection("sensors")
+        .doc(sensorId2)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+       
+       
     const { id: sensorId4 } = await db.collection("sensors").add({
         name: "Sns 2",
         categoryid: categoryId1,
@@ -248,6 +313,7 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
             contact: false,
             material: "Ceramics",
             techUsed: "IR",
+            quantity:20,
             min: 0,
             max: 100,
         });
@@ -281,6 +347,7 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
         price: 1000,
     });
 
+
     const { id: sensorId9 } = await db
         .collection("sensors")
         .add({ userid: authId2, categoryid: categoryId6, location: "lab", min: 0, max: 100 });
@@ -289,7 +356,77 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
         .collection("sensors")
         .doc(sensorId9)
         .collection("readings")
-        .add({ when: new Date(), current: Math.floor(Math.random() * 20) - 10 });
+ .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+ .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+ .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+ .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+ .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+ .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+
+
+await db
+  .collection("advertisements")
+.add({ startDate: new Date(),
+    endDate:new Date(),
+    link:"https://en.wikipedia.org/wiki/Family_in_advertising#/media/File:7_Up_-_You_like_it,_it_likes_you,_1948.jpg"});
+   
+    await db
+    .collection("promotions")
+  .add({ 
+    modelId:234,
+    code:562,
+    expiry:new Date(),
+    discount: 10})
 });
 
 exports.onNewReading = functions.firestore
@@ -423,8 +560,8 @@ exports.onNewReading = functions.firestore
                             reading.current == model.luminence
                                 ? "equal"
                                 : reading.current > model.luminence
-                                ? "high"
-                                : "low",
+                                    ? "high"
+                                    : "low",
                     },
                     { merge: true }
                 );
@@ -478,14 +615,14 @@ exports.onNewSensor = functions.firestore
                 wishlist.map(async (list) =>
                     this.matchingList(list, item, category)
                         ? await db.collection("notification").add({
-                              userId,
-                              sensorId: sensor.id,
-                              timestamp: new Date(),
-                              title: "Wishlist has something new",
-                              body: "Your wishlist has a new sensor !",
-                              link: "",
-                              isRead: false,
-                          })
+                            userId,
+                            sensorId: sensor.id,
+                            timestamp: new Date(),
+                            title: "Wishlist has something new",
+                            body: "Your wishlist has a new sensor !",
+                            link: "",
+                            isRead: false,
+                        })
                         : null
                 )
             );

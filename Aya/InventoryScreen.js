@@ -4,13 +4,12 @@ import {
     StyleSheet,
     TouchableOpacity,
     TextInput,
+    ScrollView,
     SafeAreaView,
 } from "react-native";
 import { View, Text } from "../components/Themed";
 import Colors from "../constants/Colors";
 import CategoryPicker from "../screens/pickers/CategoryPicker";
-import TemperatureActions from "../screens/Admin/TemperatureActions";
-import MotionActions from "../screens/Admin/MotionActions";
 import { Picker } from "@react-native-picker/picker";
 import db from "../db";
 import { Button } from "react-native-elements";
@@ -73,7 +72,12 @@ export default function InventoryScreen() {
     };
     return (
         <SafeAreaView style={styles.container}>
-            <ImageBackground style={{ flex: 1 }} source={require("../assets/images/kitten.jpg")}>
+                        <ScrollView>
+
+            <ImageBackground style={{ flex: 1 }} 
+            
+            source={{uri: "https://i.pinimg.com/originals/7e/c0/c8/7ec0c8a050546e72ea781d8aa047c48c.jpg"}}
+            >
                 <CategoryPicker
                     style={{ color: "white", height: 40, width: 300, alignSelf: "center" }}
                     set={setCategory}
@@ -186,6 +190,7 @@ export default function InventoryScreen() {
                     lightColor={Colors.dark.tint}
                 />
             </ImageBackground>
+            </ScrollView>
         </SafeAreaView>
     );
 }

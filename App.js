@@ -17,6 +17,8 @@ import fb from "./fb";
 import db from "./db";
 import UserContext from "./UserContext";
 import RegisterLogin from "./RegisterLogin";
+import PublicDashboard from "./Aya/PublicDashboard";
+
 import "./SampleData";
 
 export default function App() {
@@ -55,7 +57,7 @@ export default function App() {
 
     const selectNavigation = () => {
         if (!user) {
-            return <RegisterLogin />;
+            return <PublicDashboard />;
         } else if (user?.role === "Customer") {
             return <NavigationCustomer colorScheme={colorScheme} />;
         } else if (user?.role === "Admin") {

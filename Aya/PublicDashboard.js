@@ -15,40 +15,18 @@ import db from "../db";
 import Payment from "./Payment";
 import { setTokenSourceMapRange } from "typescript";
 import { Button } from "react-native-elements";
+import RegisterLogin from "../RegisterLogin";
 
-export default function CartScreen() {
-    const { user } = useContext(UserContext);
+export default function PublicDashboard() {
     const [category, setCategory] = useState(null);
-    useEffect(() => setCategory(null), [user]);
-    const [model, setModel] = useState(null);
-    useEffect(() => setModel(null), [category]);
-    const [cart, setCart] = useState(null);
-    const [items, setItems] = useState(null);
-    const [total, setTotal] = useState(0);
-    const [checkOut, setCheckOut] = useState(false);
-    useEffect(() => db.Carts.listenLastNotFinished(setCart, user.id), [user]);
-    //console.log(cart);
-    useEffect(() => (cart ? db.Carts.Items.listenAllItems(setItems, cart.id) : undefined), [cart]);
-    useEffect(() => (items ? calTotal() : setTotal(0)), [items]);
-    const calTotal = () => {
-        let TotalPrice = 0;
-        items.map((item) => (TotalPrice = TotalPrice + item.price));
-        setTotal(TotalPrice);
-    };
-
-    const AddToCart = () => {
-        db.Carts.Items.createItem(cart.id, {
-            categoryId: category.id,
-            category: category.name,
-            price: model.price,
-            model: model.id,
-        });
-    };
-    const CheckOut = () => {
-        // db.Carts.update(cart.id)
-        setCheckOut(true);
-    };
+    const [models, setModels] = useState([]);
+    const [login, setLogin]=useState(false)
+    useEffect(() =>category? db.Categories.Models.listenAllModels(setModels, category.id):undefined, [category]);
+    
     return (
+        login?
+        <RegisterLogin/>:
+
         <SafeAreaView style={styles.container}>
             <ImageBackground
                 style={{ flex: 1 }}
@@ -57,62 +35,49 @@ export default function CartScreen() {
                 //You can also set image from your project folder
                 //require('./images/background_image.jpg')        //
             >
-                {checkOut ? (
-                    cart && <Payment Total={total} Cart={cart.id} />
-                ) : (
-                    <SafeAreaView style={styles.container}>
-                        <Text style={styles.mainTitle} lightColor={Colors.dark.tint}>
-                            Cart{" "}
-                        </Text>
-                        {user && (
+                <Text>
+                    {"\n"}
+                    {"\n"}
+                    {"\n"}
+                </Text>
+                
+                     <Button
+                            title="Login or Register"
+                            onPress={() => setLogin(true)}
+                            buttonStyle={styles.button}
+                            lightColor={Colors.dark.tint}
+                        /> 
+                        <Text  style={{
+                                    color: "white",
+                                    height: 40,
+                                    width: 200,
+                                    alignSelf: "center",
+                                    fontSize: 32,
+                                    fontWeight: "bold",
+                                    
+                                }} lightColor={Colors.dark.tint}>
+                    Our Products                        </Text>
+                        
                             <CategoryPicker
                                 style={{
                                     color: "white",
                                     height: 40,
-                                    width: 300,
+                                    width: 200,
                                     alignSelf: "center",
                                 }}
                                 set={setCategory}
                             />
-                        )}
-                        {user && category && (
-                            <ModelByCategoryPicker category={category} set={setModel} />
-                        )}
-                        {user && category && model && (
-                            <>
-                                <Button
-                                    title="add to  cart"
-                                    onPress={() => AddToCart()}
-                                    buttonStyle={styles.button}
-                                    lightColor={Colors.dark.tint}
-                                />
-                            </>
-                        )}
-                        {user && cart && items && (
-                            <>
-                                {items.map((item) => (
-                                    <Text
-                                        key={item.id}
-                                        style={styles.paragraph}
-                                        lightColor={Colors.dark.tint}
-                                    >
-                                        item: {item.category}
-                                        price: {item.price}
-                                    </Text>
-                                ))}
-                            </>
-                        )}
-                        <Text style={styles.paragraph} lightColor={Colors.dark.tint}>
-                            Total: {total}
-                        </Text>
-                        <Button
-                            title="CheckOut"
-                            onPress={() => CheckOut()}
-                            buttonStyle={styles.button}
-                            lightColor={Colors.dark.tint}
-                        />
-                    </SafeAreaView>
-                )}
+                        
+                        { category &&models&&
+                         models.map(model=><Text  style={styles.thirdTitle}>
+
+
+                           material: {model.material}
+                           {"\n"}
+                          Technology:{model.techUsed}
+                          {"\n"}
+                            </Text>)}
+                        
             </ImageBackground>
         </SafeAreaView>
     );

@@ -41,7 +41,9 @@ export default function FaadbackScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ImageBackground style={{ flex: 1 }} source={require("../assets/images/kitten.jpg")}>
+            <ImageBackground style={{ flex: 1 }} 
+                source={{uri: "https://i.pinimg.com/originals/7e/c0/c8/7ec0c8a050546e72ea781d8aa047c48c.jpg"}}
+                >
                 <Text style={styles.mainTitle} lightColor={Colors.dark.tint}>
                     Add a feedback{" "}
                 </Text>

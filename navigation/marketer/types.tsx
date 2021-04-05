@@ -3,10 +3,12 @@ export type BottomTabParamList = {
     Promotions: undefined;
     Advertisements: undefined;
     Settings: undefined;
+    Dashboard:undefined;
+
 };
 
 export type TabOneParamList = {
-    NotifsAsmarScreen: undefined;
+    DashboardScreen:undefined;
 };
 
 export type TabTwoParamList = {
@@ -19,4 +21,7 @@ export type TabThreeParamList = {
 
 export type TabFourParamList = {
     SettingsScreen: undefined;
+};
+export type TabFiveParamList = {
+    NotifsAsmarScreen: undefined;
 };
