@@ -5,7 +5,8 @@ import { SafeAreaView, Alert } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import CategoryByUserPicker from "../../../screens/pickers/CategoryByUserPicker";
 import SensorByUserAndCategoryPicker from "../../../screens/pickers/SensorByUserAndCategoryPicker";
-import styleExt from "./style";
+// import styleExt from "./style";
+import {styles as styleExt, image as img} from "../../StyleComponents";
 import { Button } from "react-native-elements";
 
 export default function AddSuggestion({ user }) {
@@ -61,7 +62,7 @@ export default function AddSuggestion({ user }) {
                 </Picker>
             </View>
             {about === "sensor" && (
-                <View style={{ alignSelf: "center" }}>
+                <View style={{ alignSelf: "center", backgroundColor:'white' }}>
                     {user && <CategoryByUserPicker set={setCategory} />}
                     {user && category && (
                         <SensorByUserAndCategoryPicker category={category} set={setSensor} />
@@ -77,7 +78,7 @@ export default function AddSuggestion({ user }) {
             <View>
                 <TextInput
                     multiline={true}
-                    numberOfLines={10}
+                    numberOfLines={5}
                     placeholder="Describe the Issue"
                     style={styleExt.textarea}
                     onChangeText={setDescription}
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "flex-start",
         marginHorizontal: 6,
-        backgroundColor: "rgba(71, 1, 120, 0.27)",
+        // backgroundColor: "rgba(71, 1, 120, 0.27)",
         marginTop: 10,
     },
     loremIpsum: {

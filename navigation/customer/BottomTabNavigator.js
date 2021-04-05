@@ -2,6 +2,7 @@ import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
+import { Icon } from "react-native-elements";
 
 import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
@@ -28,6 +29,7 @@ import ViewAllSensorsScreen from "../../addalin/screens/Customer/ViewAllSensorsS
 import CartScreen from "../../Aya/CartScreen";
 import FeedbackScreen from "../../Aya/FeedbackScreen";
 import FAQScreen from "../../Aya/FAQScreen";
+import { BackgroundImage } from "react-native-elements/dist/config";
 //Aya End
 
 const BottomTab = createBottomTabNavigator();
@@ -62,11 +64,19 @@ export default function BottomTabNavigator() {
                     }}
                 />
                 <BottomTab.Screen
+                    name="Notifications"
+                    component={TabFiveNavigator}
+                    options={{
+                        tabBarIcon: ({ color }) =>  <TabBarIcon name="notifications" color={color} />,
+                    }}
+                />
+                <BottomTab.Screen
                     name="Services"
                     component={TabTwoNavigator}
                     options={{
                         tabBarIcon: ({ color }) => (
-                            <TabBarIcon name="file-tray-stacked" color={color} />
+                            <AntDesign name="appstore-o" size={24} color="white" size={30} style={{ marginBottom: 15, backgroundColor: 'purple', padding:10, borderRadius:50 }}/>
+                            // <TabBarIcon name="file-tray-stacked" color={color} style={{BackgroundColor: 'red'}}/>
                         ),
                     }}
                 />
@@ -98,7 +108,7 @@ export default function BottomTabNavigator() {
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
-function TabBarIcon({ name, color }) {
+function TabBarIcon(props) {
     return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
@@ -222,5 +232,19 @@ function TabFourNavigator() {
                 options={{ headerTitle: "Settings" }}
             />
         </TabFourStack.Navigator>
+    );
+}
+
+const TabFiveStack = createStackNavigator();
+
+function TabFiveNavigator() {
+    return (
+        <TabFiveStack.Navigator>
+            <TabFiveStack.Screen
+                name="Notifications"
+                component={NotifsAsmarScreen}
+                options={{ headerTitle: "Settings" }}
+            />
+        </TabFiveStack.Navigator>
     );
 }

@@ -35,7 +35,7 @@ export default function ProductsAndProductsDetails({ user, sensors }) {
                     <Button
                         title={sn.name}
                         onPress={() => getSensor(sn)}
-                        buttonStyle={{ width: 300, marginBottom: 15, backgroundColor: "purple" }}
+                        buttonStyle={{ width: 300, margin: 5, backgroundColor: "purple" }}
                         key={sn.id}
                     />
                 ))

@@ -4,6 +4,7 @@ import { Text, View } from "../components/Themed";
 import Colors from "../constants/Colors";
 import UserContext from "../UserContext";
 import fb from "../fb";
+import { Button } from 'react-native-elements';
 
 export default function SettingsScreen() {
     const { user } = useContext(UserContext);
@@ -17,11 +18,16 @@ export default function SettingsScreen() {
     return (
         <View>
             <View style={styles.getStartedContainer}>
-                <TouchableOpacity onPress={logout} style={styles.title}>
+                {/* <TouchableOpacity onPress={logout} style={styles.title}>
                     <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
                         Logout
                     </Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                <Button
+                    title="Log Out"
+                    onPress={logout}
+                    buttonStyle={{backgroundColor:'red'}}
+                />
             </View>
         </View>
     );

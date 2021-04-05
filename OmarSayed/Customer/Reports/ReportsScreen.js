@@ -2,19 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../../UserContext";
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, ImageBackground } from "react-native";
 import { Button, SafeAreaView, Alert } from "react-native";
-import styleExt from "./style";
+// import styleExt from "./style";
+import {styles as styleExt, image as img} from "../../StyleComponents";
 import AddReport from "./AddReport";
 import UserPrevReports from "./UserPrevReports";
-const image = {
-    uri: "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif",
-    // uri: "https://cdn.nohat.cc/image_by_url.php?url=https://image.freepik.com/free-vector/blue-tones-blurred-background_1107-128.jpg"
-};
+
 export default function ReportsScreen() {
     const [tab, setTab] = useState("AddReport");
     const { user } = useContext(UserContext);
     return (
         <SafeAreaView style={styles.container}>
-            <ImageBackground source={image} style={styleExt.image}>
+            <ImageBackground source={img} style={styleExt.image}>
                 <Text style={styles.loremIpsum}></Text>
                 <View>
                     <View style={styles.fixToText}>
@@ -43,7 +41,7 @@ const styles = StyleSheet.create({
     loremIpsum: {
         color: "#121212",
         fontSize: 15,
-        marginTop: 70,
+        // marginTop: 70,
         alignSelf: "center",
         marginBottom: 10,
     },

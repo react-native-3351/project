@@ -10,34 +10,64 @@ import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Input } from "react-native-elements";
 import { ScrollView, StatusBar } from "react-native";
+import { Dimensions } from 'react-native';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 export default function SensorsScreen() {
     const { user } = useContext(UserContext);
-
-    const [inq, setInq] = useState("");
-    // const submitInq = () => {
-    //     db.Queries.createQueries({ sender: user.id, sensorId: sensor.id, question: inq, reply: '', repliedBy: '', sendDate: new Date() })
-    //     setInq('')
-    //     alert('Submitted, well contact with you soon ✔')
-    // }
-
     const [allQueries, setAllQueries] = useState([]);
-    useEffect(() => db.Queries.listenAllForCS(user.id, setAllQueries), [user]);
-    //console.log(allQueries)
-    const [ans, setAns] = useState("");
+    useEffect(() => db.Queries.listenAll(setAllQueries), [user]);
 
-    const [sensor, setSensor] = useState([]);
-    const submitAns = () => {
-        db.Queries.update({ ...sensor, reply: ans });
-        setAns("");
-        setModalVisible(!modalVisible);
-        alert("Submitted ✔");
-    };
-    const [modalVisible, setModalVisible] = useState(false);
 
+    const [allReports, setAllReports] = useState([]);
+    useEffect(() => db.Reports.listenAllForCS(user.id, setAllReports), [user]);
+
+    const [allQueriesUnRead, setAllQueriesUnRead] = useState([]);
+    useEffect(() => db.Queries.listenAllForCS(user.id, setAllQueriesUnRead), [user]);
+
+    const [allReportsNew, setAllReportsNew] = useState([]);
+    const [allReportsOnGoing, setAllReportsOnGoing] = useState([]);
+    const [allReportsClosed, setAllReportsClosed] = useState([]);
+
+    useEffect(() => db.Reports.listenAllForCSStatus('new', setAllReportsNew), [user]);
+    useEffect(() => db.Reports.listenAllForCSStatus('ongoing', setAllReportsOnGoing), [user]);
+    useEffect(() => db.Reports.listenAllForCSStatus('closed', setAllReportsClosed), [user]);
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
+
                 <Text style={styles.title}>Welcome to the Dashboard Mr./Ms. {user.name}</Text>
+                <View style={styles.fixToText}>
+                    <Text style={styles.tableTdm}>All Queries:</Text>
+                    <Text style={styles.tableTdm}>{allQueries.length}</Text>
+                </View>
+                <View style={styles.fixToText}>
+                    <Text style={styles.tableTd}>All replied Queries:</Text>
+                    <Text style={styles.tableTd}>{allQueriesUnRead.length}</Text>
+                </View>
+                <View style={styles.fixToText}>
+                    <Text style={styles.tableTd}>All unreplied Queries:</Text>
+                    <Text style={styles.tableTd}>{allQueries.length - allQueriesUnRead.length}</Text>
+                </View>
+               
+               
+                <View style={styles.fixToText}>
+                    <Text style={styles.tableTdm}>All Reports:</Text>
+                    <Text style={styles.tableTdm}>{allReports.length}</Text>
+                </View>
+                <View style={styles.fixToText}>
+                    <Text style={styles.tableTd}>All new Reports:</Text>
+                    <Text style={styles.tableTd}>{allReportsNew.length}</Text>
+                </View>
+                <View style={styles.fixToText}>
+                    <Text style={styles.tableTd}>All ongoing Reports:</Text>
+                    <Text style={styles.tableTd}>{allReportsOnGoing.length}</Text>
+                </View>
+                <View style={styles.fixToText}>
+                    <Text style={styles.tableTd}>All closed Reports:</Text>
+                    <Text style={styles.tableTd}>{allReportsClosed.length}</Text>
+                </View>
+             
             </ScrollView>
         </SafeAreaView>
     );
@@ -106,6 +136,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         backgroundColor: "lightblue",
         padding: 10,
+        marginBottom: 30
     },
     separator: {
         marginVertical: 30,
@@ -129,7 +160,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingTop: StatusBar.currentHeight,
+        // paddingTop: StatusBar.currentHeight,
     },
     scrollView: {
         backgroundColor: "snow",
@@ -179,4 +210,23 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         textAlign: "center",
     },
+    fixToText: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginBottom: 10,
+        marginHorizontal: 11
+    },
+    tableTd:{
+        padding: 10,
+        backgroundColor: '#F5F858',
+        width: windowWidth/2,
+        fontWeight: 'bold'
+        // color: 'white'
+    },
+    tableTdm:{
+        padding: 10,
+        backgroundColor: '#D56BC7',
+        width: windowWidth/2,
+        fontWeight: 'bold'
+    }
 });

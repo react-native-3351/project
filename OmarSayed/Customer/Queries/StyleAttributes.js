@@ -7,10 +7,10 @@ export default StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingTop: StatusBar.currentHeight,
+        // paddingTop: StatusBar.currentHeight,
     },
     scrollView: {
-        backgroundColor: "snow",
+        // backgroundColor: "snow",
         marginHorizontal: 2,
     },
     developmentModeText: {
@@ -36,6 +36,7 @@ export default StyleSheet.create({
     },
     getStartedContainer: {
         alignItems: "center",
+        marginHorizontal: 10,
         marginTop: 50,
     },
     homeScreenFilename: {
@@ -89,6 +90,7 @@ export default StyleSheet.create({
         margin: 3,
     },
     fixToText: {
+        backgroundColor: 'rgba(96,100,109, 0)',
         flexDirection: "row",
         justifyContent: "space-around",
         marginTop: 10,

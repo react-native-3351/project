@@ -15,7 +15,10 @@ import SettingsScreen from "../../SettingsScreen";
 import QueriesScreen from "../../CustomerService/QueriesScreen";
 // @ts-expect-error
 import ReportsScreen from "../../CustomerService/Reports/ReportsScreen";
-
+import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import {
     BottomTabParamList,
     TabOneParamList,
@@ -30,21 +33,21 @@ export default function BottomTabNavigator() {
     const colorScheme = useColorScheme();
     return (
         <BottomTab.Navigator
-            initialRouteName="Sensors"
-            tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+            initialRouteName="Dashboard"
+            tabBarOptions={{ activeTintColor: 'green' }}
         >
             <BottomTab.Screen
-                name="Sensors"
+                name="Dashboard"
                 component={TabOneNavigator}
                 options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                    tabBarIcon: ({ color }) => <FontAwesome name="dashboard" size={40} style={{marginBottom: 10}} color="purple" />,
                 }}
             />
             <BottomTab.Screen
                 name="Queries"
                 component={TabFourNavigator}
                 options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                    tabBarIcon: ({ color }) => <AntDesign name="questioncircle" size={35} style={{marginBottom: 10}} color="purple" />,
                 }}
             />
 
@@ -52,15 +55,15 @@ export default function BottomTabNavigator() {
                 name="Reports"
                 component={TabFiveNavigator}
                 options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                    tabBarIcon: ({ color }) => <MaterialIcons name="report" size={40} style={{marginBottom: 10}} color="purple" />,
                 }}
             />
 
             <BottomTab.Screen
-                name="Settings"
+                name="Logout"
                 component={TabThreeNavigator}
                 options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                    tabBarIcon: ({ color }) => <Entypo name="log-out" size={35} style={{marginBottom: 10}} color="red" />,
                 }}
             />
         </BottomTab.Navigator>
@@ -84,7 +87,7 @@ function TabOneNavigator() {
             <TabOneStack.Screen
                 name="SensorsScreen"
                 component={SensorsScreen}
-                options={{ headerTitle: "Sensors" }}
+                options={{ headerTitle: "Dashboard" }}
             />
         </TabOneStack.Navigator>
     );
