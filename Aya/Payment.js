@@ -1,10 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
     ImageBackground,
     StyleSheet,
-    TouchableOpacity,
     TextInput,
     SafeAreaView,
+    Alert,
 } from "react-native";
 import { View, Text } from "../components/Themed";
 import Colors from "../constants/Colors";
@@ -12,7 +12,10 @@ import { Button } from "react-native-elements";
 import { Picker } from "@react-native-picker/picker";
 import db from "../db";
 import UserContext from "../UserContext";
+import UseGift from "../Asmar/UseGift";
 
+
+//Asmar: implemented using gifts and promo codes on checkout
 export default function Payment({ Total, Cart }) {
     //console.log(Cart);
     const { user } = useContext(UserContext);
@@ -23,7 +26,7 @@ export default function Payment({ Total, Cart }) {
     const [CSV, setCSV] = useState("");
     const [password, setPassword] = useState("");
     const [pin, setPIN] = useState("");
-    const [months, setMonths] = useState([
+    const months = [
         "1",
         "2",
         "3",
@@ -36,11 +39,43 @@ export default function Payment({ Total, Cart }) {
         "10",
         "11",
         "12",
-    ]);
-    const [years, setYears] = useState(["21", "22", "23", "24", "25", "26", "27"]);
+    ];
+    const years = ["21", "22", "23", "24", "25", "26", "27"];
     const [month, setMonth] = useState(0);
     const [year, setYear] = useState(0);
-    const [gift, setGift]= useState(null)
+
+
+    const [promotions, setPromotions] = useState(null);
+    useEffect(() => db.Promotions.listenAll(setPromotions), []);
+    const [promoCode, setPromoCode] = useState("");
+    const [codesUsed, setCodesUsed] = useState([]);
+
+    const [flatDisc, setFlatDisc] = useState(0);
+    const [percDisc, setPercDisc] = useState(1);
+    const [sumTotal, setSumTotal] = useState(Total);
+    useEffect(() => setSumTotal(Math.max(((Total * percDisc) - flatDisc), 0)), [Total, percDisc, flatDisc]);
+
+    const applyPromo = () => {
+        if (codesUsed.includes(promoCode)) {
+            Alert.alert(`This code has already been used!`, null, null, { cancelable: true });
+            return
+        }
+
+        const promo = promotions.find(p => p.code == promoCode);
+
+        if (promo) {
+            codesUsed.push(promo.code)
+            if (promo.discount < 1) {
+                setPercDisc(prevDisc => prevDisc - promo.discount);
+                Alert.alert(`Discount Code Applied! Enjoy your ${promo.discount * 100}% discount!`, null, null, { cancelable: true });
+            } else {
+                setFlatDisc(prevDisc => prevDisc + promo.discount);
+                Alert.alert(`Discount Code Applied! You are saving QAR ${promo.discount}!`, null, null, { cancelable: true });
+            }
+        } else {
+            Alert.alert("Invalid Code!", null, null, { cancelable: true });
+        }
+    }
 
     const Pay = async () => {
         let expireDate = month + " " + year;
@@ -48,7 +83,7 @@ export default function Payment({ Total, Cart }) {
         await db.Carts.createCart(Cart, { userid: user.id, checkOut: false });
         await db.Payments.create({
             cart: Cart,
-            total: Total,
+            total: sumTotal,
             cardnum,
             paymentMethod,
             expireDate,
@@ -61,9 +96,9 @@ export default function Payment({ Total, Cart }) {
     };
     return (
         <SafeAreaView style={styles.container}>
-             <ImageBackground style={{ flex: 1 }} 
-            
-            source={{uri: "https://i.pinimg.com/originals/7e/c0/c8/7ec0c8a050546e72ea781d8aa047c48c.jpg"}}
+            <ImageBackground style={{ flex: 1 }}
+
+                source={{ uri: "https://i.pinimg.com/originals/7e/c0/c8/7ec0c8a050546e72ea781d8aa047c48c.jpg" }}
             >
                 {finished ? (
                     <Text style={styles.title} lightColor={Colors.light.tint}>
@@ -71,8 +106,23 @@ export default function Payment({ Total, Cart }) {
                     </Text>
                 ) : (
                     <>
+                        <UseGift setDiscount={setFlatDisc} />
                         <Text style={styles.paragraph} lightColor={Colors.light.tint}>
-                            Total Payment is {Total}{" "}
+                            Promo Code{" "}
+                        </Text>
+                        <TextInput
+                            style={styles.input}
+                            onChangeText={(text) => setPromoCode(text)}
+                            value={promoCode}
+                        />
+                        <Button
+                            title="Apply"
+                            onPress={applyPromo}
+                            buttonStyle={styles.button}
+                            lightColor={Colors.dark.tint}
+                        />
+                        <Text style={styles.paragraph} lightColor={Colors.light.tint}>
+                            Total Payment is {sumTotal}{" "}
                         </Text>
                         <Picker
                             style={{ color: "white", height: 40, width: 300, alignSelf: "center" }}
@@ -105,7 +155,7 @@ export default function Payment({ Total, Cart }) {
                             >
                                 <Picker.Item label="month" value="" />
                                 {months.map((m) => (
-                                    <Picker.Item label={m} value={m} />
+                                    <Picker.Item label={m} value={m} key={m} />
                                 ))}
                             </Picker>
 
@@ -116,7 +166,7 @@ export default function Payment({ Total, Cart }) {
                             >
                                 <Picker.Item label="year" value="" />
                                 {years.map((y) => (
-                                    <Picker.Item label={y} value={y} />
+                                    <Picker.Item label={y} value={y} key={y} />
                                 ))}
                             </Picker>
                         </Text>

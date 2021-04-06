@@ -1,8 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Alert, TextInput, Text, ImageBackground } from "react-native";
 import { View } from "../../components/Themed";
-import Colors from "../../constants/Colors";
-import UserContext from "../../UserContext";
 import { Button } from "react-native-elements";
 import UserPicker from "../../screens/pickers/UserPicker";
 import LinkPicker from "../../screens/pickers/LinkPicker";
@@ -11,7 +9,6 @@ import db from "../../db";
 //TODO: schedule notifications
 //TODO: better picker for links
 export default function NotifsAsmarScreen() {
-    const { user } = useContext(UserContext);
     const [userNotif, setUserNotif] = useState(null);
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
@@ -38,7 +35,7 @@ export default function NotifsAsmarScreen() {
             <ImageBackground
                 source={{
                     uri:
-                        "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif",
+                        "https://wallpaperaccess.com/full/1105968.jpg",
                 }}
                 style={styles.image}
             >

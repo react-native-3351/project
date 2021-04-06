@@ -1,36 +1,63 @@
 import React, { useState, useEffect, useContext } from "react";
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
 import { View, Text } from "../../components/Themed";
 import db from "../../db";
 import UserContext from "../../UserContext";
-import { ListItem, Icon, Card } from "react-native-elements";
+import { Card } from "react-native-elements";
 
-export default function NotifsAsmarScreen() {
+export default function NotifsAsmarScreen({ navigation }) {
     const { user } = useContext(UserContext);
     const [notifications, setNotifications] = useState(null);
     useEffect(() => db.Users.Notifications.listenAll(setNotifications, user.id), []);
 
+    const handleVisit = (link) => {
+        navigation.navigate(link);
+    }
+
+    const handleDismiss = (id) => {
+        db.Users.Notifications.dismiss(user.id, id);
+    }
+
     return (
         <SafeAreaView style={styles.getStartedContainer}>
-            <ScrollView>
-                <Text style={styles.helpLinkText}>Your Notifications!</Text>
-                {notifications
-                    ? notifications.map(
-                          (notif) =>
-                              !notif.isRead && (
-                                  <Card key={notif.id}>
-                                      <Card.Title>{notif.title}</Card.Title>
-                                      <Text>{notif.body}</Text>
-                                      <Text>
-                                          {new Date(
-                                              notif.timestamp.seconds * 1000
-                                          ).toLocaleString()}
-                                      </Text>
-                                  </Card>
-                              )
-                      )
-                    : null}
-            </ScrollView>
+            <ImageBackground
+                style={{ flex: 1 }}
+                //We are using online image to set background
+                source={{
+                    uri: "https://wallpaperaccess.com/full/1105968.jpg"
+                }}
+            >
+                <ScrollView>
+                    <Text style={styles.helpLinkText}>Your Notifications!</Text>
+                    {notifications
+                        ? notifications.map(
+                            (notif) =>
+                                !notif.isRead && (
+                                    <Card key={notif.id}>
+                                        <Card.Title>{notif.title}</Card.Title>
+                                        <Text>{notif.body}</Text>
+                                        <Text>
+                                            {new Date(
+                                                notif.timestamp.seconds * 1000
+                                            ).toLocaleString()}
+                                        </Text>
+                                        <Card.Divider />
+                                        <View>
+                                            <TouchableOpacity onPress={() => handleVisit(notif.link)} styles={styles.title}>
+                                                <Text style={{ alignSelf: 'flex-start' }}>Visit</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity onPress={() => handleDismiss(notif.id)} styles={styles.title}>
+                                                <Text style={{ alignSelf: 'flex-end' }}>Dismiss</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </Card>
+                                )
+                        )
+                        : <Text>
+                            No notifications to show.
+                    </Text>}
+                </ScrollView>
+            </ImageBackground>
         </SafeAreaView>
     );
 }
@@ -98,6 +125,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: "bold",
+        color: '#2e78b7',
     },
     separator: {
         marginVertical: 30,

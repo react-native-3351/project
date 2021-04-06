@@ -1,16 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, ScrollView, TextInput, ImageBackground, Text, Pressable } from "react-native";
 import { View } from "../../components/Themed";
-import Colors from "../../constants/Colors";
-import UserContext from "../../UserContext";
 import { Button, ButtonGroup } from "react-native-elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import CategoryPicker from "../../screens/pickers/CategoryPicker";
 import db from "../../db";
-// import ModelByCategoryPicker from '../Aya/ModelByCategoryPicker';
+import ModelByCategoryPicker from '../../Aya/ModelByCategoryPicker';
 
 export default function PromotionsAsmarScreen() {
-    const { user } = useContext(UserContext);
     const [category, setCategory] = useState(null);
     const [modelId, setModelId] = useState(null);
     useEffect(() => setModelId(null), [category]);
@@ -52,7 +49,7 @@ export default function PromotionsAsmarScreen() {
             <ImageBackground
                 source={{
                     uri:
-                        "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif",
+                        "https://wallpaperaccess.com/full/1105968.jpg",
                 }}
                 style={styles.image}
             >
@@ -65,9 +62,8 @@ export default function PromotionsAsmarScreen() {
                         defaultLabel="All Categories"
                     />
                     {category &&
-                        {
-                            /* <ModelByCategoryPicker category={category} set={setModelId} /> */
-                        }}
+                        <ModelByCategoryPicker category={category} set={setModelId} />
+                    }
                     <Text style={styles.label}>Code</Text>
                     <TextInput
                         placeholder="Code"
@@ -112,7 +108,7 @@ export default function PromotionsAsmarScreen() {
                             <Text style={styles.label}>Maximum Deductible</Text>
                             <TextInput
                                 placeholder="Maximum"
-                                value={max}
+                                value={max + ""}
                                 onChangeText={(value) => setMax(value.replace(/[^0-9]/g, ""))}
                                 keyboardType="numeric"
                                 style={styles.input}

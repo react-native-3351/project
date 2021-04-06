@@ -34,35 +34,35 @@ export default function BottomTabNavigator() {
                 name="Dashboard"
                 component={TabOneNavigator}
                 options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                    tabBarIcon: ({ color }) => <TabBarIcon name="home-outline" color={color} />,
                 }}
             />
             <BottomTab.Screen
                 name="Notifications"
                 component={TabFiveNavigator}
                 options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                    tabBarIcon: ({ color }) => <TabBarIcon name="notifications-outline" color={color} />,
                 }}
             />
             <BottomTab.Screen
                 name="Promotions"
                 component={TabTwoNavigator}
                 options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                    tabBarIcon: ({ color }) => <TabBarIcon name="pricetag-outline" color={color} />,
                 }}
             />
             <BottomTab.Screen
                 name="Advertisements"
                 component={TabThreeNavigator}
                 options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                    tabBarIcon: ({ color }) => <TabBarIcon name="images-outline" color={color} />,
                 }}
             />
             <BottomTab.Screen
                 name="Settings"
                 component={TabFourNavigator}
                 options={{
-                    tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+                    tabBarIcon: ({ color }) => <TabBarIcon name="settings-outline" color={color} />,
                 }}
             />
         </BottomTab.Navigator>

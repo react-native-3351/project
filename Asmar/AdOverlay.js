@@ -1,16 +1,20 @@
 import * as React from "react";
 
-import { Text, Overlay, Image, Icon } from "react-native-elements";
+import { Text, Overlay, Icon } from "react-native-elements";
 import {
     ImageBackground,
     ActivityIndicator,
     Dimensions,
     TouchableHighlight,
+    TouchableWithoutFeedback,
     View,
 } from "react-native";
 import db from "../db";
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function AdOverlay({ visible, setVisible }) {
+    const navigation = useNavigation();
     const [ads, setAds] = React.useState([]);
     React.useEffect(() => db.Advertisements.listenAll(setAds), []);
     // React.useEffect(() => //console.log(ads), [ads]);
@@ -23,44 +27,49 @@ export default function AdOverlay({ visible, setVisible }) {
         <>
             <Overlay
                 fullScreen={true}
-                isVisible={visible}
+                isVisible={currentAd ? visible : false}
                 onBackdropPress={() => setVisible(false)}
                 overlayStyle={{ paddingLeft: 0 }}
             >
-                <ImageBackground
-                    source={{ uri: currentAd?.url }}
-                    resizeMode="center"
-                    style={{
-                        width: Dimensions.get("window").width,
-                        height: Dimensions.get("window").height,
-                    }}
-                    PlaceholderContent={<ActivityIndicator />}
+                <TouchableWithoutFeedback
+                    onPress={() => { navigation.navigate(currentAd.link); setVisible(false) }}
                 >
-                    <TouchableHighlight
-                        style={{ position: "absolute", right: 13, top: 13 }}
-                        onPress={() => setVisible(false)}
-                        underlayColor="white"
-                    >
-                        <Icon
-                            name="close"
-                            type="material"
-                            // raised
-                            reverse
-                        />
-                    </TouchableHighlight>
-                    <View
+
+                    <ImageBackground
+                        source={{ uri: currentAd?.url }}
+                        resizeMode="center"
                         style={{
-                            position: "absolute",
-                            bottom: 35,
-                            left: 0,
-                            right: 0,
-                            alignItems: "center",
-                            backgroundColor: "lightgray",
+                            width: Dimensions.get("window").width,
+                            height: Dimensions.get("window").height,
                         }}
+                        PlaceholderContent={<ActivityIndicator />}
                     >
-                        <Text>Advertisement placeholder text!</Text>
-                    </View>
-                </ImageBackground>
+                        <TouchableHighlight
+                            style={{ position: "absolute", right: 13, top: 13 }}
+                            onPress={() => setVisible(false)}
+                            underlayColor="white"
+                        >
+                            <Icon
+                                name="close"
+                                type="material"
+                                // raised
+                                reverse
+                            />
+                        </TouchableHighlight>
+                        <View
+                            style={{
+                                position: "absolute",
+                                bottom: 35,
+                                left: 0,
+                                right: 0,
+                                alignItems: "center",
+                                backgroundColor: "lightgray",
+                            }}
+                        >
+                            <Text>Advertisement placeholder text!</Text>
+                        </View>
+                    </ImageBackground>
+                </TouchableWithoutFeedback>
             </Overlay>
         </>
     );

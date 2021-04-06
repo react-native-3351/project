@@ -1,16 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet, TextInput, ImageBackground, Text, Pressable, Alert } from "react-native";
+import { StyleSheet, ImageBackground, Text, Pressable, Alert } from "react-native";
 import { Button } from "react-native-elements";
 import { View } from "../../components/Themed";
-import Colors from "../../constants/Colors";
 import UserContext from "../../UserContext";
-import UserPicker from "../../screens/pickers/UserPicker";
 import LinkPicker from "../../screens/pickers/LinkPicker";
 import * as ImagePicker from "expo-image-picker";
 import db from "../../db";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import fb from "../../fb";
-import { Link } from "@react-navigation/native";
 
 export default function NotifsAsmarScreen() {
     useEffect(() => {
@@ -80,13 +77,13 @@ export default function NotifsAsmarScreen() {
             <ImageBackground
                 source={{
                     uri:
-                        "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif",
+                        "https://wallpaperaccess.com/full/1105968.jpg",
                 }}
                 style={styles.image}
             >
                 <Text style={styles.mainTitle}>Upload Advertisement{"\n"}</Text>
                 <Text style={styles.label}>Link</Text>
-                <LinkPicker set={setLink} style={styles.input}/>
+                <LinkPicker set={setLink} style={styles.input} />
                 <Text style={styles.label}>Start Date</Text>
                 <Pressable onPress={() => setShowStartDate(true)}>
                     <Text style={[styles.input, styles.inputDisplay]}>{formatDate(startDate)}</Text>

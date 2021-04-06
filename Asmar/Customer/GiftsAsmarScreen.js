@@ -1,43 +1,49 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet } from "react-native";
-import { View, Text } from "../../components/Themed";
+import { StyleSheet, SafeAreaView, ImageBackground } from "react-native";
+import { Text } from "../../components/Themed";
 import db from "../../db";
 import UserContext from "../../UserContext";
-import { ListItem, Icon, Card } from "react-native-elements";
+import { Icon, Card } from "react-native-elements";
 
 export default function ActionsScreen() {
     const { user } = useContext(UserContext);
     const [gifts, setGifts] = useState(null);
-    useEffect(() => db.Users.Gifts.listenAll(setGifts, user.id), []);
+    useEffect(() => db.Users.Gifts.listenNotExpired(setGifts, user.id), []);
 
     // useEffect(() => //console.log("Gifts: ", gifts), [gifts]);
     return (
-        <View>
-            <View style={styles.getStartedContainer}>
+        <SafeAreaView style={styles.container}>
+            <ImageBackground
+                style={{ flex: 1 }}
+                //We are using online image to set background
+                source={{
+                    uri: "https://wallpaperaccess.com/full/1105968.jpg"
+                }}
+            >
                 <Text style={styles.helpLinkText}>Your Gifts!</Text>
                 {gifts
                     ? gifts.map(
-                          (gift) =>
-                              !gift.isUsed && (
-                                  <Card key={gift.id} bottomDivider>
-                                      <Icon name="pricetag" type="ionicon" />
-                                      <Card.Title>{gift.name}</Card.Title>
-                                      <Text>
-                                          Expires in
+                        (gift) =>
+                            !gift.isUsed && (
+                                <Card key={gift.id} bottomDivider>
+                                    <Icon name="pricetag" type="ionicon" />
+                                    <Card.Title>{gift.name}</Card.Title>
+                                    <Text>
+                                        Expires in
                                           {" " +
-                                              Math.ceil(
-                                                  (gift.expiry.seconds * 1000 - Date.now()) /
-                                                      86400000
-                                              ) +
-                                              " "}
+                                            Math.ceil(
+                                                (gift.expiry.seconds * 1000 - Date.now()) /
+                                                86400000
+                                            ) +
+                                            " "}
                                           days!
                                       </Text>
-                                  </Card>
-                              )
-                      )
+                                </Card>
+                            )
+                    )
                     : null}
-            </View>
-        </View>
+            </ImageBackground>
+        </SafeAreaView>
     );
 }
 
