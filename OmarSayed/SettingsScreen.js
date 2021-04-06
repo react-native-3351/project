@@ -18,11 +18,6 @@ export default function SettingsScreen() {
     return (
         <View>
             <View style={styles.getStartedContainer}>
-                {/* <TouchableOpacity onPress={logout} style={styles.title}>
-                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-                        Logout
-                    </Text>
-                </TouchableOpacity> */}
                 <Button
                     title="Log Out"
                     onPress={logout}

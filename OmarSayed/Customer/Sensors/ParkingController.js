@@ -27,10 +27,10 @@ export default function ParkingController({ sensor }) {
         let countCars = await db.Sensors.Readings.findAllCarsInParkings(sensor.id);
         // let countCars = sensor.currentCars
         // new car set in the parking yes/no
-        let dec = Math.floor(Math.random() * 3);
+        let dec = Math.floor(Math.random() * 5);
         // let dec = 0
         // decision is yes, add new car
-        if (dec === 1) {
+        if (dec === 1 || dec === 3 || dec === 4) {
             let carPlate = Math.floor(Math.random() * 9999999) + "";
             // //console.log(countCars.length)
             // //console.log('================')
@@ -61,17 +61,13 @@ export default function ParkingController({ sensor }) {
                 }
                 carPlate = sensor.spots[setInSpot];
                 sensor.spots[setInSpot] = "";
-                // //console.log(carPlate)
                 let a = await db.Sensors.Readings.findByPlate(sensor.id, carPlate);
                 await db.Sensors.Readings.updatePlate(sensor.id, { ...a, out: new Date() });
                 sensor.currentCars = countCars.length - 1;
                 await db.Sensors.update({ ...sensor });
-                // await db.Sensors.update({ ...sensor, currentCars: countCars - 1 })
-                // // //console.log(a)
-                //console.log(`remove car from paking, plate number ${carPlate}`)
             }
         } else if (dec === 2) {
-            //console.log(' Stay Same - ')
+            console.log(' Stay Same - ')
         }
     };
 
@@ -86,35 +82,6 @@ export default function ParkingController({ sensor }) {
     useEffect(() => (isEnabled ? handleStartSimulator() : handleStopSimulator()), [isEnabled]);
     return (
         <View style={styles.helpContainer}>
-            {/*        
-            <TouchableOpacity onPress={handleToggleAlert} style={styles.title}>
-                <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-                    Toggle alert field
-                </Text>
-            </TouchableOpacity> */}
-            {/* <TouchableOpacity onPress={handleStartSimulator} style={styles.title} disabled={intervalId !== 0}>
-                <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-                    Start simulator
-                </Text>
-            </TouchableOpacity> */}
-            {/* <TouchableOpacity onPress={() => setDelay(delay - 1)} style={styles.title} disabled={delay <= 1}>
-                <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-                    Decrement delay by 1
-                </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setDelay(delay + 1)} style={styles.title}>
-                <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-                    Increment delay by 1
-                </Text>
-            </TouchableOpacity>
-            <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-                Delay: {delay}
-            </Text> */}
-            {/* <TouchableOpacity onPress={handleStopSimulator} style={styles.title} disabled={intervalId === 0}>
-                <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-                    Stop simulator
-                </Text>
-            </TouchableOpacity> */}
             <Text style={{ ...styles.title, marginTop: 10 }}>Simulator ON/OFF</Text>
             <Switch
                 trackColor={{ false: "#767577", true: "#81b0ff" }}

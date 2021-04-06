@@ -61,7 +61,8 @@ export default function ProductsAndProductsDetails({ user, sensors }) {
                         style={{
                             borderColor: "lightgreen",
                             borderStartWidth: 3,
-                            marginTop: 50,
+                            marginHorizontal: 50,
+                            marginBottom: 100,
                             padding: 9,
                         }}
                     >

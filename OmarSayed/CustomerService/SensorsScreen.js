@@ -32,11 +32,28 @@ export default function SensorsScreen() {
     useEffect(() => db.Reports.listenAllForCSStatus('new', setAllReportsNew), [user]);
     useEffect(() => db.Reports.listenAllForCSStatus('ongoing', setAllReportsOnGoing), [user]);
     useEffect(() => db.Reports.listenAllForCSStatus('closed', setAllReportsClosed), [user]);
+
+    const [suggs, setSuggs] = useState(null);
+    useEffect(() => db.Suggestions.listenAll(setSuggs), [user]);
+
+    const [allVotes, setAllVotes] = useState([]);
+    useEffect(() => db.Suggestions.Votes.listenAll(setAllVotes), [user]);
+    const [suggsVotes, setSuggsVotes] = useState(null);
+    useEffect(() => {
+        if (suggs) {
+            (async () => await db.Suggestions.Votes.getVotes(suggs, setSuggsVotes, user.id))();
+        }
+    }, [suggs, allVotes]);
+
+    const deleteSugg = async (suId) => {
+        await db.Suggestions.remove(suId);
+        alert('Done')
+    }
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
 
-                <Text style={styles.title}>Welcome to the Dashboard Mr./Ms. {user.name}</Text>
+                <Text style={styles.title}>~~~ [ Dashboard ] ~~~</Text>
                 <View style={styles.fixToText}>
                     <Text style={styles.tableTdm}>All Queries:</Text>
                     <Text style={styles.tableTdm}>{allQueries.length}</Text>
@@ -49,8 +66,8 @@ export default function SensorsScreen() {
                     <Text style={styles.tableTd}>All unreplied Queries:</Text>
                     <Text style={styles.tableTd}>{allQueries.length - allQueriesUnRead.length}</Text>
                 </View>
-               
-               
+
+
                 <View style={styles.fixToText}>
                     <Text style={styles.tableTdm}>All Reports:</Text>
                     <Text style={styles.tableTdm}>{allReports.length}</Text>
@@ -67,7 +84,35 @@ export default function SensorsScreen() {
                     <Text style={styles.tableTd}>All closed Reports:</Text>
                     <Text style={styles.tableTd}>{allReportsClosed.length}</Text>
                 </View>
-             
+                <View style={styles.fixToText}>
+                    <Text style={styles.tableTdm}>All Reports:</Text>
+                    <Text style={styles.tableTdm}></Text>
+                </View>
+                <SafeAreaView style={{...styles.containerScroll2, borderWidth: 3, borderColor: "#F5F858", backgroundColor: '#F5F858'}}>
+                    <ScrollView style={{ ...styles.scrollView2, width: windowWidth - 30, borderWidth: 3, borderColor: "gray", }}>
+                        {suggsVotes &&
+                            suggsVotes.map((s) => (
+                                <View
+                                    key={s.id}
+                                    style={{
+                                        backgroundColor: "snow",
+                                        minHeight: 50,
+                                        borderWidth: 1,
+                                        borderColor: "purple",
+                                        padding: 10
+                                    }}
+                                >
+                                    <Text>{s.description} {s.v.length}</Text>
+                                    <Text>Votes: {s.v.length}</Text>
+                                    <Button
+                                        title="Created"
+                                        onPress={() => deleteSugg(s.id)}
+                                        buttonStyle={{ backgroundColor: 'purple', width: windowWidth/3, alignSelf: 'center' }}
+                                    />
+                                </View>
+                            ))}
+                    </ScrollView>
+                </SafeAreaView>
             </ScrollView>
         </SafeAreaView>
     );
@@ -216,17 +261,28 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginHorizontal: 11
     },
-    tableTd:{
+    tableTd: {
         padding: 10,
         backgroundColor: '#F5F858',
-        width: windowWidth/2,
+        width: windowWidth / 2,
         fontWeight: 'bold'
         // color: 'white'
     },
-    tableTdm:{
+    tableTdm: {
         padding: 10,
         backgroundColor: '#D56BC7',
-        width: windowWidth/2,
+        width: windowWidth / 2,
         fontWeight: 'bold'
-    }
+    },
+    containerScroll2: {
+        flex: 1,
+        padding: 0,
+    },
+    scrollView2: {
+        backgroundColor: "lightgray",
+        marginHorizontal: 20,
+        marginVertical: 20,
+        alignSelf: 'center',
+        maxHeight: 125,
+    },
 });
