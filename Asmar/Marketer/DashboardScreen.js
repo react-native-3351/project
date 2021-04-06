@@ -48,7 +48,7 @@ export default function DashboardScreen() {
                 style={{ flex: 1 }}
                 //We are using online image to set background
                 source={{
-                    uri: "https://i.pinimg.com/originals/7e/c0/c8/7ec0c8a050546e72ea781d8aa047c48c.jpg"
+                    uri: "https://wallpaperaccess.com/full/1105968.jpg"
                 }}
             >
 
