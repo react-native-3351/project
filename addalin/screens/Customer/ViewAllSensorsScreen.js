@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, ScrollView } from "react-native";
+import { ImageBackground, StyleSheet, ScrollView } from "react-native";
 import { Button, Overlay, ListItem, Card, Icon } from "react-native-elements";
 import { View, Text } from "../../../components/Themed";
 import UserContext from "../../../UserContext";
 import db from "../../../db";
 
 export default function ViewAllSensorsScreen() {
+    const image = {
+        uri: "https://wallpaperaccess.com/full/1105968.jpg",
+    };
     const { user } = useContext(UserContext);
     const userId = user.id ? user.id : "-";
 
@@ -35,7 +38,7 @@ export default function ViewAllSensorsScreen() {
     };
 
     return (
-        <View>
+        <ImageBackground source={image} style={styles.image}>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.getStartedContainer}>
                     {sensors.length !== 0 ? (
@@ -98,7 +101,7 @@ export default function ViewAllSensorsScreen() {
                     )}
                 </View>
             </ScrollView>
-        </View>
+        </ImageBackground>
     );
 }
 
@@ -125,12 +128,11 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 20,
     },
-    welcomeImage: {
-        width: 100,
-        height: 80,
-        resizeMode: "contain",
-        marginTop: 3,
-        marginLeft: -10,
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        // justifyContent: "center"
+        paddingTop: 50,
     },
     getStartedContainer: {
         alignItems: "center",

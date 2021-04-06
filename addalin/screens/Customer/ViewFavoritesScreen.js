@@ -7,8 +7,7 @@ import ViewSensor from "./ViewFavoritesSensorScreen";
 
 export default function ViewFavoritesScreen() {
     const image = {
-        uri: "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif",
-        // uri: "https://cdn.nohat.cc/image_by_url.php?url=https://image.freepik.com/free-vector/blue-tones-blurred-background_1107-128.jpg"
+        uri: "https://wallpaperaccess.com/full/1105968.jpg",
     };
 
     const { user } = useContext(UserContext);
@@ -39,7 +38,7 @@ export default function ViewFavoritesScreen() {
                                 return (
                                     <ListItem
                                         style={{ width: 450 }}
-                                        containerStyle={{ backgroundColor: "black" }}
+                                        containerStyle={{ backgroundColor: "purple" }}
                                         key={favorite.id}
                                         bottomDivider
                                     >
@@ -78,8 +77,8 @@ export default function ViewFavoritesScreen() {
                             })
                         ) : (
                             <ListItem
-                                style={{ width: 350 }}
-                                containerStyle={{ backgroundColor: "black" }}
+                                style={{ width: 400 }}
+                                containerStyle={{ backgroundColor: "purple" }}
                                 key={1}
                             >
                                 <ListItem.Content>
