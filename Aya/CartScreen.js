@@ -53,7 +53,9 @@ export default function CartScreen() {
             <ImageBackground
                 style={{ flex: 1 }}
                 //We are using online image to set background
-                source={{uri: "https://i.pinimg.com/originals/7e/c0/c8/7ec0c8a050546e72ea781d8aa047c48c.jpg"}}
+                source={{uri:
+                    "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif",
+                }}
                 //You can also set image from your project folder
                 //require('./images/background_image.jpg')        //
             >
@@ -105,12 +107,15 @@ export default function CartScreen() {
                         <Text style={styles.paragraph} lightColor={Colors.dark.tint}>
                             Total: {total}
                         </Text>
-                        <Button
-                            title="CheckOut"
-                            onPress={() => CheckOut()}
-                            buttonStyle={styles.button}
-                            lightColor={Colors.dark.tint}
-                        />
+                        { total>0&&
+ <Button
+ title="CheckOut"
+ onPress={() => CheckOut()}
+ buttonStyle={styles.button}
+ lightColor={Colors.dark.tint}
+/>
+                        }
+                       
                     </SafeAreaView>
                 )}
             </ImageBackground>

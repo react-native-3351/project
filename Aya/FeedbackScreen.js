@@ -42,7 +42,9 @@ export default function FaadbackScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <ImageBackground style={{ flex: 1 }} 
-                source={{uri: "https://i.pinimg.com/originals/7e/c0/c8/7ec0c8a050546e72ea781d8aa047c48c.jpg"}}
+                source={{uri:
+                    "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif"
+                }}
                 >
                 <Text style={styles.mainTitle} lightColor={Colors.dark.tint}>
                     Add a feedback{" "}
@@ -72,6 +74,7 @@ export default function FaadbackScreen() {
                     value={comment}
                 />
                 {feedbackabout == "sensor" ? (
+                    comment!=""&&
                     category &&
                     model && (
                         <Button
@@ -82,6 +85,7 @@ export default function FaadbackScreen() {
                         />
                     )
                 ) : (
+                    comment!=""&&
                     <Button
                         title="save"
                         onPress={() => handleSave()}

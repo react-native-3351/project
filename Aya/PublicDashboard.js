@@ -20,66 +20,78 @@ import RegisterLogin from "../RegisterLogin";
 export default function PublicDashboard() {
     const [category, setCategory] = useState(null);
     const [models, setModels] = useState([]);
-    const [login, setLogin]=useState(false)
-    useEffect(() =>category? db.Categories.Models.listenAllModels(setModels, category.id):undefined, [category]);
-    
-    return (
-        login?
-        <RegisterLogin/>:
+    const [login, setLogin] = useState(false)
+    useEffect(() => category ? db.Categories.Models.listenAllModels(setModels, category.id) : undefined, [category]);
 
-        <SafeAreaView style={styles.container}>
-            <ImageBackground
-                style={{ flex: 1 }}
-                //We are using online image to set background
-                source={{uri: "https://i.pinimg.com/originals/7e/c0/c8/7ec0c8a050546e72ea781d8aa047c48c.jpg"}}
-                //You can also set image from your project folder
-                //require('./images/background_image.jpg')        //
-            >
-                <Text>
-                    {"\n"}
-                    {"\n"}
-                    {"\n"}
-                </Text>
-                
-                     <Button
+    return (
+        login ?
+            <RegisterLogin /> :
+
+            <SafeAreaView style={styles.container}>
+                <ImageBackground
+                    style={{ flex: 1 }}
+                    //We are using online image to set background
+                    source={{ uri: 
+                        "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif",
+                     }}
+
+                >
+                    <SafeAreaView style={styles.container}>
+                        <Text style={styles.title}
+                         lightColor={Colors.dark.tint}>
+{"\n"}
+                  {"\n"}
+                  {"\n"}
+                            Welcome to the TechMarket {" "}
+
+                        </Text>
+
+                        <Button
                             title="Login or Register"
                             onPress={() => setLogin(true)}
                             buttonStyle={styles.button}
                             lightColor={Colors.dark.tint}
-                        /> 
-                        <Text  style={{
-                                    color: "white",
-                                    height: 40,
-                                    width: 200,
-                                    alignSelf: "center",
-                                    fontSize: 32,
-                                    fontWeight: "bold",
-                                    
-                                }} lightColor={Colors.dark.tint}>
-                    Our Products                        </Text>
-                        
-                            <CategoryPicker
-                                style={{
-                                    color: "white",
-                                    height: 40,
-                                    width: 200,
-                                    alignSelf: "center",
-                                }}
-                                set={setCategory}
-                            />
-                        
-                        { category &&models&&
-                         models.map(model=><Text  style={styles.thirdTitle}>
+                        />
+                        <Text style={styles.paragraph} lightColor={Colors.dark.tint}>
+                            To view available products  please choose a category           
+                            {"\n"}
+     </Text>
 
 
-                           material: {model.material}
-                           {"\n"}
+                        <CategoryPicker
+                            style={{
+                                color: "white",
+                                height: 40,
+                                width: 200,
+                                alignSelf: "center",
+                            }}
+                            set={setCategory}
+                        />
+
+                        {category && models && models.length > 0 &&
+                            models.map(model => <Text style={styles.thirdTitle} key={model.id}>
+                                {"\n"}
+                                {"\n"}
+
+                                material: {model.material}
+                                {"\n"}
                           Technology:{model.techUsed}
-                          {"\n"}
+                                {"\n"}
                             </Text>)}
-                        
-            </ImageBackground>
-        </SafeAreaView>
+                        {
+                            category && models && models.length == 0 &&
+
+                            <Text style={styles.thirdTitle}>
+                                                                {"\n"}
+                                                                {"\n"}
+
+                                This category has no models currently
+                            </Text>
+                        }
+                    </SafeAreaView>
+
+                </ImageBackground>
+            </SafeAreaView>
     );
 }
 
@@ -99,6 +111,14 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
         color: "white",
+    },
+    title: {
+        textAlign:"center",
+        fontSize: 20,
+        fontWeight: "bold",
+        color:'white',
+        paddingTop: 50,
+
     },
     secTitle: {
         fontSize: 32,
@@ -122,7 +142,7 @@ const styles = StyleSheet.create({
         marginVertical: 12,
     },
     paragraph: {
-        fontSize: 12,
+        fontSize: 22,
         textAlign: "center",
         color: "white",
     },

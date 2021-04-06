@@ -62,14 +62,15 @@ export default function Payment({ Total, Cart }) {
     return (
         <SafeAreaView style={styles.container}>
              <ImageBackground style={{ flex: 1 }} 
-            
-            source={{uri: "https://i.pinimg.com/originals/7e/c0/c8/7ec0c8a050546e72ea781d8aa047c48c.jpg"}}
+            source={{uri:
+                "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif"
+            }}
             >
-                {finished ? (
+                {finished ? 
                     <Text style={styles.title} lightColor={Colors.light.tint}>
                         Successfull Payment{" "}
                     </Text>
-                ) : (
+                 : 
                     <>
                         <Text style={styles.paragraph} lightColor={Colors.light.tint}>
                             Total Payment is {Total}{" "}
@@ -153,15 +154,26 @@ export default function Payment({ Total, Cart }) {
                                 />
                             </>
                         )}
-
-                        <Button
-                            title="Pay"
-                            onPress={() => Pay()}
-                            buttonStyle={styles.button}
-                            lightColor={Colors.dark.tint}
-                        />
+{
+    paymentMethod == "credit" && cardnum!="" && month>0 && year>0 && CSV!="" &&password!=="" &&
+    <Button
+    title="Pay"
+    onPress={() => Pay()}
+    buttonStyle={styles.button}
+    lightColor={Colors.dark.tint}
+/>}
+{
+     paymentMethod == "debit" && cardnum!="" && month>0 && year>0 && pin!=="" &&
+     <Button
+     title="Pay"
+     onPress={() => Pay()}
+     buttonStyle={styles.button}
+     lightColor={Colors.dark.tint}
+ />
+}
+                        
                     </>
-                )}
+                }
             </ImageBackground>
         </SafeAreaView>
     );
@@ -203,10 +215,10 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         padding: 10,
         marginHorizontal: 30,
-        marginVertical: 12,
+        marginVertical: 22,
     },
     paragraph: {
-        fontSize: 12,
+        fontSize: 22,
         textAlign: "center",
         color: "white",
     },
