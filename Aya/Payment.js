@@ -72,6 +72,7 @@ export default function Payment({ Total, Cart }) {
                     </Text>
                  : 
                     <>
+                    <ScrollView>
                         <Text style={styles.paragraph} lightColor={Colors.light.tint}>
                             Total Payment is {Total}{" "}
                         </Text>
@@ -171,7 +172,7 @@ export default function Payment({ Total, Cart }) {
      lightColor={Colors.dark.tint}
  />
 }
-                        
+</ScrollView>  
                     </>
                 }
             </ImageBackground>

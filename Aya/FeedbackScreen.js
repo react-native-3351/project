@@ -28,8 +28,8 @@ export default function FaadbackScreen() {
         db.Feedbacks.listenAll(setFeedbacks);
     }, []);
 
-    const handleSave = () => {
-        db.Feedbacks.create({
+    const handleSave =async () => {
+      await  db.Feedbacks.create({
             userid: user.id,
             category: category.name,
             model: model.material,

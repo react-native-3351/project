@@ -29,14 +29,14 @@ export default function InventoryScreen() {
     const [quantity, setQuantity] = useState("0");
     const [price, setPrice] = useState("0");
 
-    const SubmitInventory = () => {
+    const SubmitInventory = async () => {
         let intquantity = Number(quantity);
         let intprice = Number(price);
         let bolactive = Boolean(active);
         let bolcontact = Boolean(contact);
         if (category.name === "Motion") {
             let intradius = Number(radius);
-            db.Categories.Models.createModel(category.id, {
+            await db.Categories.Models.createModel(category.id, {
                 active: bolactive,
                 contact: bolcontact,
                 material,
@@ -49,7 +49,7 @@ export default function InventoryScreen() {
         if (category.name === "Temperature") {
             let minimum = Number(min);
             let maximum = Number(max);
-            db.Categories.Models.createModel(category.id, {
+            await db.Categories.Models.createModel(category.id, {
                 active: bolactive,
                 contact: bolcontact,
                 material,
@@ -61,7 +61,7 @@ export default function InventoryScreen() {
             });
         }
         if (category.name === "Light") {
-            db.Categories.Models.createModel(category.id, {
+            await db.Categories.Models.createModel(category.id, {
                 active: bolactive,
                 contact: bolcontact,
                 material,
@@ -71,22 +71,44 @@ export default function InventoryScreen() {
                 price: intprice,
             });
         }
+        else {
+            await db.Categories.Models.createModel(category.id, {
+                active: bolactive,
+                contact: bolcontact,
+                material,
+                techUsed,
+                quantity: intquantity,
+                price: intprice,
+            });
+        }
+        setActive("")
+        setCategory(null)
+        setContact("")
+        setMaterial("")
+        setQuantity("")
+        setPrice("")
+        setRadius("")
+        setLuminescence("")
+        setMin("")
+        setMax("")
     };
     return (
         <SafeAreaView style={styles.container}>
-                <ImageBackground style={{ flex: 1 }}
+            <ImageBackground style={{ flex: 1 }}
 
-                    source={image}
-                >
+                source={image}
+            ><ScrollView>
                     <CategoryPicker
-                        style={{ color: "white", height: 40, width: 300, alignSelf: "center", fontSize: 22
-                    }}
+                        style={{
+                            color: "white", height: 40, width: 300, alignSelf: "center", fontSize: 22
+                        }}
                         set={setCategory}
                     />
 
                     <Picker
-                        style={{ color: "white", height: 40, width: 300, alignSelf: "center" , fontSize: 22
-                    }}
+                        style={{
+                            color: "white", height: 40, width: 300, alignSelf: "center", fontSize: 22
+                        }}
                         selectedValue={active}
                         onValueChange={setActive}
                     >
@@ -130,7 +152,7 @@ export default function InventoryScreen() {
                             <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
                                 Choose radius    </Text>
                             <TextInput
-                                style={{ color: 'black', height: 40, width: 200, borderColor: 'gray', borderWidth: 1 }}
+                                style={styles.input}
                                 onChangeText={text => setRadius(text)}
                                 value={radius}
                             />       </>}
@@ -142,15 +164,13 @@ export default function InventoryScreen() {
                             <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
                                 Choose  min   </Text>
                             <TextInput
-                                style={{ color: 'black', height: 40, width: 200, borderColor: 'gray', borderWidth: 1 }}
-                                onChangeText={text => setMin(text)}
+                                style={styles.input} onChangeText={text => setMin(text)}
                                 value={min}
                             />
                             <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
                                 Choose   max  </Text>
                             <TextInput
-                                style={{ color: 'black', height: 40, width: 200, borderColor: 'gray', borderWidth: 1 }}
-                                onChangeText={text => setMax(text)}
+                                style={styles.input} onChangeText={text => setMax(text)}
                                 value={max}
                             />
 
@@ -162,8 +182,7 @@ export default function InventoryScreen() {
                             <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
                                 Choose  luminescence   </Text>
                             <TextInput
-                                style={{ color: 'black', height: 40, width: 200, borderColor: 'gray', borderWidth: 1 }}
-                                onChangeText={text => setLuminescence(text)}
+                                style={styles.input} onChangeText={text => setLuminescence(text)}
                                 value={luminescence}
                             />
 
@@ -202,8 +221,8 @@ export default function InventoryScreen() {
                         />
                     }
 
-
-                </ImageBackground>
+                </ScrollView>
+            </ImageBackground>
         </SafeAreaView>
     );
 }

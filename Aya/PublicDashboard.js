@@ -57,7 +57,7 @@ export default function PublicDashboard() {
                             {"\n"}
      </Text>
 
-
+                        
                         <CategoryPicker
                             style={{
                                 color: "white",

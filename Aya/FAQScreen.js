@@ -30,14 +30,14 @@ export default function FAQScreen() {
     useEffect(() => {
         db.Faqs.listenAll(setFAQS);
     }, []);
-    const handleAsk = () => {
-        db.Faqs.create({ userid: user.id, question, answer: answer });
+    const handleAsk = async() => {
+       await db.Faqs.create({ userid: user.id, question, answer: answer });
         setQuestion("");
         setAnswer("");
     };
     
-    const AddRate = (rate, id) => {
-        db.Faqs.Rates.create(id, { rate, userid: user.id });
+    const AddRate =async (rate, id) => {
+     await   db.Faqs.Rates.create(id, { rate, userid: user.id });
     };
     return (
         <SafeAreaView style={styles.container}>
