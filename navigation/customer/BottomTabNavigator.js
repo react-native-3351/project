@@ -310,7 +310,7 @@ function TabFiveNavigator() {
             <TabFiveStack.Screen
                 name="Notifications"
                 component={NotifsAsmarScreen}
-                options={{ headerTitle: "Settings" }}
+                options={{ headerTitle: "Notifications" }}
             />
         </TabFiveStack.Navigator>
     );

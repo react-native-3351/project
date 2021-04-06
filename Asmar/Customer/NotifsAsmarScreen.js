@@ -4,7 +4,7 @@ import { View, Text } from "../../components/Themed";
 import db from "../../db";
 import UserContext from "../../UserContext";
 import { Card } from "react-native-elements";
-
+import { styles as styleExt, image as img } from "../../OmarSayed/StyleComponents";
 export default function NotifsAsmarScreen({ navigation }) {
     const { user } = useContext(UserContext);
     const [notifications, setNotifications] = useState(null);
@@ -19,15 +19,9 @@ export default function NotifsAsmarScreen({ navigation }) {
     }
 
     return (
-        <SafeAreaView style={styles.getStartedContainer}>
-            <ImageBackground
-                style={{ flex: 1 }}
-                //We are using online image to set background
-                source={{
-                    uri: "https://wallpaperaccess.com/full/1105968.jpg"
-                }}
-            >
-                <ScrollView>
+        <SafeAreaView style={styles.container}>
+            <ImageBackground source={img} style={styleExt.image}>
+                <ScrollView style={styles.scrollView}>
                     <Text style={styles.helpLinkText}>Your Notifications!</Text>
                     {notifications
                         ? notifications.map(
@@ -56,6 +50,7 @@ export default function NotifsAsmarScreen({ navigation }) {
                         : <Text>
                             No notifications to show.
                     </Text>}
+
                 </ScrollView>
             </ImageBackground>
         </SafeAreaView>
@@ -131,5 +126,11 @@ const styles = StyleSheet.create({
         marginVertical: 30,
         height: 1,
         width: "80%",
+    },
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        // justifyContent: "center"
+        // paddingTop: 50
     },
 });

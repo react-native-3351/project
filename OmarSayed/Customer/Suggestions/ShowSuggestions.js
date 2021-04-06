@@ -98,8 +98,8 @@ export default function ShowSuggestions({ user }) {
                                                     disabled={
                                                         u.v
                                                             ? u.v.filter(
-                                                                  (vote) => vote.userId === user.id
-                                                              ).length === 0
+                                                                (vote) => vote.userId === user.id
+                                                            ).length === 0
                                                                 ? false
                                                                 : true
                                                             : false

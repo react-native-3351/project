@@ -1,47 +1,45 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, SafeAreaView, ImageBackground } from "react-native";
+import { StyleSheet, SafeAreaView, ImageBackground, ScrollView } from "react-native";
 import { Text } from "../../components/Themed";
 import db from "../../db";
 import UserContext from "../../UserContext";
 import { Icon, Card } from "react-native-elements";
+import { styles as styleExt, image as img } from "../../OmarSayed/StyleComponents";
+
 
 export default function ActionsScreen() {
     const { user } = useContext(UserContext);
     const [gifts, setGifts] = useState(null);
     useEffect(() => db.Users.Gifts.listenNotExpired(setGifts, user.id), []);
-
+    console.log(gifts)
     // useEffect(() => //console.log("Gifts: ", gifts), [gifts]);
     return (
         <SafeAreaView style={styles.container}>
-            <ImageBackground
-                style={{ flex: 1 }}
-                //We are using online image to set background
-                source={{
-                    uri: "https://wallpaperaccess.com/full/1105968.jpg"
-                }}
-            >
-                <Text style={styles.helpLinkText}>Your Gifts!</Text>
-                {gifts
-                    ? gifts.map(
-                        (gift) =>
-                            !gift.isUsed && (
-                                <Card key={gift.id} bottomDivider>
-                                    <Icon name="pricetag" type="ionicon" />
-                                    <Card.Title>{gift.name}</Card.Title>
-                                    <Text>
-                                        Expires in
+            <ImageBackground source={img} style={styleExt.image}>
+                <ScrollView style={styles.scrollView}>
+                    <Text style={styles.helpLinkText}>Your Gifts!</Text>
+                    {gifts
+                        ? gifts.map(
+                            (gift) =>
+                                !gift.isUsed && (
+                                    <Card key={gift.id} bottomDivider>
+                                        <Icon name="pricetag" type="ionicon" />
+                                        <Card.Title>{gift.name}</Card.Title>
+                                        <Text>
+                                            Expires in
                                           {" " +
-                                            Math.ceil(
-                                                (gift.expiry.seconds * 1000 - Date.now()) /
-                                                86400000
-                                            ) +
-                                            " "}
+                                                Math.ceil(
+                                                    (gift.expiry.seconds * 1000 - Date.now()) /
+                                                    86400000
+                                                ) +
+                                                " "}
                                           days!
                                       </Text>
-                                </Card>
-                            )
-                    )
-                    : null}
+                                    </Card>
+                                )
+                        )
+                        : null}
+                </ScrollView>
             </ImageBackground>
         </SafeAreaView>
     );
@@ -110,10 +108,17 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: "bold",
+        color: '#2e78b7',
     },
     separator: {
         marginVertical: 30,
         height: 1,
         width: "80%",
+    },
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        // justifyContent: "center"
+        // paddingTop: 50
     },
 });
