@@ -23,7 +23,7 @@ export default function AdOverlay({ visible, setVisible }) {
         <>
             <Overlay
                 fullScreen={true}
-                isVisible={visible}
+                isVisible={currentAd ? visible : false}
                 onBackdropPress={() => setVisible(false)}
                 overlayStyle={{ paddingLeft: 0 }}
             >

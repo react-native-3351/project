@@ -10,17 +10,6 @@ export default function ServicesScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <ScrollView>
-                {/* <ListItem
-                    onPress={() => navigation.navigate("Notifications")}
-                    style={styles.listItem}
-                    bottomDivider
-                >
-                    <Icon name="notifications" type="material" />
-                    <ListItem.Content>
-                        <ListItem.Title>Notifications</ListItem.Title>
-                    </ListItem.Content>
-                    <ListItem.Chevron size={30} />
-                </ListItem> */}
                 <ListItem
                     onPress={() => navigation.navigate("Sensors")}
                     style={styles.listItem}
