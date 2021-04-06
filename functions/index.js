@@ -173,15 +173,41 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
     const { id: categoryId3 } = await db.collection("categories").add({ name: "Gate" });
     functions.logger.info("categoryId3", { categoryId3 });
 
+    const { id: modelId30 } = await db
+        .collection("categories")
+        .doc(categoryId3)
+        .collection("models")
+        .add({
+            active: true,
+            contact: false,
+            material: "SG1000A SLIDE GATE SENSOR",
+            techUsed: "IR",
+            quantity: 20,
+            price: 6000,
+        });
+    functions.logger.info("modelId30", { modelId30 });
+
     const { id: sensorId7 } = await db.collection("sensors").add({
         userid: authId1,
         categoryid: categoryId3,
+        modelId: modelId30,
         location: "entrance",
         accesses: 0,
         status: "closed",
         mode: "auto",
     });
     functions.logger.info("sensorId7", { sensorId7 });
+
+    const { id: sensorId70 } = await db.collection("sensors").add({
+        userid: authId1,
+        categoryid: categoryId3,
+        modelId: modelId30,
+        location: "exit",
+        accesses: 0,
+        status: "closed",
+        mode: "auto",
+    });
+    functions.logger.info("sensorId7", { sensorId70 });
     // Asmar End
 
     //Omar Sayed
@@ -213,64 +239,64 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
         .doc(sensorId2)
         .collection("readings")
         .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-        await db
+    await db
         .collection("sensors")
         .doc(sensorId2)
         .collection("readings")
         .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-       
-        await db
+
+    await db
         .collection("sensors")
         .doc(sensorId2)
         .collection("readings")
         .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-        await db
+    await db
         .collection("sensors")
         .doc(sensorId2)
         .collection("readings")
         .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-        await db
+    await db
         .collection("sensors")
         .doc(sensorId2)
         .collection("readings")
         .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-        await db
+    await db
         .collection("sensors")
         .doc(sensorId2)
         .collection("readings")
         .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-        await db
+    await db
         .collection("sensors")
         .doc(sensorId2)
         .collection("readings")
         .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-        await db
+    await db
         .collection("sensors")
         .doc(sensorId2)
         .collection("readings")
         .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-        await db
+    await db
         .collection("sensors")
         .doc(sensorId2)
         .collection("readings")
         .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-        await db
+    await db
         .collection("sensors")
         .doc(sensorId2)
         .collection("readings")
         .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-        await db
+    await db
         .collection("sensors")
         .doc(sensorId2)
         .collection("readings")
         .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-        await db
+    await db
         .collection("sensors")
         .doc(sensorId2)
         .collection("readings")
         .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-       
-       
+
+
     const { id: sensorId4 } = await db.collection("sensors").add({
         name: "Sns 2",
         categoryid: categoryId1,
@@ -313,7 +339,7 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
             contact: false,
             material: "Ceramics",
             techUsed: "IR",
-            quantity:20,
+            quantity: 20,
             min: 0,
             max: 100,
         });
@@ -356,7 +382,29 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
         .collection("sensors")
         .doc(sensorId9)
         .collection("readings")
- .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+
+    await db
+        .collection("sensors")
+        .doc(sensorId9)
+        .collection("readings")
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
     await db
         .collection("sensors")
         .doc(sensorId9)
@@ -389,44 +437,25 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
         .collection("sensors")
         .doc(sensorId9)
         .collection("readings")
- .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-    await db
-        .collection("sensors")
-        .doc(sensorId9)
-        .collection("readings")
- .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-
-    await db
-        .collection("sensors")
-        .doc(sensorId9)
-        .collection("readings")
- .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-    await db
-        .collection("sensors")
-        .doc(sensorId9)
-        .collection("readings")
- .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
-
-    await db
-        .collection("sensors")
-        .doc(sensorId9)
-        .collection("readings")
- .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
+        .add({ when: new Date(), current: Math.floor(Math.random() * 30) });
 
 
-await db
-  .collection("advertisements")
-.add({ startDate: new Date(),
-    endDate:new Date(),
-    link:"https://en.wikipedia.org/wiki/Family_in_advertising#/media/File:7_Up_-_You_like_it,_it_likes_you,_1948.jpg"});
-   
     await db
-    .collection("promotions")
-  .add({ 
-    modelId:234,
-    code:562,
-    expiry:new Date(),
-    discount: 10})
+        .collection("advertisements")
+        .add({
+            startDate: new Date(),
+            endDate: new Date(),
+            link: "https://en.wikipedia.org/wiki/Family_in_advertising#/media/File:7_Up_-_You_like_it,_it_likes_you,_1948.jpg"
+        });
+
+    await db
+        .collection("promotions")
+        .add({
+            modelId: 234,
+            code: 562,
+            expiry: new Date(),
+            discount: 10
+        })
 });
 
 exports.onNewReading = functions.firestore
@@ -507,10 +536,11 @@ exports.onNewReading = functions.firestore
                 gateStatus: status,
             });
             const isAccessed = reading.spots.includes(true);
-            const numAccesses = reading.spots.reduce(
-                (sum, isTriggered) => (isTriggered ? sum + 1 : sum),
-                gateSensor.accesses
-            );
+            const numAccesses = gateSensor.mode == "Closed"
+                ? gateSensor.acceses
+                : reading.spots.reduce((sum, isTriggered) => (isTriggered ? sum + 1 : sum),
+                    gateSensor.accesses
+                );
             if (gateSensor.mode == "Closed") status = "Closed";
             else if (gateSensor.mode == "Opened") status = "Open";
             else {
