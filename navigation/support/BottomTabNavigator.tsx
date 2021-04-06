@@ -25,7 +25,12 @@ export default function BottomTabNavigator() {
         name="Server"
         component={TabOneNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <AntDesign
+          size={30}
+          style={{ marginBottom: -3 }}
+          name="customerservice"
+          color={color}
+      />,
         }}
       />
       <BottomTab.Screen
