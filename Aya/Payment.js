@@ -100,128 +100,128 @@ export default function Payment({ Total, Cart }) {
 
                 source={{ uri: "https://wallpaperaccess.com/full/1105968.jpg" }}
             >
-                {finished ? 
+                {finished ?
                     <Text style={styles.title} lightColor={Colors.light.tint}>
                         Successfull Payment{" "}
                     </Text>
-                 : 
+                    :
                     <>
                         <ScrollView>
-                        <UseGift setDiscount={setFlatDisc} />
-                        <Text style={styles.paragraph} lightColor={Colors.light.tint}>
-                            Promo Code{" "}
-                        </Text>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={(text) => setPromoCode(text)}
-                            value={promoCode}
-                        />
-                        <Button
-                            title="Apply"
-                            onPress={applyPromo}
-                            buttonStyle={styles.button}
-                            lightColor={Colors.dark.tint}
-                        />
-                        <Text style={styles.paragraph} lightColor={Colors.light.tint}>
-                            Total Payment is {sumTotal}{" "}
-                        </Text>
-                        <Picker
-                            style={{ color: "white", height: 40, width: 300, alignSelf: "center" }}
-                            selectedValue={paymentMethod}
-                            onValueChange={setPaymentMethod}
-                        >
-                            <Picker.Item label="Payment Method" value="" />
-                            <Picker.Item label="Debit Card" value="debit" />
-
-                            <Picker.Item label="credit Card" value="credit" />
-                        </Picker>
-
-                        <Text style={styles.paragraph} lightColor={Colors.light.tint}>
-                            Card number{" "}
-                        </Text>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={(text) => setCardNum(text)}
-                            value={cardnum}
-                        />
-
-                        <Text style={styles.paragraph} lightColor={Colors.light.tint}>
-                            Expire Date{" "}
-                        </Text>
-                        <Text>
+                            <UseGift setDiscount={setFlatDisc} />
+                            <Text style={styles.paragraph} lightColor={Colors.light.tint}>
+                                Promo Code{" "}
+                            </Text>
+                            <TextInput
+                                style={styles.input}
+                                onChangeText={(text) => setPromoCode(text)}
+                                value={promoCode}
+                            />
+                            <Button
+                                title="Apply"
+                                onPress={applyPromo}
+                                buttonStyle={styles.button}
+                                lightColor={Colors.dark.tint}
+                            />
+                            <Text style={styles.paragraph} lightColor={Colors.light.tint}>
+                                Total Payment is {sumTotal}{" "}
+                            </Text>
                             <Picker
-                                style={{ color: "white", height: 40, width: 150 }}
-                                selectedValue={month}
-                                onValueChange={setMonth}
+                                style={{ color: "white", height: 40, width: 300, alignSelf: "center" }}
+                                selectedValue={paymentMethod}
+                                onValueChange={setPaymentMethod}
                             >
-                                <Picker.Item label="month" value="" />
-                                {months.map((m) => (
-                                    <Picker.Item label={m} value={m} key={m} />
-                                ))}
+                                <Picker.Item label="Payment Method" value="" />
+                                <Picker.Item label="Debit Card" value="debit" />
+
+                                <Picker.Item label="credit Card" value="credit" />
                             </Picker>
 
-                            <Picker
-                                style={{ color: "white", height: 40, width: 150 }}
-                                selectedValue={year}
-                                onValueChange={setYear}
-                            >
-                                <Picker.Item label="year" value="" />
-                                {years.map((y) => (
-                                    <Picker.Item label={y} value={y} key={y} />
-                                ))}
-                            </Picker>
-                        </Text>
+                            <Text style={styles.paragraph} lightColor={Colors.light.tint}>
+                                Card number{" "}
+                            </Text>
+                            <TextInput
+                                style={styles.input}
+                                onChangeText={(text) => setCardNum(text)}
+                                value={cardnum}
+                            />
 
-                        {paymentMethod == "debit" && (
-                            <>
-                                <Text style={styles.paragraph} lightColor={Colors.light.tint}>
-                                    PiN{" "}
-                                </Text>
-                                <TextInput
-                                    style={styles.input}
-                                    onChangeText={(text) => setPIN(text)}
-                                    value={pin}
+                            <Text style={styles.paragraph} lightColor={Colors.light.tint}>
+                                Expire Date{" "}
+                            </Text>
+                            <Text>
+                                <Picker
+                                    style={{ color: "white", height: 40, width: 150 }}
+                                    selectedValue={month}
+                                    onValueChange={setMonth}
+                                >
+                                    <Picker.Item label="month" value="" />
+                                    {months.map((m) => (
+                                        <Picker.Item label={m} value={m} key={m} />
+                                    ))}
+                                </Picker>
+
+                                <Picker
+                                    style={{ color: "white", height: 40, width: 150 }}
+                                    selectedValue={year}
+                                    onValueChange={setYear}
+                                >
+                                    <Picker.Item label="year" value="" />
+                                    {years.map((y) => (
+                                        <Picker.Item label={y} value={y} key={y} />
+                                    ))}
+                                </Picker>
+                            </Text>
+
+                            {paymentMethod == "debit" && (
+                                <>
+                                    <Text style={styles.paragraph} lightColor={Colors.light.tint}>
+                                        PiN{" "}
+                                    </Text>
+                                    <TextInput
+                                        style={styles.input}
+                                        onChangeText={(text) => setPIN(text)}
+                                        value={pin}
+                                    />
+                                </>
+                            )}
+                            {paymentMethod == "credit" && (
+                                <>
+                                    <Text style={styles.paragraph} lightColor={Colors.light.tint}>
+                                        CSV{" "}
+                                    </Text>
+                                    <TextInput
+                                        style={styles.input}
+                                        onChangeText={(text) => setCSV(text)}
+                                        value={CSV}
+                                    />
+                                    <Text style={styles.paragraph} lightColor={Colors.light.tint}>
+                                        password{" "}
+                                    </Text>
+                                    <TextInput
+                                        style={styles.input}
+                                        onChangeText={(text) => setPassword(text)}
+                                        value={password}
+                                    />
+                                </>
+                            )}
+                            {
+                                paymentMethod == "credit" && cardnum != "" && month > 0 && year > 0 && CSV != "" && password !== "" &&
+                                <Button
+                                    title="Pay"
+                                    onPress={() => Pay()}
+                                    buttonStyle={styles.button}
+                                    lightColor={Colors.dark.tint}
+                                />}
+                            {
+                                paymentMethod == "debit" && cardnum != "" && month > 0 && year > 0 && pin !== "" &&
+                                <Button
+                                    title="Pay"
+                                    onPress={() => Pay()}
+                                    buttonStyle={styles.button}
+                                    lightColor={Colors.dark.tint}
                                 />
-                            </>
-                        )}
-                        {paymentMethod == "credit" && (
-                            <>
-                                <Text style={styles.paragraph} lightColor={Colors.light.tint}>
-                                    CSV{" "}
-                                </Text>
-                                <TextInput
-                                    style={styles.input}
-                                    onChangeText={(text) => setCSV(text)}
-                                    value={CSV}
-                                />
-                                <Text style={styles.paragraph} lightColor={Colors.light.tint}>
-                                    password{" "}
-                                </Text>
-                                <TextInput
-                                    style={styles.input}
-                                    onChangeText={(text) => setPassword(text)}
-                                    value={password}
-                                />
-                            </>
-                        )}
-{
-    paymentMethod == "credit" && cardnum!="" && month>0 && year>0 && CSV!="" &&password!=="" &&
-    <Button
-    title="Pay"
-    onPress={() => Pay()}
-    buttonStyle={styles.button}
-    lightColor={Colors.dark.tint}
-/>}
-{
-     paymentMethod == "debit" && cardnum!="" && month>0 && year>0 && pin!=="" &&
-     <Button
-     title="Pay"
-     onPress={() => Pay()}
-     buttonStyle={styles.button}
-     lightColor={Colors.dark.tint}
- />
-}
-</ScrollView>  
+                            }
+                        </ScrollView>
                     </>
                 }
             </ImageBackground>
