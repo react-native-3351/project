@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
-import { Text, View } from "../../components/Themed";
+import { StyleSheet, TouchableOpacity, ImageBackground, SafeAreaView } from "react-native";
+import { Text } from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import fb from "../../fb";
 
@@ -13,15 +13,21 @@ export default function SettingsScreen() {
     //console.log(user);
 
     return (
-        <View>
-            <View style={styles.getStartedContainer}>
+        <SafeAreaView style={styles.container}>
+            <ImageBackground
+                style={{ flex: 1 }}
+                //We are using online image to set background
+                source={{
+                    uri: "https://wallpaperaccess.com/full/1105968.jpg"
+                }}
+            >
                 <TouchableOpacity onPress={logout} style={styles.title}>
                     <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
                         Logout
                     </Text>
                 </TouchableOpacity>
-            </View>
-        </View>
+            </ImageBackground>
+        </SafeAreaView>
     );
 }
 
