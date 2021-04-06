@@ -1,6 +1,6 @@
 export type BottomTabParamList = {
   Server: undefined;
-  Request: undefined;
+  Settings: undefined;
   ViewUnreadMessages: undefined;
 };
 
@@ -9,9 +9,10 @@ export type TabOneParamList = {
 };
 
 export type TabTwoParamList = {
-  RequestScreen: undefined;
+  ViewUnreadMessagesScreen: undefined;
 };
 
 export type TabThreeParamList = {
-  ViewUnreadMessagesScreen: undefined;
+  Settings: undefined;
 };
+

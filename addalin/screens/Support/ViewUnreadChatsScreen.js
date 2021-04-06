@@ -7,8 +7,7 @@ import ViewUnreadMessagesScreen from "./ViewUnreadMessagesScreen";
 
 export default function ViewUnreadChatsScreen() {
     const image = {
-        uri: "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif",
-        // uri: "https://cdn.nohat.cc/image_by_url.php?url=https://image.freepik.com/free-vector/blue-tones-blurred-background_1107-128.jpg"
+        uri: "https://wallpaperaccess.com/full/1105968.jpg",
     };
 
     const { user } = useContext(UserContext);
@@ -34,8 +33,8 @@ export default function ViewUnreadChatsScreen() {
                             chats.map((chat) => {
                                 return (
                                     <ListItem
-                                        style={{ width: 350 }}
-                                        containerStyle={{ backgroundColor: "black" }}
+                                        style={{ width: 400 }}
+                                        containerStyle={{ backgroundColor: "purple" }}
                                         key={11}
                                         bottomDivider
                                     >
@@ -68,8 +67,8 @@ export default function ViewUnreadChatsScreen() {
                             })
                         ) : (
                             <ListItem
-                                style={{ width: 350 }}
-                                containerStyle={{ backgroundColor: "black" }}
+                                style={{ width: 400 }}
+                                containerStyle={{ backgroundColor: "transparent" }}
                                 key={1}
                             >
                                 <ListItem.Content>

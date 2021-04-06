@@ -69,7 +69,7 @@ export default function RegisterLogin() {
                 <TouchableOpacity disabled={!valid()} onPress={login} style={styles.loginBtn}>
                     <Text style={styles.loginText}>LOGIN</Text>
                 </TouchableOpacity>
-                <TouchableOpacity disabled={!valid()} onPress={register} style={styles.registerBtn}>
+                <TouchableOpacity disabled={!valid()} onPress={register} style={styles.loginBtn}>
                     <Text style={styles.loginText}>REGISTER</Text>
                 </TouchableOpacity>
             </View>

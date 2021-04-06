@@ -8,8 +8,7 @@ import db from "../../../db";
 
 export default function LiveChatScreen() {
     const image = {
-        uri: "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif",
-        // uri: "https://cdn.nohat.cc/image_by_url.php?url=https://image.freepik.com/free-vector/blue-tones-blurred-background_1107-128.jpg"
+        uri: "https://wallpaperaccess.com/full/1105968.jpg",
     };
 
     const { user } = useContext(UserContext);
@@ -68,9 +67,26 @@ export default function LiveChatScreen() {
                                     {messages.length !== 0 ? (
                                         messages.map((message) => {
                                             return (
+                                                message.sender == "user"
+                                                ?
                                                 <ListItem
-                                                    style={{ width: 350 }}
-                                                    containerStyle={{ backgroundColor: "black" }}
+                                                    style={{ width: 400 }}
+                                                    containerStyle={{ backgroundColor: "purple" }}
+                                                    key={message.id}
+                                                    bottomDivider
+                                                >
+                                                    <ListItem.Content>
+                                                        <ListItem.Title>
+                                                            <Text style={styles.thirdTitle}>
+                                                                {message.message}
+                                                            </Text>
+                                                        </ListItem.Title>
+                                                    </ListItem.Content>
+                                                </ListItem>
+                                                :
+                                                <ListItem
+                                                    style={{ width: 400 }}
+                                                    containerStyle={{ backgroundColor: "fuchsia" }}
                                                     key={message.id}
                                                     bottomDivider
                                                 >
@@ -86,8 +102,8 @@ export default function LiveChatScreen() {
                                         })
                                     ) : (
                                         <ListItem
-                                            style={{ width: 350 }}
-                                            containerStyle={{ backgroundColor: "black" }}
+                                            style={{ width: 400 }}
+                                            containerStyle={{ backgroundColor: "purple" }}
                                             key={1}
                                         >
                                             <ListItem.Content>
@@ -124,6 +140,7 @@ export default function LiveChatScreen() {
                                     ) : (
                                         <Button
                                             type="clear"
+                                            disabled
                                             onPress={() => {}}
                                             icon={
                                                 <Icon
@@ -176,7 +193,7 @@ const styles = StyleSheet.create({
     thirdTitle: {
         fontSize: 22,
         fontWeight: "bold",
-        textAlign: "center",
+        textAlign: "right",
         color: "white",
     },
     input: {
