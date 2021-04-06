@@ -28,7 +28,7 @@ export default function ModelByCategoryPicker({ category, set }) {
         >
             <Picker.Item label="Select Model" value="" />
             {models.map((model) => (
-                <Picker.Item key={model.id} label={model.material} value={model.id} />
+                <Picker.Item key={model.id} label={model.material, model.techUsed} value={model.id} />
             ))}
         </Picker>
     );
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     },
     developmentModeText: {
         marginBottom: 20,
-        fontSize: 14,
+        fontSize: 22,
         lineHeight: 19,
         textAlign: "center",
     },

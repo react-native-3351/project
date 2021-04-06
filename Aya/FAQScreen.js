@@ -14,12 +14,15 @@ import { Rating, AirbnbRating } from "react-native-ratings";
 import { setTokenSourceMapRange } from "typescript";
 import { Button } from "react-native-elements";
 const image = {
-    uri: "https://wallpaperaccess.com/full/1105968.jpg",
+    uri: "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif",
+
 };
 export default function FAQScreen() {
     const { user } = useContext(UserContext);
 
     const [faqs, setFAQS] = useState(null);
+    const [faqswithRates, setFAQSWithRates] = useState(null);
+
     const [question, setQuestion] = useState("");
     const [answer, setAnswer] = useState("");
     const [rate, setRate] = useState(0);
@@ -27,17 +30,14 @@ export default function FAQScreen() {
     useEffect(() => {
         db.Faqs.listenAll(setFAQS);
     }, []);
-
-    const handleAsk = () => {
-        db.Faqs.create({ userid: user.id, question, answer: answer });
+    const handleAsk = async() => {
+       await db.Faqs.create({ userid: user.id, question, answer: answer });
         setQuestion("");
         setAnswer("");
     };
-    const handleAnswer = (id) => {
-        db.Faqs.update(id, answer);
-    };
-    const AddRate = (rate, id) => {
-        db.Faqs.Rates.create(id, { rate, userid: user.id });
+    
+    const AddRate =async (rate, id) => {
+     await   db.Faqs.Rates.create(id, { rate, userid: user.id });
     };
     return (
         <SafeAreaView style={styles.container}>
@@ -51,12 +51,18 @@ export default function FAQScreen() {
                         <Text style={styles.mainTitle} lightColor={Colors.dark.tint}>
                             Add a question{" "}
                         </Text>
+                        <Text lightColor={Colors.dark.tint} style={styles.getStartedText}>
+                                    Question
+                                </Text>
                         <TextInput
                             style={styles.input}
                             lightColor={Colors.dark.tint}
                             onChangeText={(text) => setQuestion(text)}
                             value={question}
                         />
+                        <Text lightColor={Colors.dark.tint} style={styles.getStartedText}>
+                                    Answer
+                                </Text>
                         <TextInput
                             style={styles.input}
                             lightColor={Colors.dark.tint}

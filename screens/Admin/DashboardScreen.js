@@ -7,6 +7,7 @@ import TemperatureActions from "./TemperatureActions";
 import MotionActions from "./MotionActions";
 import db from "../../db";
 import ParkingInfo from "../../OmarSayed/Customer/Sensors/ParkingInfo";
+import WeightInfo from "../../Aya/WeightInfo"
 import {LineChart} from "react-native-chart-kit";
 export default function DashboardScreen() {
     const [category, setCategory] = useState(null);
@@ -42,12 +43,15 @@ export default function DashboardScreen() {
       >  
             <CategoryPicker set={setCategory} />
             {category && <SensorByCategoryPicker category={category} set={setSensor} />}
-            {category && sensor && category.name === "Motion" && <MotionActions sensor={sensor} />}
+            {category && sensor && category.name === "Motion" &&( <MotionActions sensor={sensor} />)  }
             {category && sensor && category.name === "Temperature" && (
                 <TemperatureActions sensor={sensor} />
             )}
             {category && sensor && category.name === "Ultrasonic" && (
                 <ParkingInfo sensor={sensor} />
+            )}
+            {category && sensor && category.name === "Weight" && (
+                <WeightInfo sensor={sensor} />
             )}
            {sensorCount.length>5&&  <LineChart
     data={{

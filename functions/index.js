@@ -339,9 +339,9 @@ exports.createSampleData = functions.https.onCall(async (data, context) => {
             contact: false,
             material: "Ceramics",
             techUsed: "IR",
-            quantity: 20,
-            min: 0,
-            max: 100,
+            quantity:20,
+            luminence: 100,
+            price:200
         });
     functions.logger.info("modelId", { modelId });
 
