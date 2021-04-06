@@ -29,9 +29,9 @@ class DB {
         id === ""
             ? set(null)
             : db
-                  .collection(this.collection)
-                  .doc(id)
-                  .onSnapshot((snap) => set(this.reformat(snap)));
+                .collection(this.collection)
+                .doc(id)
+                .onSnapshot((snap) => set(this.reformat(snap)));
 
     // item has no id
     create = async (item) => {
@@ -117,7 +117,7 @@ class Sensors extends DB {
     };
     //Addalin End
     //Aya
-    getCount=async(catId)=>{
+    getCount = async (catId) => {
         let result = await db.collection(this.collection).where("categoryid", "==", catId).get();
         return result.docs.length
     }
@@ -188,13 +188,13 @@ class Readings extends DB {
     };
     //aya
     listenLatestTen = (set, sensorId) =>
-    db
-        .collection(this.containing)
-        .doc(sensorId)
-        .collection(this.collection)
-        .orderBy("when", "desc")
-        .limit(10)
-        .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+        db
+            .collection(this.containing)
+            .doc(sensorId)
+            .collection(this.collection)
+            .orderBy("when", "desc")
+            .limit(10)
+            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 
 }
 //Omar Sayed
@@ -371,7 +371,16 @@ class Notifications extends DB {
             .collection(this.containing)
             .doc(userId)
             .collection(this.collection)
+            .where("isRead", "==", false)
             .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+
+    dismiss = (userId, notifId) =>
+        db
+            .collection(this.containing)
+            .doc(userId)
+            .collection(this.collection)
+            .doc(notifId)
+            .set({ isRead: true }, { merge: true });
 }
 
 class Advertisements extends DB {
@@ -395,7 +404,7 @@ class Advertisements extends DB {
         db
             .collection(this.collection).where('endDate', '<=', new Date())
             .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
- }
+}
 
 class Gifts extends DB {
     constructor(containing) {
@@ -418,19 +427,19 @@ class Gifts extends DB {
             .collection(this.collection)
             .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 
-    listenNotExpires  = (set) => db
-            .collection(this.containing)
-            .doc(userId)
-            .collection(this.collection)
-            .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+    listenNotExpires = (set) => db
+        .collection(this.containing)
+        .doc(userId)
+        .collection(this.collection)
+        .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 }
 
 class Promotions extends DB {
     constructor() {
         super("promotions");
     }
-    listenNotExpires=(set)=>
-    db.collection(this.collection).onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+    listenNotExpires = (set) =>
+        db.collection(this.collection).onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 }
 //Asmar End
 
