@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import {
     ImageBackground,
     StyleSheet,
+    Alert,
     ScrollView,
 } from "react-native";
 import { View, Text } from "../components/Themed";
@@ -16,7 +17,7 @@ export default function UseGift({ setDiscount }) {
     };
     const [visible, setVisible] = useState(false);
     const [gifts, setGifts] = useState(null);
-    useEffect(() => db.Users.Gifts.listenAll(setGifts, user.id), []);
+    useEffect(() => db.Users.Gifts.listenNotExpired(setGifts, user.id), []);
     const [selectedGift, setSelectedGift] = useState(null);
     const [giftUsed, setGiftUsed] = useState(false);
 
@@ -25,7 +26,9 @@ export default function UseGift({ setDiscount }) {
             const giftDisc = selectedGift ? selectedGift.value : 0;
             if (giftDisc > 0) {
                 setGiftUsed(true);
+                setVisible(false)
                 db.Users.Gifts.makeUsed(user.id, selectedGift.id);
+                Alert.alert("Gift Used!", null, null, { cancelable: true });
             }
             setDiscount(flatDisc => flatDisc + giftDisc);
         }
@@ -67,6 +70,7 @@ export default function UseGift({ setDiscount }) {
                 <Button
                     buttonStyle={styles.button}
                     title="Use Gifts"
+                    disabled={giftUsed}
                     onPress={() => setVisible(!visible)}
                 />
             </View>
