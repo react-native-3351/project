@@ -38,7 +38,7 @@ export default function NotifsAsmarScreen() {
             <ImageBackground
                 source={{
                     uri:
-                        "https://i.pinimg.com/originals/7b/60/c0/7b60c0e5e9f0168cd0889bae9a72b460.gif",
+                        "https://wallpaperaccess.com/full/1105968.jpg",
                 }}
                 style={styles.image}
             >
