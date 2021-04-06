@@ -1,6 +1,6 @@
 export type BottomTabParamList = {
-    Sensors: undefined;
-    Settings: undefined;
+    Dashboard: undefined;
+    Logout: undefined;
     Reports: undefined;
     Queries: undefined;
 };

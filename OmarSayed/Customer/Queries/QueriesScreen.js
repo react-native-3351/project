@@ -11,6 +11,8 @@ import { ScrollView } from "react-native-gesture-handler";
 import ProductsAndProductsDetails from "./ProductsAndProductsDetails";
 import UserQueries from "./UserQueries";
 import SensorDetails from "./SensorDetails";
+import { styles as styleExt, image as img } from "../../StyleComponents";
+import { ImageBackground } from "react-native";
 export default function QueriesScreen() {
     const { user } = useContext(UserContext);
 
@@ -28,38 +30,40 @@ export default function QueriesScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView style={styles.scrollView}>
-                <View style={styles.fixToText}>
-                    <Button
-                        title="Show Products"
-                        buttonStyle={{ width: 125 }}
-                        onPress={() => setTabs("AllSensors")}
-                    />
-                    <Button
-                        title="My Queries"
-                        onPress={() => setTabs("Queries")}
-                        buttonStyle={{ width: 125 }}
-                    />
-                </View>
+            <ImageBackground source={img} style={styleExt.image}>
+                <ScrollView style={styles.scrollView}>
+                    <View style={styles.fixToText}>
+                        <Button
+                            title="Show Products"
+                            buttonStyle={{ width: 125 }}
+                            onPress={() => setTabs("AllSensors")}
+                        />
+                        <Button
+                            title="My Queries"
+                            onPress={() => setTabs("Queries")}
+                            buttonStyle={{ width: 125 }}
+                        />
+                    </View>
 
-                {tabs === "AllSensors" && (
-                    <ProductsAndProductsDetails user={user} sensors={sensors} />
-                )}
-                {tabs === "Queries" && (
-                    <UserQueries
-                        allQueries={allQueries}
-                        setTabs={setTabs}
-                        setSelectedSensorId={setSelectedSensorId}
-                    />
-                )}
-                {tabs === "Sensor" && (
-                    <SensorDetails
-                        selectedSensorId={selectedSensorId}
-                        setSelectedSensorId={setSelectedSensorId}
-                        setTabs={setTabs}
-                    />
-                )}
-            </ScrollView>
+                    {tabs === "AllSensors" && (
+                        <ProductsAndProductsDetails user={user} sensors={sensors} />
+                    )}
+                    {tabs === "Queries" && (
+                        <UserQueries
+                            allQueries={allQueries}
+                            setTabs={setTabs}
+                            setSelectedSensorId={setSelectedSensorId}
+                        />
+                    )}
+                    {tabs === "Sensor" && (
+                        <SensorDetails
+                            selectedSensorId={selectedSensorId}
+                            setSelectedSensorId={setSelectedSensorId}
+                            setTabs={setTabs}
+                        />
+                    )}
+                </ScrollView>
+            </ImageBackground>
         </SafeAreaView>
     );
 }

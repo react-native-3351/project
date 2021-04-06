@@ -214,6 +214,7 @@ class Queries extends DB {
             .where("reply", "==", "")
             .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 }
+
 class Suggestions extends DB {
     constructor() {
         super("suggestions");
@@ -283,6 +284,8 @@ class Reports extends DB {
 
     listenAllForCS = (userId, set) =>
         db.collection(this.collection).onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+    listenAllForCSStatus = (status, set) =>
+        db.collection(this.collection).where("status", "==", status).onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 }
 class FollowUpForm extends DB {
     constructor(containing) {

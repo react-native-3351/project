@@ -5,6 +5,7 @@ import Colors from "../../constants/Colors";
 import UserContext from "../../UserContext";
 import { Button } from "react-native-elements";
 import UserPicker from "../../screens/pickers/UserPicker";
+import LinkPicker from "../../screens/pickers/LinkPicker";
 import db from "../../db";
 
 //TODO: schedule notifications
@@ -59,12 +60,8 @@ export default function NotifsAsmarScreen() {
                     style={styles.input}
                 />
                 <Text style={styles.label}>Link</Text>
-                <TextInput
-                    placeholder="Link"
-                    value={link}
-                    onChangeText={(value) => setLink(value)}
-                    style={styles.input}
-                />
+                <LinkPicker set={setLink} style={styles.input} />
+
                 <Button
                     title="Submit"
                     onPress={submit}

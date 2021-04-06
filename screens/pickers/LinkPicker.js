@@ -1,35 +1,43 @@
-import React, { useContext } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
-import { Text, View } from "../components/Themed";
-import Colors from "../constants/Colors";
-import UserContext from "../UserContext";
-import fb from "../fb";
-import { Button } from 'react-native-elements';
+import React, { useState, useEffect } from "react";
+import { StyleSheet } from "react-native";
+import db from "../../db";
+import { Picker } from "@react-native-picker/picker";
 
-export default function SettingsScreen() {
-    const { user } = useContext(UserContext);
+export default function LinkPicker({ set, style, defaultLabel }) {
+    const routes = [
+        "HomeScreen",
+        "ServicesScreen",
+        "Sensors",
+        "Actions",
+        "Notifications",
+        "Gifts",
+        "Queries",
+        "Suggestions",
+        "Reports",
+        "Favorites",
+        "AddalinSensors",
+        "Wishlist",
+        "CartScreen",
+        "FeedbackScreen",
+        "FAQs",
+        "liveChatScreen",
+        "SettingsScreen",
+    ];
 
-    const logout = async () => {
-        await fb.auth().signOut();
-    };
-
-    //console.log(user)
+    const [index, setIndex] = useState(0);
+    useEffect(() => set(routes[index]), [index]);
 
     return (
-        <View>
-            <View style={styles.getStartedContainer}>
-                {/* <TouchableOpacity onPress={logout} style={styles.title}>
-                    <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-                        Logout
-                    </Text>
-                </TouchableOpacity> */}
-                <Button
-                    title="Log Out"
-                    onPress={logout}
-                    buttonStyle={{backgroundColor:'red'}}
-                />
-            </View>
-        </View>
+        <Picker
+            style={{ height: 50, width: 200, ...style }}
+            selectedValue={index}
+            onValueChange={setIndex}
+        >
+            <Picker.Item label={defaultLabel ? defaultLabel : "Select Route"} value="" />
+            {routes.map((route, idx) => (
+                <Picker.Item key={idx} label={route} value={idx} />
+            ))}
+        </Picker>
     );
 }
 

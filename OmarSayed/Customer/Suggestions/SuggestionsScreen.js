@@ -7,11 +7,11 @@ import { Button } from "react-native-elements";
 import AddSuggestion from "./AddSuggestion";
 import ShowSuggestions from "./ShowSuggestions";
 import UserPrevSuggestions from "./UserPrevSuggestions";
-
-const image = {
-    uri:
-        "https://cdn.nohat.cc/image_by_url.php?url=https://image.freepik.com/free-vector/blue-tones-blurred-background_1107-128.jpg",
-};
+import {styles as styleExt, image as img} from "../../StyleComponents";
+// const image = {
+//     uri:
+//         "https://cdn.nohat.cc/image_by_url.php?url=https://image.freepik.com/free-vector/blue-tones-blurred-background_1107-128.jpg",
+// };
 
 export default function SuggestionsScreen() {
     const [tab, setTab] = useState("AddSuggestion");
@@ -21,7 +21,7 @@ export default function SuggestionsScreen() {
     const windowHeight = Dimensions.get("window").height;
     return (
         <SafeAreaView style={styles.container}>
-            <ImageBackground source={image} style={styles.image}>
+            <ImageBackground source={img} style={styles.image}>
                 <Text style={styles.loremIpsum}>
                     {/* What would you like to see in our app? 😀 */}
                 </Text>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     loremIpsum: {
         color: "#121212",
         fontSize: 15,
-        marginTop: 70,
+        // marginTop: 70,
         alignSelf: "center",
         marginBottom: 10,
     },

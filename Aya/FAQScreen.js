@@ -13,7 +13,9 @@ import db from "../db";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import { setTokenSourceMapRange } from "typescript";
 import { Button } from "react-native-elements";
-
+const image = {
+    uri: "https://wallpaperaccess.com/full/1105968.jpg",
+};
 export default function FAQScreen() {
     const { user } = useContext(UserContext);
 
@@ -42,8 +44,7 @@ export default function FAQScreen() {
             <ImageBackground
                 style={{ flex: 1 }}
                 //We are using online image to set background
-                source={{uri: "https://i.pinimg.com/originals/7e/c0/c8/7ec0c8a050546e72ea781d8aa047c48c.jpg"
-            }}
+                source={image}
             >
                 {user && user.role == "Admin" && (
                     <>
@@ -179,7 +180,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 30,
         padding: 10,
-        fontSize:28,
+        fontSize: 28,
         marginHorizontal: 30,
         marginVertical: 12,
     },
