@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, Alert } from "react";
 import {
     ImageBackground,
     StyleSheet,
@@ -44,7 +44,7 @@ export default function Payment({ Total, Cart }) {
 
     const [promotions, setPromotions] = useState(null);
     useEffect(() => db.Promotions.listenAll(setPromotions), []);
-    const [usedPromo, setUsedPromo] = useState(null);
+    const [promoCode, setPromoCode] = useState("");
 
     const [flatDisc, setFlatDisc] = useState(0);
     const [percDisc, setPercDisc] = useState(1);
@@ -52,7 +52,19 @@ export default function Payment({ Total, Cart }) {
     useEffect(() => setSumTotal(Math.max(((Total * percDisc) - flatDisc), 0)), [Total, percDisc, flatDisc]);
 
     const applyPromo = () => {
+        const promo = promotions.find(p => p.code == promoCode);
 
+        if (promo) {
+            if (promo.discount < 1) {
+                setPercDisc(prevDisc => prevDisc * promo.discount);
+                Alert.alert(`Discount Code Applied! Enjoy your ${promo.discount * 100}% discount!`, null, null, { cancelable: true });
+            } else {
+                setFlatDisc(prevDisc => prevDisc + promo.discount);
+                Alert.alert(`Discount Code Applied! You are saving QAR ${promo.discount}!`, null, null, { cancelable: true });
+            }
+        } else {
+            Alert.alert("Invalid Code!", null, null, { cancelable: true });
+        }
     }
 
     const Pay = async () => {
@@ -85,6 +97,20 @@ export default function Payment({ Total, Cart }) {
                 ) : (
                         <>
                             <UseGift setDiscount={setFlatDisc} />
+                            <Text style={styles.paragraph} lightColor={Colors.light.tint}>
+                                Promo Code{" "}
+                            </Text>
+                            <TextInput
+                                style={styles.input}
+                                onChangeText={(text) => setPromoCode(text)}
+                                value={promoCode}
+                            />
+                            <Button
+                                title="Apply"
+                                onPress={applyPromo}
+                                buttonStyle={styles.button}
+                                lightColor={Colors.dark.tint}
+                            />
                             <Text style={styles.paragraph} lightColor={Colors.light.tint}>
                                 Total Payment is {sumTotal}{" "}
                             </Text>

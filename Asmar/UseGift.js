@@ -10,7 +10,6 @@ import db from "../db";
 import UserContext from "../UserContext";
 
 export default function UseGift({ setDiscount }) {
-    //console.log(Cart);
     const { user } = useContext(UserContext);
     const image = {
         uri: "https://wallpaperaccess.com/full/1105968.jpg",
