@@ -46,7 +46,9 @@ export default function NotifsAsmarScreen({ navigation }) {
                                 </Card>
                             )
                     )
-                    : null}
+                    : <Text>
+                        No notifications to show.
+                    </Text>}
             </ScrollView>
         </SafeAreaView>
     );

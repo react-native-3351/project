@@ -7,6 +7,7 @@ import TemperatureActions from "./TemperatureActions";
 import MotionActions from "./MotionActions";
 import ParkingController from "../../OmarSayed/Customer/Sensors/ParkingController";
 import LightActions from "../../addalin/screens/Admin/LightActions";
+import GateActions from "../../Asmar/GateActions";
 
 export default function ActionsScreen() {
     const [category, setCategory] = useState(null);
@@ -25,6 +26,7 @@ export default function ActionsScreen() {
                 <ParkingController sensor={sensor} />
             )}
             {category && sensor && category.name === "Light" && <LightActions sensor={sensor} />}
+            {category && sensor && category.name === "Gate" && <GateActions sensor={sensor} />}
         </View>
     );
 }

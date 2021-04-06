@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
-import { Text, View } from "../../components/Themed";
-import db from "../../db";
+import { Text, View } from "../components/Themed";
+import db from "../db";
+import GateSimulator from "./Customer/GateSimulator";
 
 // all picker values should be non-object (number, string, etc.)
 
-export default function GateInfo({ sensor }) {
+export default function GateActions({ sensor }) {
     const [readings, setReadings] = useState(null);
     const [reading, setReading] = useState(null);
     const [reading2, setReading2] = useState(null);
@@ -21,14 +22,34 @@ export default function GateInfo({ sensor }) {
             setReading2(readings[1]);
         }
     }, [readings]);
-    const updateMode = (newMode) => {
-        var newStatus = sensor.status;
-        if (newMode == "Opened") {
-            newStatus = "Open";
-        } else if (newMode == "Closed") {
-            newStatus = "Closed";
-        }
-        db.Sensors.update({ ...sensor, mode: newMode, status: newStatus });
+
+    const insertRandomReading = async () => {
+        await db.Sensors.Readings.createReading(sensor.id, {
+            when: new Date(),
+            spots: [
+                Boolean(Math.round(Math.random() - 0.4)),
+                Boolean(Math.round(Math.random() - 0.4)),
+                Boolean(Math.round(Math.random() - 0.4)),
+                Boolean(Math.round(Math.random() - 0.4)),
+                Boolean(Math.round(Math.random() - 0.4)),
+            ],
+        });
+    };
+
+    const insertEmptyReading = async () => {
+        await db.Sensors.Readings.createReading(sensor.id, {
+            when: new Date(),
+            spots: [false, false, false, false, false],
+        });
+    };
+
+    const insertReadingOne = async () => {
+        const spots = [false, false, false, false, false];
+        spots[Math.floor(Math.random() * 5)] = true;
+        await db.Sensors.Readings.createReading(sensor.id, {
+            when: new Date(),
+            spots: spots,
+        });
     };
 
     return (
@@ -124,15 +145,16 @@ export default function GateInfo({ sensor }) {
                 Mode: {sensor.mode}
             </Text>
             <Text>{"\n"}</Text>
-            <TouchableOpacity onPress={() => updateMode("Opened")} style={styles.title}>
-                <Text style={styles.helpLinkText}>Keep Gate Open</Text>
+            <TouchableOpacity onPress={insertRandomReading} style={styles.title}>
+                <Text style={styles.helpLinkText}>Insert Random Reading</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => updateMode("Closed")} style={styles.title}>
-                <Text style={styles.helpLinkText}>Keep Gate Closed</Text>
+            <TouchableOpacity onPress={insertEmptyReading} style={styles.title}>
+                <Text style={styles.helpLinkText}>Insert Empty Reading</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => updateMode("auto")} style={styles.title}>
-                <Text style={styles.helpLinkText}>Make Gate Automatic</Text>
+            <TouchableOpacity onPress={insertReadingOne} style={styles.title}>
+                <Text style={styles.helpLinkText}>Insert Reading with one Entry</Text>
             </TouchableOpacity>
+            <GateSimulator sensor={sensor} />
         </View>
     );
 }
