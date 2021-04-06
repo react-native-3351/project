@@ -25,10 +25,10 @@ export default function BottomTabNavigator() {
         name="Server"
         component={TabOneNavigator}
         options={{
-          tabBarIcon: ({ color }) => <AntDesign
+          tabBarIcon: ({ color }) => <Ionicons
           size={30}
           style={{ marginBottom: -3 }}
-          name="customerservice"
+          name="server"
           color={color}
       />,
         }}
@@ -37,14 +37,21 @@ export default function BottomTabNavigator() {
         name="Live Chat"
         component={TabTwoNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
-        }}
+          tabBarIcon: ({ color }) => (
+              <AntDesign
+                  size={30}
+                  style={{ marginBottom: -3 }}
+                  name="customerservice"
+                  color={color}
+              />
+          ),
+      }}
       />
       <BottomTab.Screen
         name="Settings"
         component={TabThreeNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="settings" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -82,7 +89,7 @@ function TabTwoNavigator() {
       <TabTwoStack.Screen
         name="ViewUnreadMessagesScreen"
         component={ViewUnreadMessagesScreen}
-        options={{ headerTitle: 'Settings' }}
+        options={{ headerTitle: 'Live Chat' }}
       />
     </TabTwoStack.Navigator>
   );

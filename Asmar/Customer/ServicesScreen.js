@@ -48,6 +48,17 @@ export default function ServicesScreen({ navigation }) {
                         <ListItem.Chevron size={30} />
                     </ListItem>
                     <ListItem
+                        onPress={() => navigation.navigate("AddalinSensors")}
+                        style={styles.listItem}
+                        bottomDivider
+                    >
+                        <Icon name="list" type="material" />
+                        <ListItem.Content>
+                            <ListItem.Title>All Sensors</ListItem.Title>
+                        </ListItem.Content>
+                        <ListItem.Chevron size={30} />
+                    </ListItem>
+                    <ListItem
                         onPress={() => navigation.navigate("Suggestions")}
                         style={styles.listItem}
                         bottomDivider
