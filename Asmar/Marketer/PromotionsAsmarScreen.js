@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, ScrollView, TextInput, ImageBackground, Text, Pressable } from "react-native";
+import { StyleSheet, ScrollView, TextInput, ImageBackground, Text, Pressable, Alert } from "react-native";
 import { View } from "../../components/Themed";
 import { Button, ButtonGroup } from "react-native-elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -34,6 +34,7 @@ export default function PromotionsAsmarScreen() {
             discount: disc,
             ...(selectedIdx == 0 && { max }),
         }); //TODO: NEEDS TESTING
+        Alert.alert("Sent!", null, null, { cancelable: true });
         //console.log("Discount: ", disc);
     };
 

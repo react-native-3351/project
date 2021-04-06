@@ -19,6 +19,8 @@ export default function RegisterLogin() {
             await fb.auth().createUserWithEmailAndPassword(email, password);
             const uid = fb.auth().currentUser.uid;
             await db.Users.update({ id: uid, role: "Customer" });
+            await db.Carts.create({ userid:uid, checkOut: false });
+
             await db.Users.Gifts.create(uid, {
                 name: "Welcome Gift: Get QAR 100 off on any sensor of your choice!",
                 value: 100,

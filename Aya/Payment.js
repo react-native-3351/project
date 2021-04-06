@@ -5,6 +5,7 @@ import {
     TextInput,
     SafeAreaView,
     Alert,
+    ScrollView
 } from "react-native";
 import { View, Text } from "../components/Themed";
 import Colors from "../constants/Colors";
@@ -55,6 +56,8 @@ export default function Payment({ Total, Cart }) {
     const [sumTotal, setSumTotal] = useState(Total);
     useEffect(() => setSumTotal(Math.max(((Total * percDisc) - flatDisc), 0)), [Total, percDisc, flatDisc]);
 
+    console.log(Total, percDisc, flatDisc, ((Total * percDisc) - flatDisc));
+
     const applyPromo = () => {
         if (codesUsed.includes(promoCode)) {
             Alert.alert(`This code has already been used!`, null, null, { cancelable: true });
@@ -69,7 +72,7 @@ export default function Payment({ Total, Cart }) {
                 setPercDisc(prevDisc => prevDisc - promo.discount);
                 Alert.alert(`Discount Code Applied! Enjoy your ${promo.discount * 100}% discount!`, null, null, { cancelable: true });
             } else {
-                setFlatDisc(prevDisc => prevDisc + promo.discount);
+                setFlatDisc(prevDisc => Number(prevDisc) + Number(promo.discount));
                 Alert.alert(`Discount Code Applied! You are saving QAR ${promo.discount}!`, null, null, { cancelable: true });
             }
         } else {

@@ -432,10 +432,10 @@ class Gifts extends DB {
         .doc(userId)
         .collection(this.collection)
         .where("isUsed", '==', false)
-        .where('expiry', '>', Date.now())
+        .where('expiry', '>', new Date())
         .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 
-    makeUsed = (userId, giftId) =>
+    makeUsed = (userId, giftId) => 
         db
             .collection(this.containing)
             .doc(userId)
