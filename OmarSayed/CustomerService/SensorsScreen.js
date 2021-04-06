@@ -85,7 +85,7 @@ export default function SensorsScreen() {
                     <Text style={styles.tableTd}>{allReportsClosed.length}</Text>
                 </View>
                 <View style={styles.fixToText}>
-                    <Text style={styles.tableTdm}>All Reports:</Text>
+                    <Text style={styles.tableTdm}>All Suggestions:</Text>
                     <Text style={styles.tableTdm}></Text>
                 </View>
                 <SafeAreaView style={{...styles.containerScroll2, borderWidth: 3, borderColor: "#F5F858", backgroundColor: '#F5F858'}}>
