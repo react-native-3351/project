@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
@@ -8,7 +8,7 @@ import useColorScheme from '../../hooks/useColorScheme';
 // @ts-expect-error
 import ServerScreen from '../../screens/Support/ServerScreen';
 // @ts-expect-error
-import RequestScreen from '../../screens/Support/RequestScreen';
+import Settings from '../../screens/Support/RequestScreen';
 // @ts-expect-error
 import ViewUnreadMessagesScreen from '../../addalin/screens/Support/ViewUnreadChatsScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList } from './types';
@@ -25,18 +25,23 @@ export default function BottomTabNavigator() {
         name="Server"
         component={TabOneNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <AntDesign
+          size={30}
+          style={{ marginBottom: -3 }}
+          name="customerservice"
+          color={color}
+      />,
         }}
       />
       <BottomTab.Screen
-        name="Request"
+        name="Live Chat"
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="ViewUnreadMessages"
+        name="Settings"
         component={TabThreeNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
@@ -75,9 +80,9 @@ function TabTwoNavigator() {
   return (
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen
-        name="RequestScreen"
-        component={RequestScreen}
-        options={{ headerTitle: 'Requests' }}
+        name="ViewUnreadMessagesScreen"
+        component={ViewUnreadMessagesScreen}
+        options={{ headerTitle: 'Settings' }}
       />
     </TabTwoStack.Navigator>
   );
@@ -89,9 +94,9 @@ function TabThreeNavigator() {
   return (
     <TabThreeStack.Navigator>
       <TabThreeStack.Screen
-        name="ViewUnreadMessagesScreen"
-        component={ViewUnreadMessagesScreen}
-        options={{ headerTitle: 'Live Chat' }}
+        name="Settings"
+        component={Settings}
+        options={{ headerTitle: 'Settings' }}
       />
     </TabThreeStack.Navigator>
   );
