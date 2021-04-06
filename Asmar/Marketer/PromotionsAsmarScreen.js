@@ -108,7 +108,7 @@ export default function PromotionsAsmarScreen() {
                             <Text style={styles.label}>Maximum Deductible</Text>
                             <TextInput
                                 placeholder="Maximum"
-                                value={max}
+                                value={max + ""}
                                 onChangeText={(value) => setMax(value.replace(/[^0-9]/g, ""))}
                                 keyboardType="numeric"
                                 style={styles.input}
