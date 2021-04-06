@@ -6,6 +6,7 @@ import {
     ActivityIndicator,
     Dimensions,
     TouchableHighlight,
+    TouchableWithoutFeedback,
     View,
 } from "react-native";
 import db from "../db";
@@ -30,8 +31,8 @@ export default function AdOverlay({ visible, setVisible }) {
                 onBackdropPress={() => setVisible(false)}
                 overlayStyle={{ paddingLeft: 0 }}
             >
-                <TouchableHighlight
-                    onPress={() => navigation.navigate(currentAd.link)}
+                <TouchableWithoutFeedback
+                    onPress={() => { navigation.navigate(currentAd.link); setVisible(false) }}
                 >
 
                     <ImageBackground
@@ -68,7 +69,7 @@ export default function AdOverlay({ visible, setVisible }) {
                             <Text>Advertisement placeholder text!</Text>
                         </View>
                     </ImageBackground>
-                </TouchableHighlight>
+                </TouchableWithoutFeedback>
             </Overlay>
         </>
     );

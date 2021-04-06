@@ -402,7 +402,7 @@ class Advertisements extends DB {
 
     listenAll = (set) =>
         db
-            .collection(this.collection).where('endDate', '<=', new Date())
+            .collection(this.collection).where('endDate', '>=', new Date())
             .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 }
 
@@ -427,7 +427,7 @@ class Gifts extends DB {
             .collection(this.collection)
             .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 
-    listenNotExpired = (set) => db
+    listenNotExpired = (set, userId) => db
         .collection(this.containing)
         .doc(userId)
         .collection(this.collection)
@@ -448,6 +448,14 @@ class Promotions extends DB {
     constructor() {
         super("promotions");
     }
+
+    reformat(doc) {
+        return {
+            ...super.reformat(doc),
+            expiry: doc.data().expiry.toDate(),
+        };
+    }
+
     listenNotExpired = (set) =>
         db.collection(this.collection).onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 }

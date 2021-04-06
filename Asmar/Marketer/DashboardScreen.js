@@ -16,6 +16,8 @@ export default function DashboardScreen() {
         ? promotions.reduce((prev, current) => (prev.expiry > current.expiry) ? prev : current)
         : undefined;
 
+    console.log(lastPromotion);
+
     const lastAdvertisement = Ads && Ads.length > 0
         ? Ads.reduce((prev, current) => (prev.endDate > current.endDate) ? prev : current)
         : undefined;
@@ -57,7 +59,7 @@ export default function DashboardScreen() {
                     lastPromotion
                     &&
                     <Text style={styles.title}>
-                        There are no more promotions after {lastPromotion} {"\n"}
+                        There are no more promotions after {new Date(lastPromotion.expiry).toDateString()} {"\n"}
                     </Text>
                 }
                 <Text style={styles.title}>There are {Ads.length} available advertisments</Text>
@@ -65,7 +67,7 @@ export default function DashboardScreen() {
                     lastAdvertisement
                     &&
                     <Text style={styles.title}>
-                        There are no more advertisements after {lastAdvertisement} {"\n"}
+                        There are no more advertisements after {new Date(lastAdvertisement.endDate).toDateString()} {"\n"}
                     </Text>
                 }
             </ImageBackground>

@@ -55,9 +55,6 @@ export default function BottomTabNavigator() {
             <BottomTab.Navigator
                 initialRouteName="Home"
                 tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
-                listeners={{
-                    tabPress: adListener
-                }}
             >
                 <BottomTab.Screen
                     name="Home"
@@ -65,12 +62,18 @@ export default function BottomTabNavigator() {
                     options={{
                         tabBarIcon: ({ color }) => <TabBarIcon name="ios-home" color={color} />,
                     }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
                 <BottomTab.Screen
                     name="Notifications"
                     component={TabFiveNavigator}
                     options={{
                         tabBarIcon: ({ color }) => <TabBarIcon name="notifications" color={color} />,
+                    }}
+                    listeners={{
+                        focus: adListener
                     }}
                 />
                 <BottomTab.Screen
@@ -81,6 +84,9 @@ export default function BottomTabNavigator() {
                             <AntDesign name="appstore-o" size={24} color="white" size={30} style={{ marginBottom: 15, backgroundColor: 'purple', padding: 10, borderRadius: 50 }} />
                             // <TabBarIcon name="file-tray-stacked" color={color} style={{BackgroundColor: 'red'}}/>
                         ),
+                    }}
+                    listeners={{
+                        focus: adListener
                     }}
                 />
                 <BottomTab.Screen
@@ -102,6 +108,9 @@ export default function BottomTabNavigator() {
                     component={TabFourNavigator}
                     options={{
                         tabBarIcon: ({ color }) => <TabBarIcon name="settings" color={color} />,
+                    }}
+                    listeners={{
+                        focus: adListener
                     }}
                 />
             </BottomTab.Navigator>
@@ -150,78 +159,118 @@ function TabTwoNavigator() {
     return (
         <>
             <AdOverlay visible={visible} setVisible={setVisible} />
-            <TabTwoStack.Navigator listeners={{
-                transitionStart: adListener
-            }}>
+            <TabTwoStack.Navigator>
                 <TabTwoStack.Screen
                     name="ServicesScreen"
                     component={ServicesScreen}
                     options={{ headerTitle: "Services" }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
                 <TabTwoStack.Screen
                     name="Sensors"
                     component={SensorsScreen}
                     options={{ headerTitle: "Sensors" }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
                 <TabTwoStack.Screen
                     name="Actions"
                     component={ActionsScreen}
                     options={{ headerTitle: "Actions" }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
                 <TabTwoStack.Screen
                     name="Notifications"
                     component={NotifsAsmarScreen}
                     options={{ headerTitle: "Notifications" }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
                 <TabTwoStack.Screen
                     name="Gifts"
                     component={GiftsAsmarScreen}
                     options={{ headerTitle: "Gifts" }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
                 <TabTwoStack.Screen
                     name="Queries"
                     component={QueriesScreen}
                     options={{ headerTitle: "Queries" }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
                 <TabTwoStack.Screen
                     name="Suggestions"
                     component={SuggestionsScreen}
                     options={{ headerTitle: "Suggestions" }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
                 <TabTwoStack.Screen
                     name="Reports"
                     component={ReportsScreen}
                     options={{ headerTitle: "Reports" }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
                 <TabTwoStack.Screen
                     name="Favorites"
                     component={ViewFavoritesScreen}
                     options={{ headerTitle: "Favorites" }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
                 <TabTwoStack.Screen
                     name="AddalinSensors"
                     component={ViewAllSensorsScreen}
                     options={{ headerTitle: "All Sensors" }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
                 <TabTwoStack.Screen
                     name="Wishlist"
                     component={WishListScreen}
                     options={{ headerTitle: "WishList" }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
                 <TabTwoStack.Screen
                     name="CartScreen"
                     component={CartScreen}
                     options={{ headerTitle: "Cart" }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
                 <TabTwoStack.Screen
                     name="FeedbackScreen"
                     component={FeedbackScreen}
                     options={{ headerTitle: "Feedback" }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
                 <TabTwoStack.Screen
                     name="FAQs"
                     component={FAQScreen}
                     options={{ headerTitle: "FAQ" }}
+                    listeners={{
+                        focus: adListener
+                    }}
                 />
             </TabTwoStack.Navigator>
         </>

@@ -5,7 +5,7 @@ import { Button, ButtonGroup } from "react-native-elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import CategoryPicker from "../../screens/pickers/CategoryPicker";
 import db from "../../db";
-import ModelByCategoryPicker from '../Aya/ModelByCategoryPicker';
+import ModelByCategoryPicker from '../../Aya/ModelByCategoryPicker';
 
 export default function PromotionsAsmarScreen() {
     const [category, setCategory] = useState(null);
