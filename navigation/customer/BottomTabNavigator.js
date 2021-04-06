@@ -85,9 +85,6 @@ export default function BottomTabNavigator() {
                             // <TabBarIcon name="file-tray-stacked" color={color} style={{BackgroundColor: 'red'}}/>
                         ),
                     }}
-                    listeners={{
-                        focus: adListener
-                    }}
                 />
                 <BottomTab.Screen
                     name="Support"
