@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import {
     ImageBackground,
     StyleSheet,
-    TouchableOpacity,
     TextInput,
     SafeAreaView,
 } from "react-native";
@@ -12,6 +11,7 @@ import { Button } from "react-native-elements";
 import { Picker } from "@react-native-picker/picker";
 import db from "../db";
 import UserContext from "../UserContext";
+import UseGift from "../Asmar/UseGift";
 
 export default function Payment({ Total, Cart }) {
     //console.log(Cart);
@@ -23,7 +23,7 @@ export default function Payment({ Total, Cart }) {
     const [CSV, setCSV] = useState("");
     const [password, setPassword] = useState("");
     const [pin, setPIN] = useState("");
-    const [months, setMonths] = useState([
+    const months = [
         "1",
         "2",
         "3",
@@ -36,28 +36,20 @@ export default function Payment({ Total, Cart }) {
         "10",
         "11",
         "12",
-    ]);
-    const [years, setYears] = useState(["21", "22", "23", "24", "25", "26", "27"]);
+    ];
+    const years = ["21", "22", "23", "24", "25", "26", "27"];
     const [month, setMonth] = useState(0);
     const [year, setYear] = useState(0);
-    const [gifts, setGifts] = useState(null);
-    useEffect(() => db.Users.Gifts.listenAll(setGifts, user.id), []);
-    const [selectedGift, setSelectedGift] = useState(null);
-    const [giftUsed, setGiftUsed] = useState(false);
+
+
     const [promotions, setPromotions] = useState(null);
     useEffect(() => db.Promotions.listenAll(setPromotions), []);
     const [usedPromo, setUsedPromo] = useState(null);
 
+    const [flatDisc, setFlatDisc] = useState(0);
+    const [percDisc, setPercDisc] = useState(1);
     const [sumTotal, setSumTotal] = useState(Total);
-    useEffect(() => {
-        if (!giftUsed) {
-            giftDisc = selectedGift ? selectedGift.value : 0;
-            if (giftDisc > 0) {
-                setGiftUsed(true);
-            }
-            setSumTotal(sumTotal - giftDisc);
-        }
-    }, [selectedGift]);
+    useEffect(() => setSumTotal(Math.max(((Total * percDisc) - flatDisc), 0)), [Total, percDisc, flatDisc]);
 
     const applyPromo = () => {
 
@@ -69,7 +61,7 @@ export default function Payment({ Total, Cart }) {
         await db.Carts.createCart(Cart, { userid: user.id, checkOut: false });
         await db.Payments.create({
             cart: Cart,
-            total: Total,
+            total: sumTotal,
             cardnum,
             paymentMethod,
             expireDate,
@@ -92,8 +84,9 @@ export default function Payment({ Total, Cart }) {
                     </Text>
                 ) : (
                         <>
+                            <UseGift setDiscount={setFlatDisc} />
                             <Text style={styles.paragraph} lightColor={Colors.light.tint}>
-                                Total Payment is {Total}{" "}
+                                Total Payment is {sumTotal}{" "}
                             </Text>
                             <Picker
                                 style={{ color: "white", height: 40, width: 300, alignSelf: "center" }}
@@ -126,7 +119,7 @@ export default function Payment({ Total, Cart }) {
                                 >
                                     <Picker.Item label="month" value="" />
                                     {months.map((m) => (
-                                        <Picker.Item label={m} value={m} />
+                                        <Picker.Item label={m} value={m} key={m} />
                                     ))}
                                 </Picker>
 
@@ -137,7 +130,7 @@ export default function Payment({ Total, Cart }) {
                                 >
                                     <Picker.Item label="year" value="" />
                                     {years.map((y) => (
-                                        <Picker.Item label={y} value={y} />
+                                        <Picker.Item label={y} value={y} key={y} />
                                     ))}
                                 </Picker>
                             </Text>

@@ -1,12 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { StyleSheet, ScrollView } from "react-native";
 import { View } from "../../components/Themed";
 import { ListItem, Icon } from "react-native-elements";
-import UserContext from "../../UserContext";
 
 export default function ServicesScreen({ navigation }) {
-    const { user } = useContext(UserContext);
-
     return (
         <View style={styles.container}>
             <ScrollView>

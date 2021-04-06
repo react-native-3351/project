@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
-import { View } from "../../components/Themed";
-import { ScrollView, TextInput, ImageBackground, Text, Pressable } from "react-native";
+import { ImageBackground, Text } from "react-native";
 
 import db from "../../db";
-import { LineChart } from "react-native-chart-kit";
 export default function DashboardScreen() {
 
     const [promotions, setPromotions] = useState([]);
-    useEffect(() => db.Promotions.listenNotExpires(setPromotions), []);
+    useEffect(() => db.Promotions.listenNotExpired(setPromotions), []);
     console.log(promotions)
     const [Ads, setAds] = useState([]);
     useEffect(() => db.Advertisements.listenAll(setAds), []);

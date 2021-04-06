@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Text, Overlay, Image, Icon } from "react-native-elements";
+import { Text, Overlay, Icon } from "react-native-elements";
 import {
     ImageBackground,
     ActivityIndicator,

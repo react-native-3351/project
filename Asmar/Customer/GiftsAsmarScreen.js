@@ -3,12 +3,12 @@ import { StyleSheet } from "react-native";
 import { View, Text } from "../../components/Themed";
 import db from "../../db";
 import UserContext from "../../UserContext";
-import { ListItem, Icon, Card } from "react-native-elements";
+import { Icon, Card } from "react-native-elements";
 
 export default function ActionsScreen() {
     const { user } = useContext(UserContext);
     const [gifts, setGifts] = useState(null);
-    useEffect(() => db.Users.Gifts.listenAll(setGifts, user.id), []);
+    useEffect(() => db.Users.Gifts.listenNotExpired(setGifts, user.id), []);
 
     // useEffect(() => //console.log("Gifts: ", gifts), [gifts]);
     return (
@@ -17,24 +17,24 @@ export default function ActionsScreen() {
                 <Text style={styles.helpLinkText}>Your Gifts!</Text>
                 {gifts
                     ? gifts.map(
-                          (gift) =>
-                              !gift.isUsed && (
-                                  <Card key={gift.id} bottomDivider>
-                                      <Icon name="pricetag" type="ionicon" />
-                                      <Card.Title>{gift.name}</Card.Title>
-                                      <Text>
-                                          Expires in
+                        (gift) =>
+                            !gift.isUsed && (
+                                <Card key={gift.id} bottomDivider>
+                                    <Icon name="pricetag" type="ionicon" />
+                                    <Card.Title>{gift.name}</Card.Title>
+                                    <Text>
+                                        Expires in
                                           {" " +
-                                              Math.ceil(
-                                                  (gift.expiry.seconds * 1000 - Date.now()) /
-                                                      86400000
-                                              ) +
-                                              " "}
+                                            Math.ceil(
+                                                (gift.expiry.seconds * 1000 - Date.now()) /
+                                                86400000
+                                            ) +
+                                            " "}
                                           days!
                                       </Text>
-                                  </Card>
-                              )
-                      )
+                                </Card>
+                            )
+                    )
                     : null}
             </View>
         </View>

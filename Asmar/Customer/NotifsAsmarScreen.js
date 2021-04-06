@@ -3,7 +3,7 @@ import { SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from "react-na
 import { View, Text } from "../../components/Themed";
 import db from "../../db";
 import UserContext from "../../UserContext";
-import { ListItem, Icon, Card } from "react-native-elements";
+import { Card } from "react-native-elements";
 
 export default function NotifsAsmarScreen({ navigation }) {
     const { user } = useContext(UserContext);

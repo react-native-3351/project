@@ -1,10 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet, TextInput, ImageBackground, Text, Pressable, Alert } from "react-native";
+import { StyleSheet, ImageBackground, Text, Pressable, Alert } from "react-native";
 import { Button } from "react-native-elements";
 import { View } from "../../components/Themed";
-import Colors from "../../constants/Colors";
 import UserContext from "../../UserContext";
-import UserPicker from "../../screens/pickers/UserPicker";
 import LinkPicker from "../../screens/pickers/LinkPicker";
 import * as ImagePicker from "expo-image-picker";
 import db from "../../db";

@@ -427,18 +427,28 @@ class Gifts extends DB {
             .collection(this.collection)
             .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 
-    listenNotExpires = (set) => db
+    listenNotExpired = (set) => db
         .collection(this.containing)
         .doc(userId)
         .collection(this.collection)
+        .where("isUsed", '==', false)
+        .where('expiry', '>', Date.now())
         .onSnapshot((snap) => set(snap.docs.map(this.reformat)));
+
+    makeUsed = (userId, giftId) =>
+        db
+            .collection(this.containing)
+            .doc(userId)
+            .collection(this.collection)
+            .doc(giftId)
+            .set({ isUsed: true }, { merge: true });
 }
 
 class Promotions extends DB {
     constructor() {
         super("promotions");
     }
-    listenNotExpires = (set) =>
+    listenNotExpired = (set) =>
         db.collection(this.collection).onSnapshot((snap) => set(snap.docs.map(this.reformat)));
 }
 //Asmar End

@@ -1,8 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Alert, TextInput, Text, ImageBackground } from "react-native";
 import { View } from "../../components/Themed";
-import Colors from "../../constants/Colors";
-import UserContext from "../../UserContext";
 import { Button } from "react-native-elements";
 import UserPicker from "../../screens/pickers/UserPicker";
 import LinkPicker from "../../screens/pickers/LinkPicker";
@@ -11,7 +9,6 @@ import db from "../../db";
 //TODO: schedule notifications
 //TODO: better picker for links
 export default function NotifsAsmarScreen() {
-    const { user } = useContext(UserContext);
     const [userNotif, setUserNotif] = useState(null);
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");

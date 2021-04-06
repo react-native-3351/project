@@ -1,8 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, ScrollView, TextInput, ImageBackground, Text, Pressable } from "react-native";
 import { View } from "../../components/Themed";
-import Colors from "../../constants/Colors";
-import UserContext from "../../UserContext";
 import { Button, ButtonGroup } from "react-native-elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import CategoryPicker from "../../screens/pickers/CategoryPicker";
@@ -10,7 +8,6 @@ import db from "../../db";
 import ModelByCategoryPicker from '../Aya/ModelByCategoryPicker';
 
 export default function PromotionsAsmarScreen() {
-    const { user } = useContext(UserContext);
     const [category, setCategory] = useState(null);
     const [modelId, setModelId] = useState(null);
     useEffect(() => setModelId(null), [category]);

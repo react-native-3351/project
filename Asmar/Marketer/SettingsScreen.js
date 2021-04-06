@@ -1,12 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Text, View } from "../../components/Themed";
 import Colors from "../../constants/Colors";
-import UserContext from "../../UserContext";
 import fb from "../../fb";
 
 export default function SettingsScreen() {
-    const { user } = useContext(UserContext);
 
     const logout = async () => {
         await fb.auth().signOut();
